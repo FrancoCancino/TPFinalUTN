@@ -115,7 +115,6 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
     //Metodos
-
     @Override
     public String toString() {
         return
@@ -129,4 +128,5 @@ public class Usuario {
                 ", nacionalidad:'" + nacionalidad + '\'' +
                 ", ciudad:'" + ciudad + '\'';
     }
+
 }
