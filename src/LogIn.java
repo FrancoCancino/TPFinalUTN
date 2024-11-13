@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LogIn {
@@ -9,35 +10,44 @@ Scanner scan = new Scanner(System.in);
          System.out.println("2. Registrarse.");
          System.out.println("0. Salir.");
          System.out.println("-------------------------------------------------------------------");
+
          int numero;
-         do{
-             numero = scan.nextInt();
-             scan.nextLine();
-             switch (numero) {
+         do {
+             try {
+                 numero = scan.nextInt();
+                 scan.nextLine();
 
-                 case 0:
+                 switch (numero) {
 
-                 break;
+                     case 0:
+                         System.out.println("¡Gracias por usar nuestro gestor de balneario!");
 
-                 case 1:
-                     System.out.println("------------------------------------------------------");
-                     System.out.println("Ingrese su DNI");
-                     String dni = scan.nextLine();
-                     System.out.println("Ingrese su contraseña");
-                     String contrasenia = scan.nextLine();
-                     System.out.println("------------------------------------------------------");
-                     break;
+                         break;
 
-                 case 2:
-                     System.out.println("Hola 2");
-                     break;
+                     case 1:
+                         System.out.println("------------------------------------------------------");
+                         System.out.println("Ingresá tu DNI:");
+                         String dni = scan.nextLine();
+                         System.out.println("Ingresá tu contraseña:");
+                         String contrasenia = scan.nextLine();
+                         System.out.println("------------------------------------------------------");
+                         break;
 
-                 default:
-                     System.out.println("Opción incorrecta, ingrese 1 para iniciar sesión o 2 para registrarse..");
-                     break;
+                     case 2:
+                         GestionUsuarios.registrarUsuario();
+                         break;
+
+                     default:
+                         System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse...");
+                         break;
+                 }
+             } catch (InputMismatchException e) {
+                 System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse...");
+                 scan.nextLine();
+                 numero = -1;
              }
-
-         } while (numero != 1 && numero != 2 && numero != 0);
-        }
+             } while (numero != 1 && numero != 2 && numero != 0) ;
+         }
      }
+
 
