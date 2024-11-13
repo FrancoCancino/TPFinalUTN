@@ -34,7 +34,9 @@ Scanner scan = new Scanner(System.in);
                          break;
 
                      case 2:
-                         GestionUsuarios.registrarUsuario();
+                         Usuario user = GestionUsuarios.registrarUsuario();
+                         GestionUsuarios g1 = new GestionUsuarios();
+                         OperacionesLectoEscritura.grabarArchivo(g1.pasarUsuarioAObject(user),"usuarios.JSON");
                          break;
 
                      default:

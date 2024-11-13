@@ -1,3 +1,7 @@
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -8,7 +12,7 @@ public class GestionUsuarios {
     //Esta clase va a leer los usuarios que haya registrados en el archivo.
     //para determinar si el usuario va a iniciar sesion o va a registrarse.
 
-    public static boolean registrarUsuario() {
+    public static Usuario registrarUsuario() {
 
         Scanner scan = new Scanner(System.in);
         Usuario usuario = new Usuario();
@@ -78,7 +82,7 @@ public class GestionUsuarios {
         System.out.println("Ingresá tu correo electronico (*). Recordá que debe ser una dirección de correo válida. ");
         while (true) {
             String mailTemp = scan.nextLine();
-            if (mailTemp.matches(".*@(gmail\\.com|hotmail\\.com|yahoo\\.com|outlook\\.com|icloud\\.com|estudiante.mdp.utn.edu.ar|mail\\.com|.*\\.edu\\|*.es)")) {
+            if (mailTemp.matches(".*@(gmail\\.com|hotmail\\.com|yahoo\\.com|outlook\\.com|icloud\\.com|estudiante.mdp.utn.edu.ar|mail\\.com|.*\\.edu\\|*\\.es)")) {
                 usuario.setMail(mailTemp);
                 break;
             } else {
@@ -108,9 +112,46 @@ public class GestionUsuarios {
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        return true;
+        System.out.println("Felicitaciones " + usuario.getNombre() + " te has registrado con éxito");
+        return usuario;
     }
+
+
+    public JSONObject pasarUsuarioAObject(Usuario usuario){
+        JSONObject JsonObj = null;
+        try {
+            JsonObj = new JSONObject();
+            JsonObj.put("DNI",usuario.getDNI());
+            JsonObj.put("contrasenia",usuario.getContrasenia());
+            JsonObj.put("nacionalidad",usuario.getNacionalidad());
+            JsonObj.put("ciudad",usuario.getCiudad());
+            JsonObj.put("celular",usuario.getCelular());
+            JsonObj.put("mail",usuario.getMail());
+            JsonObj.put("nombre",usuario.getNombre());
+            JsonObj.put("apellido",usuario.getApellido());
+            JsonObj.put("estado",usuario.isActivo());
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        return JsonObj;
+    }
+
+    public static Usuario pasarJSONObjectAUsuario(JSONTokener tokener){
+        JSONObject JSONObj = new JSONObject(tokener);
+        Usuario usuario = new Usuario();
+
+        usuario.setDNI(JSONObj.getString("DNI"));
+        usuario.setContrasenia(JSONObj.getString("contrasenia"));
+        usuario.setNacionalidad(JSONObj.getString("nacionalidad"));
+        usuario.setCiudad(JSONObj.getString("ciudad"));
+        usuario.setCelular(JSONObj.getString("celular"));
+        usuario.setMail(JSONObj.getString("mail"));
+        usuario.setNombre(JSONObj.getString("nombre"));
+        usuario.setApellido(JSONObj.getString("apellido"));
+        usuario.setActivo(JSONObj.getBoolean("estado"));
+            return usuario;
+    }
+
 }
 
 
