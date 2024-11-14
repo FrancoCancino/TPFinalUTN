@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -19,7 +20,30 @@ public class GestionUsuarios {
 
         System.out.println("Vamos a registrarte en nuestro gestor de balneario. Los campos que tengan un asterisco (*) son de caracter obligatorio.");
         usuario.setActivo(true);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("Ingresa tu nombre");
+        while (true) {
+            String nombreTemp = scan.nextLine();
+            if (nombreTemp.matches("^[\\p{L}\\s]+$")) {
+                usuario.setNombre(nombreTemp);
+                break;
+            } else {
+                System.out.println("Error: Los números no son validos en este campo.");
+            }
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println("Ingresa tu apellido");
+        while (true) {
+            String apellidoTemp = scan.nextLine();
+            if (apellidoTemp.matches("^[\\p{L}\\s]+$")) {
+                usuario.setApellido(apellidoTemp);
+                break;
+            } else {
+                System.out.println("Error: Los números no son validos en este campo.");
+            }
+        }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         System.out.println("Ingresá tu DNI (*). Ingresa solo números.");
         while (true) {
             String DNITemp = scan.nextLine();
@@ -89,30 +113,9 @@ public class GestionUsuarios {
                 System.out.println("Error: El dato ingresado no es un correo electronico válido.");
             }
         }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println("Ingresa tu nombre");
-        while (true) {
-            String nombreTemp = scan.nextLine();
-            if (nombreTemp.matches("^[\\p{L}\\s]+$")) {
-                usuario.setNombre(nombreTemp);
-                break;
-            } else {
-                System.out.println("Error: Los números no son validos en este campo.");
-            }
-        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println("Ingresa tu apellido");
-        while (true) {
-            String apellidoTemp = scan.nextLine();
-            if (apellidoTemp.matches("^[\\p{L}\\s]+$")) {
-                usuario.setApellido(apellidoTemp);
-                break;
-            } else {
-                System.out.println("Error: Los números no son validos en este campo.");
-            }
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println("Felicitaciones " + usuario.getNombre() + " te has registrado con éxito");
+        System.out.println("Felicitaciones " + usuario.getNombre() + ", te has registrado con éxito");
         return usuario;
     }
 
@@ -150,6 +153,15 @@ public class GestionUsuarios {
         usuario.setApellido(JSONObj.getString("apellido"));
         usuario.setActivo(JSONObj.getBoolean("estado"));
             return usuario;
+    }
+
+    //Metodo en prueba.
+    public JSONArray agregarJSONObjectAJsonArray(JSONObject obj, JSONArray JSONArr){
+        if (JSONArr == null) {
+            JSONArr = new JSONArray();
+        }
+        JSONArr.put(obj);
+        return JSONArr;
     }
 
 }

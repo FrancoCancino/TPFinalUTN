@@ -1,3 +1,4 @@
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -29,6 +30,33 @@ public class OperacionesLectoEscritura {
         }
             return tokener;
     }
+
+    //Estos dos metodos estan en prueba. Todavía no funcionan bien
+
+    //Grabar y leer JSON Arrays !
+    public static JSONArray leerArchivoARRAY(String nombreArchivo){
+        JSONArray JSONArr = null;
+        JSONTokener tokener = null;
+        try{
+            tokener = new JSONTokener(new FileReader(nombreArchivo));
+            JSONArr = new JSONArray();
+            JSONArr.put(tokener);
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return JSONArr;
+    }
+
+    public static void grabarArchivoARRAY(JSONArray arr, String nombreArchivo){
+        try{
+            FileWriter file = new FileWriter(nombreArchivo);
+            file.write(arr.toString());
+            file.close();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
