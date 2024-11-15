@@ -2,7 +2,7 @@ package servicio;
 
 import java.util.Objects;
 
-public class Servicio {
+public class Servicio implements Comparable{
     private int id;
     private boolean ocupado;
     private int capacidad;
@@ -65,7 +65,7 @@ public class Servicio {
                 '}';
     }
 
-    // Equals / Hashcode
+    // Equals / Hashcode / Compare to
 
     @Override
     public boolean equals(Object o) {
@@ -77,5 +77,10 @@ public class Servicio {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
