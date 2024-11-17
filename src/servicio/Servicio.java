@@ -2,7 +2,7 @@ package servicio;
 
 import java.util.Objects;
 
-public class Servicio implements Comparable{
+public abstract class Servicio implements Comparable{
     private int id;
     private boolean ocupado;
     private int capacidad;
