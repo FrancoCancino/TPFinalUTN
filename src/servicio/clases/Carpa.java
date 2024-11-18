@@ -1,4 +1,6 @@
-package servicio;
+package servicio.clases;
+
+import servicio.enums.VarianteCarpa;
 
 public class Carpa extends Servicio {
     private VarianteCarpa varianteCarpa;

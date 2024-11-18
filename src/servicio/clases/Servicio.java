@@ -1,4 +1,4 @@
-package servicio;
+package servicio.clases;
 
 import java.util.Objects;
 

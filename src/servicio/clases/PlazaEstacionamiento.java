@@ -1,4 +1,4 @@
-package servicio;
+package servicio.clases;
 
 public class PlazaEstacionamiento extends Servicio {
 

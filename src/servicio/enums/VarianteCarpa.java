@@ -1,4 +1,4 @@
-package servicio;
+package servicio.enums;
 
 public enum VarianteCarpa {
     STANDARD,
