@@ -29,7 +29,7 @@ public abstract class Servicio implements Comparable{
         this.id = id;
     }
 
-    public boolean isOcupado() {
+    public boolean getOcupado() {
         return ocupado;
     }
 
