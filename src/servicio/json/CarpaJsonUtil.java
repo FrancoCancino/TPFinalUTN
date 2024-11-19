@@ -69,7 +69,7 @@ public class CarpaJsonUtil {
      * @return un {@link JSONArray} que representa los datos del {@code Listado}.
      * Si ocurre una excepción, se devuelve un JSONArray vacío.
      */
-    public JSONArray serializarListadoCarpas(TreeSet<Carpa> listado) {
+    public static JSONArray serializarListadoCarpas(TreeSet<Carpa> listado) {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray();
@@ -91,7 +91,7 @@ public class CarpaJsonUtil {
      * @return un {@link TreeSet<Carpa>}
      * Si ocurre una excepción, se devuelve un listado vacío.
      */
-    public TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
+    public static TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
         TreeSet<Carpa> listadoCarpas = new TreeSet<>();
         try {
             listadoCarpas = new TreeSet<>();
