@@ -3,11 +3,9 @@ package servicio.json;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import servicio.GestionServicio;
 import servicio.clases.Carpa;
 import servicio.enums.VarianteCarpa;
 
-import java.util.Set;
 import java.util.TreeSet;
 
 
@@ -93,11 +91,11 @@ public class CarpaJsonUtil {
      * @return un {@link TreeSet<Carpa>}
      * Si ocurre una excepción, se devuelve un listado vacío.
      */
-    public TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray){
+    public TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
         TreeSet<Carpa> listadoCarpas = new TreeSet<>();
         try {
             listadoCarpas = new TreeSet<>();
-            for(int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 Carpa carpa = deserializarCarpa(jsonArray.getJSONObject(i));
                 listadoCarpas.add(carpa);
             }
