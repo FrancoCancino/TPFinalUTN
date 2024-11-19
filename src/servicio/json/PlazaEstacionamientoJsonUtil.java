@@ -3,7 +3,6 @@ package servicio.json;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import servicio.clases.Carpa;
 import servicio.clases.PlazaEstacionamiento;
 
 import java.util.TreeSet;
