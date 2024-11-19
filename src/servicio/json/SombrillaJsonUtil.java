@@ -8,6 +8,10 @@ import servicio.clases.Sombrilla;
 import java.util.TreeSet;
 
 public class SombrillaJsonUtil {
+
+    /**
+     * Serializa un objeto de tipo {@link Sombrilla} en un {@link JSONObject}.
+     */
     public static JSONObject serializarSombrilla(Sombrilla sombrilla) {
         JSONObject jsonObject = null;
         try {
@@ -23,6 +27,9 @@ public class SombrillaJsonUtil {
         return jsonObject;
     }
 
+    /**
+     * Deserializa un {@link JSONObject} en un objeto de tipo {@link Sombrilla}.
+     */
     public static Sombrilla deserializarSombrilla(JSONObject jsonObject) {
         Sombrilla sombrilla = new Sombrilla();
 
