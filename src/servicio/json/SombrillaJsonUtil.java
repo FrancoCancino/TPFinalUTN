@@ -7,7 +7,7 @@ import servicio.clases.Sombrilla;
 
 import java.util.TreeSet;
 
-public class SombrillaJsonUtil {
+public final class SombrillaJsonUtil {
 
     /**
      * Serializa un objeto de tipo {@link Sombrilla} en un {@link JSONObject}.

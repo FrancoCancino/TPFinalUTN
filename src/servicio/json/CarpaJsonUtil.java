@@ -9,7 +9,7 @@ import servicio.enums.VarianteCarpa;
 import java.util.TreeSet;
 
 
-public class CarpaJsonUtil {
+public final class CarpaJsonUtil {
 
     /**
      * Serializa un objeto de tipo {@link Carpa} en un {@link JSONObject}.
