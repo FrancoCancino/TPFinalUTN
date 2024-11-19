@@ -2,11 +2,9 @@ package servicio.json;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 import servicio.clases.Carpa;
 import servicio.enums.VarianteCarpa;
 
-import java.io.IOException;
 
 public class CarpaJsonUtil {
 
@@ -17,7 +15,7 @@ public class CarpaJsonUtil {
      * @return un {@link JSONObject} que representa los datos de la {@code Carpa}.
      *         Si ocurre una excepción, se devuelve un JSON vacío.
      */
-    public static JSONObject serializar(Carpa carpa) {
+    public static JSONObject serializarCarpa(Carpa carpa) {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject();
@@ -42,7 +40,7 @@ public class CarpaJsonUtil {
      * @return un {@link Carpa}
      *         Si ocurre una excepción, se devuelve una Carpa vacía.
      */
-    public static Carpa deserializar(JSONObject jsonObject) {
+    public static Carpa deserializarCarpa(JSONObject jsonObject) {
         Carpa carpa = new Carpa();
 
         try {
@@ -60,4 +58,6 @@ public class CarpaJsonUtil {
         }
         return carpa;
     }
+
+
 }
