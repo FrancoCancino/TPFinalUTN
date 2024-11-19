@@ -43,6 +43,7 @@ public class Carpa extends Servicio {
         this.ubicacion = ubicacion;
     }
 
+
     // toString
     @Override
     public String toString() {
