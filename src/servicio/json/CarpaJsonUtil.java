@@ -10,6 +10,13 @@ import java.io.IOException;
 
 public class CarpaJsonUtil {
 
+    /**
+     * Serializa un objeto de tipo {@link Carpa} en un {@link JSONObject}.
+
+     * @param carpa el objeto de tipo {@code Carpa} que se desea serializar.
+     * @return un {@link JSONObject} que representa los datos de la {@code Carpa}.
+     *         Si ocurre una excepción, se devuelve un JSON vacío.
+     */
     public static JSONObject serializar(Carpa carpa) {
         JSONObject jsonObject = null;
         try {
@@ -28,6 +35,13 @@ public class CarpaJsonUtil {
         return jsonObject;
     }
 
+    /**
+     * Deserializa  un {@link JSONObject} un objeto de tipo {@link Carpa}
+
+     * @param jsonObject el objeto de tipo {@code JSONObject} que se desea deserializar.
+     * @return un {@link Carpa}
+     *         Si ocurre una excepción, se devuelve una Carpa vacía.
+     */
     public static Carpa deserializar(JSONObject jsonObject) {
         Carpa carpa = new Carpa();
 
