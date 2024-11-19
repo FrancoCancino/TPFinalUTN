@@ -94,7 +94,6 @@ public final class CarpaJsonUtil {
     public static TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
         TreeSet<Carpa> listadoCarpas = new TreeSet<>();
         try {
-            listadoCarpas = new TreeSet<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 Carpa carpa = deserializarCarpa(jsonArray.getJSONObject(i));
                 listadoCarpas.add(carpa);

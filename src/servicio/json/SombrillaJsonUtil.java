@@ -78,7 +78,6 @@ public final class SombrillaJsonUtil {
     public static TreeSet<Sombrilla> deserializarListadoSombrillas(JSONArray jsonArray) {
         TreeSet<Sombrilla> listadoSombrillas = new TreeSet<>();
         try {
-            listadoSombrillas = new TreeSet<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 Sombrilla sombrilla = deserializarSombrilla(jsonArray.getJSONObject(i));
                 listadoSombrillas.add(sombrilla);
