@@ -64,6 +64,13 @@ public class CarpaJsonUtil {
         return carpa;
     }
 
+    /**
+     * Serializa un objeto de tipo {@link TreeSet<Carpa>} en un {@link JSONArray}.
+     *
+     * @param listado Set de tipo {@code TreeSet<Carpa>} que se desea serializar.
+     * @return un {@link JSONArray} que representa los datos del {@code Listado}.
+     * Si ocurre una excepción, se devuelve un JSONArray vacío.
+     */
     public JSONArray serializarListadoCarpas(TreeSet<Carpa> listado) {
         JSONArray jsonArray = null;
         try {
@@ -79,6 +86,13 @@ public class CarpaJsonUtil {
         return jsonArray;
     }
 
+    /**
+     * Deserializa  un {@link JSONArray} un Set de tipo {@link TreeSet<Carpa>}
+     *
+     * @param jsonArray array de tipo {@code JSONArray} que se desea deserializar.
+     * @return un {@link TreeSet<Carpa>}
+     * Si ocurre una excepción, se devuelve un listado vacío.
+     */
     public TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray){
         TreeSet<Carpa> listadoCarpas = new TreeSet<>();
         try {
