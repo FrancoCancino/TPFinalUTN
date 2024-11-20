@@ -2,6 +2,7 @@ package alquiler.clases;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,18 @@ public class Alquiler {
     private int idUsuario;
     private int idFactura;
 
+    // Formato para mostrar las fechas de forma amigable
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+
     //Constructores
     public Alquiler(){}
-    public Alquiler(int id, LocalDate fechaBaja, LocalDate fechaAlta, List<Servicio> serviciosAlquilados, int idUsuario, int idFactura) {
+    public Alquiler(int id,
+                    LocalDate fechaBaja,
+                    LocalDate fechaAlta,
+                    List<Servicio> serviciosAlquilados,
+                    int idUsuario,
+                    int idFactura) {
         this.id = id;
         this.fechaBaja = fechaBaja;
         this.fechaAlta = fechaAlta;
@@ -80,8 +90,8 @@ public class Alquiler {
     public String toString() {
         return "Alquiler{" +
                 "id=" + id +
-                ", fechaAlta=" + fechaAlta +
-                ", fechaBaja=" + fechaBaja +
+                ", fechaAlta=" + fechaAlta.format(FORMATTER) +
+                ", fechaBaja=" + fechaBaja.format(FORMATTER) +
                 ", serviciosAlquilados=" + serviciosAlquilados +
                 ", idUsuario=" + idUsuario +
                 ", idFactura=" + idFactura +
