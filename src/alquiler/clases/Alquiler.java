@@ -6,13 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import alquiler.enums.TipoServicio;
 import servicio.clases.Servicio;
 
 public class Alquiler {
     private int id;
     private LocalDate fechaAlta;
     private LocalDate fechaBaja;
-    private List<Servicio> serviciosAlquilados;
+    private TipoServicio tipoServicio;
+    private int idServicio;
     private int idUsuario;
     private int idFactura;
 
@@ -22,16 +24,13 @@ public class Alquiler {
 
     //Constructores
     public Alquiler(){}
-    public Alquiler(int id,
-                    LocalDate fechaBaja,
-                    LocalDate fechaAlta,
-                    List<Servicio> serviciosAlquilados,
-                    int idUsuario,
-                    int idFactura) {
+
+    public Alquiler(int id, LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, int idServicio, int idUsuario, int idFactura) {
         this.id = id;
-        this.fechaBaja = fechaBaja;
         this.fechaAlta = fechaAlta;
-        this.serviciosAlquilados = new ArrayList<>();
+        this.fechaBaja = fechaBaja;
+        this.tipoServicio = tipoServicio;
+        this.idServicio = idServicio;
         this.idUsuario = idUsuario;
         this.idFactura = idFactura;
     }
@@ -61,12 +60,20 @@ public class Alquiler {
         this.fechaBaja = fechaBaja;
     }
 
-    public List<Servicio> getServiciosAlquilados() {
-        return serviciosAlquilados;
+    public TipoServicio getTipoServicio() {
+        return tipoServicio;
     }
 
-    public void setServiciosAlquilados(List<Servicio> serviciosAlquilados) {
-        this.serviciosAlquilados = serviciosAlquilados;
+    public void setTipoServicio(TipoServicio tipoServicio) {
+        this.tipoServicio = tipoServicio;
+    }
+
+    public int getIdServicio() {
+        return idServicio;
+    }
+
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
     }
 
     public int getIdUsuario() {
@@ -92,7 +99,8 @@ public class Alquiler {
                 "id=" + id +
                 ", fechaAlta=" + fechaAlta.format(FORMATTER) +
                 ", fechaBaja=" + fechaBaja.format(FORMATTER) +
-                ", serviciosAlquilados=" + serviciosAlquilados +
+                ", Servicio=" + tipoServicio +
+                ", idServicio=" + idServicio +
                 ", idUsuario=" + idUsuario +
                 ", idFactura=" + idFactura +
                 '}';
