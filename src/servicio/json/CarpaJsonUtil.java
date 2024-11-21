@@ -24,11 +24,9 @@ public final class CarpaJsonUtil {
             jsonObject = new JSONObject();
             jsonObject.put("id", carpa.getId());
             jsonObject.put("ocupado", carpa.getOcupado());
-            jsonObject.put("capacidad", carpa.getCapacidad());
             jsonObject.put("precio", carpa.getPrecio());
             jsonObject.put("varianteCarpa", carpa.getVarianteCarpa());
             jsonObject.put("idPlazaEstacionamiento", carpa.getIdPlazaEstacionamiento());
-            jsonObject.put("ubicacion", carpa.getUbicacion());
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());
@@ -49,12 +47,10 @@ public final class CarpaJsonUtil {
         try {
             carpa.setId(jsonObject.getInt("id"));
             carpa.setOcupado(jsonObject.getBoolean("ocupado"));
-            carpa.setCapacidad(jsonObject.getInt("capacidad"));
             carpa.setPrecio(jsonObject.getDouble("precio"));
 
             carpa.setVarianteCarpa(VarianteCarpa.valueOf(jsonObject.getString("varianteCarpa")));
             carpa.setIdPlazaEstacionamiento(jsonObject.getInt("idPlazaEstacionamiento"));
-            carpa.setUbicacion(jsonObject.getString("ubicacion"));
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());

@@ -18,7 +18,6 @@ public final class SombrillaJsonUtil {
             jsonObject = new JSONObject();
             jsonObject.put("id", sombrilla.getId());
             jsonObject.put("ocupado", sombrilla.getOcupado());
-            jsonObject.put("capacidad", sombrilla.getCapacidad());
             jsonObject.put("precio", sombrilla.getPrecio());
 
         } catch (JSONException exception) {
@@ -36,7 +35,6 @@ public final class SombrillaJsonUtil {
         try {
             sombrilla.setId(jsonObject.getInt("id"));
             sombrilla.setOcupado(jsonObject.getBoolean("ocupado"));
-            sombrilla.setCapacidad(jsonObject.getInt("capacidad"));
             sombrilla.setPrecio(jsonObject.getDouble("precio"));
 
 

@@ -7,15 +7,25 @@ public class Carpa extends Servicio {
     private int idPlazaEstacionamiento;
     private String ubicacion;
 
+    private static int cantidadCarpas = 0;
+    private static final double PRECIO_ACTUAL_STANDARD = 20000;
+    private static final double PRECIO_ACTUAL_PREMIUM = 25000;
+
     // Constructores
     public Carpa() {
     }
 
-    public Carpa(int id, boolean ocupado, int capacidad, double precio, VarianteCarpa varianteCarpa, int idPlazaEstacionamiento, String ubicacion) {
-        super(id, ocupado, capacidad, precio);
+    public Carpa(boolean ocupado, VarianteCarpa varianteCarpa, int idPlazaEstacionamiento) {
+        super(ocupado);
         this.varianteCarpa = varianteCarpa;
+
+        if(varianteCarpa == VarianteCarpa.PREMIUM){
+            this.setPrecio(PRECIO_ACTUAL_PREMIUM);
+        }else
+            this.setPrecio(PRECIO_ACTUAL_STANDARD);
+
+        this.setId(++cantidadCarpas);
         this.idPlazaEstacionamiento = idPlazaEstacionamiento;
-        this.ubicacion = ubicacion;
     }
 
     // Setters / Getters
@@ -35,19 +45,10 @@ public class Carpa extends Servicio {
         this.idPlazaEstacionamiento = idPlazaEstacionamiento;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-
     // toString
     @Override
     public String toString() {
-        return super.toString() + "Carpa{" +
+        return super.toString() + "Carpa{" + super.toString() +
                 "varianteCarpa=" + varianteCarpa +
                 ", idPlazaEstacionamiento=" + idPlazaEstacionamiento +
                 ", ubicacion='" + ubicacion + '\'' +
