@@ -10,10 +10,7 @@ public abstract class Servicio implements Comparable {
     //Constructores
 
     public Servicio() {
-    }
-
-    public Servicio(boolean ocupado) {
-        this.ocupado = ocupado;
+        this.ocupado = false;
     }
 
     //Setters / Getters
@@ -45,8 +42,7 @@ public abstract class Servicio implements Comparable {
 
     @Override
     public String toString() {
-        return "Servicio{" +
-                "id=" + id +
+        return "id=" + id +
                 ", ocupado=" + ocupado +
                 ", precio=" + precio +
                 '}';

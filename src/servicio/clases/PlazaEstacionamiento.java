@@ -10,8 +10,7 @@ public class PlazaEstacionamiento extends Servicio {
     public PlazaEstacionamiento() {
     }
 
-    public PlazaEstacionamiento(boolean ocupado, boolean prioritario) {
-        super(ocupado);
+    public PlazaEstacionamiento(boolean prioritario) {
         this.setId(++cantidadPlazas);
         this.setPrecio(PRECIO_ACTUAL);
         this.prioritario = prioritario;
