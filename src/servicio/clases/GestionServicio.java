@@ -1,5 +1,6 @@
 package servicio.clases;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -32,6 +33,16 @@ public class GestionServicio<T extends Servicio> {
         return listadoPlazasEstacionamiento;
     }
 
+    //
+    public String obtenerPlazaEstacionamientoVacia(){
+        for (PlazaEstacionamiento plaza : this.listadoPlazasEstacionamiento) {
+            if (!plaza.getOcupado()) {
+                plaza.setOcupado(true);
+                return plaza.getId();
+            }
+        }
+        return "No hay plazas";
+    }
 
     // -------------------------------- CRUD
     /**
@@ -104,9 +115,10 @@ public class GestionServicio<T extends Servicio> {
     /**
      * Muestra todos los servicios de tipo {@link PlazaEstacionamiento}
      */
-    public void listarPlazasEstacionaiento(){
-        for(PlazaEstacionamiento plaza: listadoPlazasEstacionamiento){
-            System.out.println(plaza);
+    public void listarPlazasEstacionaiento() {
+        Iterator<PlazaEstacionamiento> iterator = listadoPlazasEstacionamiento.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
         }
     }
     
