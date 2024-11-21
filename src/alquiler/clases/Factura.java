@@ -1,7 +1,11 @@
 package alquiler.clases;
 
+import servicio.clases.Servicio;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Factura {
     private int id;
@@ -9,24 +13,25 @@ public class Factura {
     private double subTotal;
     private double importeTotal;
     private String descripcion;
+    private List<Servicio> serviciosAlquilados;
 
     // Formato para mostrar las fechas de forma amigable
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
 
     //Constructores
     public Factura(){}
 
     public Factura(int id,
-                   LocalDateTime fechaEmision,
                    double subTotal,
                    double importeTotal,
-                   String descripcion) {
+                   String descripcion,
+                   List<Servicio> serviciosAlquilados) {
         this.id = id;
         this.fechaEmision = LocalDateTime.now();
         this.subTotal = subTotal;
         this.importeTotal = importeTotal;
         this.descripcion = descripcion;
+        this.serviciosAlquilados = serviciosAlquilados;
     }
 
     //Setters / Getters
@@ -68,6 +73,14 @@ public class Factura {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public List<Servicio> getServiciosAlquilados() {
+        return serviciosAlquilados;
+    }
+
+    public void setServiciosAlquilados(List<Servicio> serviciosAlquilados) {
+        this.serviciosAlquilados = serviciosAlquilados;
     }
 
     @Override
