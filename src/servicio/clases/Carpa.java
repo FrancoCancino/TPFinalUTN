@@ -2,10 +2,12 @@ package servicio.clases;
 
 import servicio.enums.VarianteCarpa;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Carpa extends Servicio {
     private VarianteCarpa varianteCarpa;
     private int idPlazaEstacionamiento;
-    private String ubicacion;
 
     private static int cantidadCarpas = 0;
     private static final double PRECIO_ACTUAL_STANDARD = 20000;
@@ -15,8 +17,7 @@ public class Carpa extends Servicio {
     public Carpa() {
     }
 
-    public Carpa(boolean ocupado, VarianteCarpa varianteCarpa, int idPlazaEstacionamiento) {
-        super(ocupado);
+    public Carpa(VarianteCarpa varianteCarpa) {
         this.varianteCarpa = varianteCarpa;
 
         if(varianteCarpa == VarianteCarpa.PREMIUM){
@@ -25,7 +26,7 @@ public class Carpa extends Servicio {
             this.setPrecio(PRECIO_ACTUAL_STANDARD);
 
         this.setId(++cantidadCarpas);
-        this.idPlazaEstacionamiento = idPlazaEstacionamiento;
+        determinarIdPlazaEstacionamiento();
     }
 
     // Setters / Getters
@@ -45,13 +46,24 @@ public class Carpa extends Servicio {
         this.idPlazaEstacionamiento = idPlazaEstacionamiento;
     }
 
+    public void determinarIdPlazaEstacionamiento() {
+        GestionServicio<PlazaEstacionamiento> gestor = new GestionServicio<>();
+        Set<PlazaEstacionamiento> listado = gestor.getListadoPlazasEstacionamiento();
+         for(PlazaEstacionamiento plaza : listado){
+             if(!plaza.getOcupado()){
+                 this.idPlazaEstacionamiento = plaza.getId();
+                 break;
+             }
+         }
+    }
+
     // toString
     @Override
     public String toString() {
         return super.toString() + "Carpa{" + super.toString() +
                 "varianteCarpa=" + varianteCarpa +
                 ", idPlazaEstacionamiento=" + idPlazaEstacionamiento +
-                ", ubicacion='" + ubicacion + '\'' +
+                '\'' +
                 '}';
     }
 
