@@ -1,9 +1,4 @@
-package servicio;
-
-import servicio.clases.Carpa;
-import servicio.clases.PlazaEstacionamiento;
-import servicio.clases.Servicio;
-import servicio.clases.Sombrilla;
+package servicio.clases;
 
 import java.util.Set;
 import java.util.TreeSet;
