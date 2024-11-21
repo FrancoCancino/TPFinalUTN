@@ -3,7 +3,6 @@ package servicio.clases;
 import servicio.enums.VarianteCarpa;
 
 import java.util.Set;
-import java.util.TreeSet;
 
 public class Carpa extends Servicio {
     private VarianteCarpa varianteCarpa;
@@ -26,7 +25,7 @@ public class Carpa extends Servicio {
             this.setPrecio(PRECIO_ACTUAL_STANDARD);
 
         this.setId(++cantidadCarpas);
-        determinarIdPlazaEstacionamiento();
+        asignarIdPlazaEstacionamiento();
     }
 
     // Setters / Getters
@@ -46,12 +45,16 @@ public class Carpa extends Servicio {
         this.idPlazaEstacionamiento = idPlazaEstacionamiento;
     }
 
-    public void determinarIdPlazaEstacionamiento() {
+    public void asignarIdPlazaEstacionamiento() {
         GestionServicio<PlazaEstacionamiento> gestor = new GestionServicio<>();
+        // se obtiene un set con las plazas de estacionamiento
         Set<PlazaEstacionamiento> listado = gestor.getListadoPlazasEstacionamiento();
          for(PlazaEstacionamiento plaza : listado){
              if(!plaza.getOcupado()){
+                 // guarda el id de la plaza asignada
                  this.idPlazaEstacionamiento = plaza.getId();
+                 // cambia el estado de ocupado a true
+                 plaza.setOcupado(true);
                  break;
              }
          }
