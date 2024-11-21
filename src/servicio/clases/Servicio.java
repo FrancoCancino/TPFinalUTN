@@ -2,10 +2,9 @@ package servicio.clases;
 
 import java.util.Objects;
 
-public abstract class Servicio implements Comparable{
+public abstract class Servicio implements Comparable {
     private int id;
     private boolean ocupado;
-    private int capacidad;
     private double precio;
 
     //Constructores
@@ -13,11 +12,8 @@ public abstract class Servicio implements Comparable{
     public Servicio() {
     }
 
-    public Servicio(int id, boolean ocupado, int capacidad, double precio) {
-        this.id = id;
+    public Servicio(boolean ocupado) {
         this.ocupado = ocupado;
-        this.capacidad = capacidad;
-        this.precio = precio;
     }
 
     //Setters / Getters
@@ -37,14 +33,6 @@ public abstract class Servicio implements Comparable{
         this.ocupado = ocupado;
     }
 
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-
     public double getPrecio() {
         return precio;
     }
@@ -60,7 +48,6 @@ public abstract class Servicio implements Comparable{
         return "Servicio{" +
                 "id=" + id +
                 ", ocupado=" + ocupado +
-                ", capacidad=" + capacidad +
                 ", precio=" + precio +
                 '}';
     }

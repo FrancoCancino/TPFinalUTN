@@ -3,12 +3,17 @@ package servicio.clases;
 public class PlazaEstacionamiento extends Servicio {
     private boolean prioritario;
 
+    private static int cantidadPlazas = 0;
+    private static final double PRECIO_ACTUAL = 8000;
+
     // Constructores
     public PlazaEstacionamiento() {
     }
 
-    public PlazaEstacionamiento(int id, boolean ocupado, int capacidad, double precio, boolean prioritario) {
-        super(id, ocupado, capacidad, precio);
+    public PlazaEstacionamiento(boolean ocupado, boolean prioritario) {
+        super(ocupado);
+        this.setId(++cantidadPlazas);
+        this.setPrecio(PRECIO_ACTUAL);
         this.prioritario = prioritario;
     }
 
