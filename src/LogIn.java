@@ -8,6 +8,7 @@ public class LogIn {
 Scanner scan = new Scanner(System.in);
      public void Menu() {
          GestionUsuarios g1 = new GestionUsuarios();
+
          System.out.println("-------------------------------------------------------------------");
          System.out.println("Bienvenid@ a nuestro gestor de balneario. Ingrese la opción deseada.");
          System.out.println("1. Iniciar sesión.");
@@ -41,6 +42,7 @@ Scanner scan = new Scanner(System.in);
                          //Esto vendría a ser el registro.
 
                          System.out.println(g1.registro(g1));
+
 
                          //Una vez registrado, se deberia de llevar al usuario al menú principal.
                          break;

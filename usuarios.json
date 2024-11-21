@@ -20,5 +20,16 @@
       "nombre": "Raul",
       "DNI": "39275193",
       "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "MarceloBarovero@yahoo.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Barovero",
+      "celular": "2234751085",
+      "contrasenia": "River!",
+      "nombre": "Marcelo",
+      "DNI": "30415854",
+      "nacionalidad": "Argentina"
    }
 ]
