@@ -33,7 +33,11 @@ public class GestionServicio<T extends Servicio> {
         return listadoPlazasEstacionamiento;
     }
 
-    //
+    /**
+     * Obtiene el id tipo String de la primera plazaEstacionamiento disponible, con boolean ocupado == false
+     * Modifica ocupado a true
+     * @return {@code String} que representa el id de la plaza
+     */
     public String obtenerPlazaEstacionamientoVacia(){
         for (PlazaEstacionamiento plaza : this.listadoPlazasEstacionamiento) {
             if (!plaza.getOcupado()) {
@@ -41,7 +45,7 @@ public class GestionServicio<T extends Servicio> {
                 return plaza.getId();
             }
         }
-        return "No hay plazas";
+        throw new IllegalStateException("No hay plazas disponibles");
     }
 
     // -------------------------------- CRUD
