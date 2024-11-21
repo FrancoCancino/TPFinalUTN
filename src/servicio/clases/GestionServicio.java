@@ -19,6 +19,20 @@ public class GestionServicio<T extends Servicio> {
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
 
+    // Getters
+    public Set<Sombrilla> getListadoSombrillas() {
+        return listadoSombrillas;
+    }
+
+    public Set<Carpa> getListadoCarpas() {
+        return listadoCarpas;
+    }
+
+    public Set<PlazaEstacionamiento> getListadoPlazasEstacionamiento() {
+        return listadoPlazasEstacionamiento;
+    }
+
+
     // -------------------------------- CRUD
     /**
      * Agrega un servicio al conjunto correspondiente basado en su tipo.
