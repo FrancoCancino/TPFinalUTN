@@ -2,8 +2,8 @@ package servicio.clases;
 
 import java.util.Objects;
 
-public abstract class Servicio implements Comparable {
-    private int id;
+public abstract class Servicio implements Comparable<Servicio> {
+    private String id;
     private boolean ocupado;
     private double precio;
 
@@ -14,11 +14,11 @@ public abstract class Servicio implements Comparable {
     }
 
     //Setters / Getters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -38,23 +38,13 @@ public abstract class Servicio implements Comparable {
         this.precio = precio;
     }
 
-    // to String
-
-    @Override
-    public String toString() {
-        return "id=" + id +
-                ", ocupado=" + ocupado +
-                ", precio=" + precio +
-                '}';
-    }
 
     // Equals / Hashcode / Compare to
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Servicio servicio)) return false;
-        return id == servicio.id;
+        return Objects.equals(id, servicio.id);
     }
 
     @Override
@@ -63,7 +53,7 @@ public abstract class Servicio implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Servicio servicio) {
+        return this.id.compareTo(servicio.id);
     }
 }

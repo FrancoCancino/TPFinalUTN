@@ -7,8 +7,18 @@ public class Sombrilla extends Servicio {
 
     // Constructor
     public Sombrilla() {
-        this.setId(++cantidadSombrillas);
+        ++cantidadSombrillas;
+        this.setId("SM-" + cantidadSombrillas);
         this.setPrecio(PRECIO_ACTUAL);
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return  this.getId() +
+                " Ocupado= " + this.getOcupado() +
+                " Precio= " + this.getPrecio()
+                ;
     }
 
 }
