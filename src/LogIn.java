@@ -1,4 +1,5 @@
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -43,11 +44,9 @@ Scanner scan = new Scanner(System.in);
                      case 2:
                          //Esto vendría a ser el registro.
                          GestionUsuarios g1 = new GestionUsuarios();
-                         Usuario usuario = GestionUsuarios.registrarUsuario(); //Se guarda el usuario registrado en un objeto usuario temporal para luego ser grabado en el archivo.
-                         //JSONArray JSONArrayTemporal = g1.agregarJSONObjectAJsonArray(g1.pasarUsuarioAObject(usuario),OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json"));
-                         //OperacionesLectoEscritura.grabarArchivoARRAY(JSONArrayTemporal,"usuarios.json");
 
-                         OperacionesLectoEscritura.grabarArchivo(g1.pasarUsuarioAObject(usuario),"usuarios.JSON"); //Acá se guarda un usuario al archivo.
+                         System.out.println(g1.registro(g1));
+
                          //Una vez registrado, se deberia de llevar al usuario al menú principal.
                          break;
 

@@ -3,10 +3,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class OperacionesLectoEscritura {
 
@@ -14,7 +11,7 @@ public class OperacionesLectoEscritura {
     public static void grabarArchivo(JSONObject obj, String nombreArchivo){
         try{
             FileWriter file = new FileWriter(nombreArchivo);
-            file.write(obj.toString());
+            file.write(obj.toString(3));
             file.close();
         } catch(IOException e){
             e.printStackTrace();
@@ -35,14 +32,19 @@ public class OperacionesLectoEscritura {
 
     //Grabar y leer JSON Arrays !
     public static JSONArray leerArchivoARRAY(String nombreArchivo){
-        JSONArray JSONArr = null;
-        JSONTokener tokener = null;
-        try{
-            tokener = new JSONTokener(new FileReader(nombreArchivo));
-            JSONArr = new JSONArray();
-            JSONArr.put(tokener);
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
+
+        JSONArray JSONArr = new JSONArray(); // Iniciar con un array vacío
+
+        try {
+            File file = new File(nombreArchivo);
+            if (file.exists() && file.length() > 0) {        // Si el archivo existe y no está vacío
+                JSONTokener tokener = new JSONTokener(new FileReader(nombreArchivo));
+                JSONArr = new JSONArray(tokener);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("El archivo no se encontró.");
+        } catch (JSONException e) {
+            System.out.println("Error al leer el archivo JSON: " + e.getMessage());
         }
         return JSONArr;
     }
@@ -50,9 +52,10 @@ public class OperacionesLectoEscritura {
     public static void grabarArchivoARRAY(JSONArray arr, String nombreArchivo){
         try{
             FileWriter file = new FileWriter(nombreArchivo);
-            file.write(arr.toString());
+            file.write(arr.toString(3));
             file.close();
         } catch(IOException e){
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
             e.printStackTrace();
         }
     }

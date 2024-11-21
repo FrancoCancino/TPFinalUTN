@@ -119,7 +119,6 @@ public class GestionUsuarios {
         return usuario;
     }
 
-
     public JSONObject pasarUsuarioAObject(Usuario usuario){
         JSONObject JsonObj = null;
         try {
@@ -156,12 +155,25 @@ public class GestionUsuarios {
     }
 
     //Metodo en prueba.
-    public JSONArray agregarJSONObjectAJsonArray(JSONObject obj, JSONArray JSONArr){
-        if (JSONArr == null) {
-            JSONArr = new JSONArray();
-        }
-        JSONArr.put(obj);
-        return JSONArr;
+
+    public String registro(GestionUsuarios g1){
+
+        Usuario usuario = GestionUsuarios.registrarUsuario();
+        //Se guarda el usuario registrado en un objeto usuario temporal para luego ser grabado en el archivo.
+
+
+        JSONObject temp; //Creo un objeto temporal
+        temp = g1.pasarUsuarioAObject(usuario);     //Guardo el dicho objeto el usuario pasado a JSONOBject
+
+
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
+
+        arrTemp.put(temp);   //Mete el registro nuevo al array.
+
+        OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,"usuarios.json");
+        //Graba todo el array con el ultimo registro en el array.
+            return "El archivo se ha grabado con éxito.";
     }
 
 }
