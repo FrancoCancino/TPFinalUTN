@@ -154,8 +154,6 @@ public class GestionUsuarios {
             return usuario;
     }
 
-    //Metodo en prueba.
-
     public String registro(GestionUsuarios g1){
 
         Usuario usuario = GestionUsuarios.registrarUsuario();
@@ -176,6 +174,57 @@ public class GestionUsuarios {
             return "El archivo se ha grabado con éxito.";
     }
 
+    public void inicioSesion(){
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("------------------------------------------------------");
+        Usuario usuario;
+        do {
+            System.out.println("Ingresá tu DNI:");
+            String dni = scan.nextLine();
+            usuario = extraerUsuarioPorDNI(dni);
+
+            if (usuario == null){
+                System.out.println("El DNI ingresado no esta registrado, prueba nuevamente o pulsa 0 para registrarte..");
+            }
+        }while (usuario == null);
+
+        String contrasenia;
+
+        do{
+            System.out.println("Ingresá tu contraseña:");
+            contrasenia = scan.nextLine();
+            if (!contrasenia.equals(usuario.getContrasenia())){
+                System.out.println("Contraseña incorrecta. Intente nuevamente");
+            }
+        } while(!contrasenia.equals(usuario.getContrasenia()));
+        System.out.println("Bienvenido: "+ usuario.getNombre());
+        System.out.println("------------------------------------------------------");
+    }
+
+    public Usuario extraerUsuarioPorDNI(String DNI){
+
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        for (int i = 0;i < arrTemp.length();i++){
+            JSONObject JSONObj = arrTemp.getJSONObject(i);
+            String dniTemp = JSONObj.getString("DNI");
+            if (dniTemp.equals(DNI)){
+                Usuario usuario = new Usuario();
+
+                usuario.setDNI(JSONObj.getString("DNI"));
+                usuario.setContrasenia(JSONObj.getString("contrasenia"));
+                usuario.setNacionalidad(JSONObj.getString("nacionalidad"));
+                usuario.setCiudad(JSONObj.getString("ciudad"));
+                usuario.setCelular(JSONObj.getString("celular"));
+                usuario.setMail(JSONObj.getString("mail"));
+                usuario.setNombre(JSONObj.getString("nombre"));
+                usuario.setApellido(JSONObj.getString("apellido"));
+                usuario.setActivo(JSONObj.getBoolean("estado"));
+                return usuario;
+            }
+        }
+            return null;
+    }
 }
 
 

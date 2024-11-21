@@ -1,0 +1,24 @@
+[
+   {
+      "estado": true,
+      "mail": "francocancino0@gmail.com",
+      "ciudad": "Mdp",
+      "apellido": "Cancino",
+      "celular": "2236940914",
+      "contrasenia": "river",
+      "nombre": "Franco",
+      "DNI": "43740866",
+      "nacionalidad": "Arg"
+   },
+   {
+      "estado": true,
+      "mail": "raul@hotmail.com",
+      "ciudad": "Mdp",
+      "apellido": "Mayo",
+      "celular": "223827591",
+      "contrasenia": "boca",
+      "nombre": "Raul",
+      "DNI": "39275193",
+      "nacionalidad": "Argentina"
+   }
+]

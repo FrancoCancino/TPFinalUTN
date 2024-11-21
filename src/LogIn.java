@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class LogIn {
 Scanner scan = new Scanner(System.in);
      public void Menu() {
+         GestionUsuarios g1 = new GestionUsuarios();
          System.out.println("-------------------------------------------------------------------");
          System.out.println("Bienvenid@ a nuestro gestor de balneario. Ingrese la opción deseada.");
          System.out.println("1. Iniciar sesión.");
@@ -32,18 +33,12 @@ Scanner scan = new Scanner(System.in);
                          //el DNI que ingreso el usuario, si no existe le avisa el error (Posible excepción personalizada) y una vez
                          //ingresado el DNI verificado, le pide la contraseña y la verifica en el archivo para dejarlo ingresar
                          //y ahí que vaya al menú principal.
-                         System.out.println("------------------------------------------------------");
-                         System.out.println("Ingresá tu DNI:");
-                         String dni = scan.nextLine();
-                         System.out.println("Ingresá tu contraseña:");
-                         String contrasenia = scan.nextLine();
-                         System.out.println("Bienvenido: (nombre)");
-                         System.out.println("------------------------------------------------------");
+                        g1.inicioSesion();
+
                          break;
 
                      case 2:
                          //Esto vendría a ser el registro.
-                         GestionUsuarios g1 = new GestionUsuarios();
 
                          System.out.println(g1.registro(g1));
 
