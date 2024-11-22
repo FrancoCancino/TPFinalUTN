@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GestionAlquiler {
-    private Map<TipoServicio, Map<Integer, List<Alquiler>>> mapaAlquileres;
+    private Map<TipoServicio, Map<String, List<Alquiler>>> mapaAlquileres;
     private List<Alquiler> listaAlquileres;
     // Cada vez que se ejecuta el programa, mapaAlquileres se carga con la informacion que persiste a traves
     // de listaAlquileres
@@ -24,11 +24,11 @@ public class GestionAlquiler {
     }
 
     // Getters y Setters
-    public Map<TipoServicio, Map<Integer, List<Alquiler>>> getMapaAlquileres() {
+    public Map<TipoServicio, Map<String, List<Alquiler>>> getMapaAlquileres() {
         return mapaAlquileres;
     }
 
-    public void setMapaAlquileres(Map<TipoServicio, Map<Integer, List<Alquiler>>> mapaAlquileres) {
+    public void setMapaAlquileres(Map<TipoServicio, Map<String, List<Alquiler>>> mapaAlquileres) {
         this.mapaAlquileres = mapaAlquileres;
     }
 
@@ -48,7 +48,7 @@ public class GestionAlquiler {
 
         // Agregar al mapa
         TipoServicio tipo = alquiler.getTipoServicio();
-        int idServicio = alquiler.getIdServicio();
+        String idServicio = alquiler.getIdServicio();
 
         this.mapaAlquileres
                 .computeIfAbsent(tipo, k -> new HashMap<>())
@@ -57,12 +57,14 @@ public class GestionAlquiler {
     }
 
     // Método para reconstruir el mapa a partir de la lista de alquileres
-    public Map<TipoServicio, Map<Integer, List<Alquiler>>> reconstruirMapa() {
-        Map<TipoServicio, Map<Integer, List<Alquiler>>> nuevoMapa = new HashMap<>();
+    public Map<TipoServicio, Map<String, List<Alquiler>>> reconstruirMapa() {
+        Map<TipoServicio, Map<String, List<Alquiler>>> nuevoMapa = new HashMap<>();
 
         for (Alquiler alquiler : listaAlquileres) {
+            if (!alquiler.isActivo()) continue; // Saltea alquileres inactivos
+
             TipoServicio tipo = alquiler.getTipoServicio();
-            int idServicio = alquiler.getIdServicio();
+            String idServicio = alquiler.getIdServicio();
 
             nuevoMapa
                     .computeIfAbsent(tipo, k -> new HashMap<>())
@@ -73,20 +75,38 @@ public class GestionAlquiler {
         return nuevoMapa;
     }
 
-    // Método para obtener las carpas/sombrillas/plazas disponibles en una fecha.Retorna una lista con los ids
-    public List<Integer>  obtenerIdsDisponibles(TipoServicio tipoServicio, LocalDate fechaInicio, LocalDate fechaFin) {
+    /**
+     * Método para obtener las carpas/sombrillas/plazas disponibles en una fecha determinada.
+     * recibe como parametros el tipoServicio , fechaInicio y fechaFin solicitados por el usuario
+     * Retorna una lista con los ids del servicio solicitado que se encuentran disponibles
+     */
+    public List<String>  obtenerIdsDisponibles(TipoServicio tipoServicio, LocalDate fechaInicio, LocalDate fechaFin) {
         if (!mapaAlquileres.containsKey(tipoServicio)) {
             return Collections.emptyList(); // No hay datos para este tipo de servicio
         }
 
-        Map<Integer, List<Alquiler>> alquileresPorId = mapaAlquileres.get(tipoServicio);
+        Map<String, List<Alquiler>> alquileresPorId = mapaAlquileres.get(tipoServicio);
 
-        return alquileresPorId.entrySet().stream()
+        return alquileresPorId.entrySet().stream() // el mapa pasa a ser Steam
                 .filter(entry -> entry.getValue().stream()
                         .noneMatch(alquiler -> alquiler.getFechaAlta().isBefore(fechaFin)
                                 && alquiler.getFechaBaja().isAfter(fechaInicio)))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
+     * @param idAlquiler id del Alquiler a dar de baja
+     */
+    public void darBajaAlquiler(String idAlquiler) {
+        for (Alquiler alquiler : listaAlquileres) {
+            if (alquiler.getId().equals(idAlquiler)) {
+                alquiler.setActivo(false); // Marcar como inactivo
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Alquiler con ID " + idAlquiler + " no encontrado.");
     }
 }
 
