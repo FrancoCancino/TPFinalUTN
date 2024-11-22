@@ -1,17 +1,6 @@
 [
    {
       "estado": true,
-      "mail": "Francocancino0@gmail.com",
-      "ciudad": "Mar del Plata",
-      "apellido": "Cancino",
-      "celular": "2236940914",
-      "contrasenia": "River!",
-      "nombre": "Franco",
-      "DNI": "43740866",
-      "nacionalidad": "Argentina"
-   },
-   {
-      "estado": true,
       "mail": "Raul@gmail.com",
       "ciudad": "Mar del Plata",
       "apellido": "Mayo",
@@ -52,6 +41,17 @@
       "contrasenia": "medicina!",
       "nombre": "Natalia",
       "DNI": "43740867",
+      "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "Francocancino0@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Cancino",
+      "celular": "2236940914",
+      "contrasenia": "River!",
+      "nombre": "Franquete",
+      "DNI": "43740866",
       "nacionalidad": "Argentina"
    }
 ]

@@ -483,12 +483,33 @@ public final class GestionUsuarios {
         if(LHM.size() != 8){  //Si el size es distinto de 8 es porque se elimino algun par clave valor (Es decir, se modifico algún dato)
                                 //De esta manera evitamos sobreescribir el archivo si no se hicieron cambios.
 
-            System.out.println("Sobreescribiendo datos...");             //Sobreescribir el archivo.
+            System.out.println("Sobreescribiendo datos...");
+            System.out.println(sobreescribirUsuario(usuario));             //Sobreescribir el archivo.
         }
             return usuario;     //Es útil que retorne el usuario?
     }
 
+    public static String sobreescribirUsuario(Usuario usuario){
 
+        JSONObject temp; //Creo un objeto Json temporal
+
+        temp = pasarUsuarioAObject(usuario);     //Guardo el usuario en el objetoJson(Para eso uso la función que lo convierte en objetoJson
+
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
+
+        for (int i = 0;i < arrTemp.length();i++){       //Recorro el JsonArray objeto por objeto
+            JSONObject JSONObj = arrTemp.getJSONObject(i);      //Guardo cada objeto
+            String dniTemp = JSONObj.getString("DNI");      //Guardo el DNI de cada objeto del array.
+            if (dniTemp.equals(usuario.getDNI())){           //Encuentro el usuario en el archivo por medio de su DNI.
+                arrTemp.remove(i);
+                arrTemp.put(temp);
+                OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,"usuarios.json");
+                return "El archivo se reescribió con éxito";
+            }
+        }
+            return null;
+    }
 
 
 }
