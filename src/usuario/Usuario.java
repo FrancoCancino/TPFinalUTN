@@ -1,3 +1,5 @@
+package usuario;
+
 public class Usuario {
     //Atributos
     private String DNI;

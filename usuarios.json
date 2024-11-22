@@ -1,35 +1,35 @@
 [
    {
       "estado": true,
-      "mail": "francocancino0@gmail.com",
-      "ciudad": "Mdp",
+      "mail": "Francocancino0@gmail.com",
+      "ciudad": "Mar del Plata",
       "apellido": "Cancino",
       "celular": "2236940914",
-      "contrasenia": "river",
+      "contrasenia": "River!",
       "nombre": "Franco",
       "DNI": "43740866",
-      "nacionalidad": "Arg"
-   },
-   {
-      "estado": true,
-      "mail": "raul@hotmail.com",
-      "ciudad": "Mdp",
-      "apellido": "Mayo",
-      "celular": "223827591",
-      "contrasenia": "boca",
-      "nombre": "Raul",
-      "DNI": "39275193",
       "nacionalidad": "Argentina"
    },
    {
       "estado": true,
-      "mail": "MarceloBarovero@yahoo.com",
+      "mail": "Raul@gmail.com",
       "ciudad": "Mar del Plata",
-      "apellido": "Barovero",
-      "celular": "2234751085",
-      "contrasenia": "River!",
-      "nombre": "Marcelo",
-      "DNI": "30415854",
+      "apellido": "Mayo",
+      "celular": "2235474854",
+      "contrasenia": "Boca!",
+      "nombre": "Raul",
+      "DNI": "39514726",
+      "nacionalidad": "Bolivia"
+   },
+   {
+      "estado": true,
+      "mail": "Sofia@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Cantalupi",
+      "celular": "2235847159",
+      "contrasenia": "Medicina!",
+      "nombre": "Sofia",
+      "DNI": "41547625",
       "nacionalidad": "Argentina"
    }
 ]
