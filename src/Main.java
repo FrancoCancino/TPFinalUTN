@@ -4,7 +4,6 @@ import alquiler.enums.TipoServicio;
 import servicio.clases.*;
 import servicio.enums.VarianteCarpa;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -68,12 +67,12 @@ public class Main {
         gestorAlquiler.agregarAlquiler(alquiler2);
         gestorAlquiler.agregarAlquiler(alquiler3);
 
-        gestorAlquiler.construirMappa();
+        gestorAlquiler.construirMapa();
 
         System.out.println("--------------------MAPA-------------------");
         gestorAlquiler.mostrarMapa();
 
-        List<String> alquileresDisponibles = gestorAlquiler.obtenerIdsDisponibles(TipoServicio.CARPA, LocalDate.of(2024, 11, 10), LocalDate.of(2024, 11, 11));
+        List<String> alquileresDisponibles = gestorAlquiler.obtenerIdsDisponibles(TipoServicio.CARPA, LocalDate.of(2024, 11, 21), LocalDate.of(2024, 11, 24));
 
         System.out.println("---------------------------------- disponibles");
         System.out.println(alquileresDisponibles);
