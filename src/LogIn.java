@@ -1,11 +1,12 @@
 import usuario.GestionUsuarios;
+import usuario.Usuario;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LogIn {
-Scanner scan = new Scanner(System.in);
-     public void Menu() {
+     public static void Menu() {
+         Scanner scan = new Scanner(System.in);
          GestionUsuarios g1 = new GestionUsuarios();
 
          System.out.println("-------------------------------------------------------------------");
@@ -29,14 +30,13 @@ Scanner scan = new Scanner(System.in);
                          break;
 
                      case 1:
-                         //Registro
-
-                        g1.inicioSesion();
+                         //Inicio Sesión
+                        MenuPrincipal.Menu(g1.inicioSesion());
 
                          break;
 
                      case 2:
-                         //Inicio Sesión
+                         //Registro
 
                          System.out.println(g1.registro(g1));
 
