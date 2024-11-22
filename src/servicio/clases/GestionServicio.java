@@ -1,13 +1,12 @@
 package servicio.clases;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class GestionServicio<T extends Servicio> {
     private Set<Carpa> listadoCarpas;
     private Set<Sombrilla> listadoSombrillas;
     private Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
+
 
     private final String nombreArchivoCarpas = "carpas.json";
     private final String nombreArchivoSombrillas = "sombrillas.json";
@@ -20,17 +19,55 @@ public class GestionServicio<T extends Servicio> {
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
 
-    // Getters
-    public Set<Sombrilla> getListadoSombrillas() {
-        return listadoSombrillas;
+    // Getters / Setters
+    public Set<PlazaEstacionamiento> getListadoPlazasEstacionamiento() {
+        return listadoPlazasEstacionamiento;
+    }
+
+    public void setListadoPlazasEstacionamiento(Set<PlazaEstacionamiento> listadoPlazasEstacionamiento) {
+        this.listadoPlazasEstacionamiento = listadoPlazasEstacionamiento;
     }
 
     public Set<Carpa> getListadoCarpas() {
         return listadoCarpas;
     }
 
-    public Set<PlazaEstacionamiento> getListadoPlazasEstacionamiento() {
-        return listadoPlazasEstacionamiento;
+    public void setListadoCarpas(Set<Carpa> listadoCarpas) {
+        this.listadoCarpas = listadoCarpas;
+    }
+
+    public Set<Sombrilla> getListadoSombrillas() {
+        return listadoSombrillas;
+    }
+
+    public void setListadoSombrillas(Set<Sombrilla> listadoSombrillas) {
+        this.listadoSombrillas = listadoSombrillas;
+    }
+
+
+
+    /**
+     * Crea un ArrayList con los IDs de todos los Servicios existentes
+     */
+
+    public static List<String> obtenerIDServiciosExistentes(GestionServicio<T extends Servicio> gestor){
+        List<String> lista = new ArrayList<>();
+        +
+        for(Carpa carpa: gestor.getListadoCarpas()){
+            lista.add(carpa.getId());
+            System.out.println(carpa);
+        }
+
+        for(Sombrilla sombrilla: gestor.getListadoSombrillas(){
+            lista.add(sombrilla.getId());
+            System.out.println(sombrilla);
+        }
+
+        for(PlazaEstacionamiento plaza: gestor.getListadoPlazasEstacionamiento()){
+            lista.add(plaza.getId());
+            System.out.println(plaza);
+        }
+        return lista;
     }
 
     /**
@@ -48,7 +85,7 @@ public class GestionServicio<T extends Servicio> {
         throw new IllegalStateException("No hay plazas disponibles");
     }
 
-    // -------------------------------- CRUD
+    // -------------------------------- CRUD -----------------------------------------
     /**
      * Agrega un servicio al conjunto correspondiente basado en su tipo.
      * @param servicio: servicio a agregar. Puede ser de tipo {@link Carpa}, {@link Sombrilla}, o {@link PlazaEstacionamiento}.
