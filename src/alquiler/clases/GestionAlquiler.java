@@ -2,7 +2,6 @@ package alquiler.clases;
 
 import alquiler.enums.TipoServicio;
 import servicio.clases.GestionServicio;
-import servicio.clases.Servicio;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -43,59 +42,59 @@ public class GestionAlquiler {
         return listaAlquileres.add(alquiler);
     }
 
-    //EL METODO TIENE QUE CONSTRUIR LOS IDS A PARTIR DE GESTION SERVICIO PARA OBTENER TODOS LOS IDS, NO SOLO LOS DE LOS ALQUILERES
 
-    // Método para reconstruir el mapa a partir de listaAlquileres
+    // Método para reconstruir el mapa a partir de listaAlquileres y de los IDs de los servicios existentes
     public void construirMapa() {
+        // Crear un nuevo mapa de mapas anidados:
+        // Clave externa (primer nivel): TipoServicio
+        // Clave interna (segundo nivel): String (ID del servicio)
+        // Valor final: Lista de Alquileres
         Map<TipoServicio, Map<String, List<Alquiler>>> mapa = new HashMap<>();
 
-        for (Alquiler alquiler : listaAlquileres) {
-            if (!alquiler.isActivo()) continue; // Saltea alquileres inactivos
+        //Variable utilizada para cambiar el estado activo de los Alquileres
+        LocalDate fechaActual = LocalDate.now();
 
-            TipoServicio tipo = alquiler.getTipoServicio();
-            String idServicio = alquiler.getIdServicio();
-
-            mapa
-                    .computeIfAbsent(tipo, k -> new HashMap<>())
-                    .computeIfAbsent(idServicio, k -> new ArrayList<>())
-                    .add(alquiler);
-        }
-        setMapaAlquileres(mapa);
-    }
-
-    public void construirMappa() {
-        Map<TipoServicio, Map<String, List<Alquiler>>> mapa = new HashMap<>();
-
-
+        // Obtener una lista con los IDs de todos los Servicios existentes
         List<String> lista = GestionServicio.obtenerIDServiciosExistentes();
 
+        // Crear la estructura del mapa
         for (String idServicio : lista) {
-            // Obtener el tipo de servicio
-            TipoServicio tipo = TipoServicio.obtenerTipoPorId(idServicio); // Método que asocia IDs con tipos
+            // A partir del ID se obtiene el TipoServicio
+            TipoServicio tipo = TipoServicio.obtenerTipoPorId(idServicio);
 
-            // Inicializar los mapas internos para cada ID
+            // Si el TipoServicio o ID NO existe en el mapa, se crea un nuevo HashMap
             mapa.computeIfAbsent(tipo, k -> new HashMap<>())
                     .computeIfAbsent(idServicio, k -> new ArrayList<>());
         }
 
-        // Agregar alquileres activos al mapa
+        //  Agregar los Alquileres al mapa
         for (Alquiler alquiler : listaAlquileres) {
-            if (!alquiler.isActivo()) continue; // Saltar alquileres inactivos
+            // Saltar alquileres que no están activos
+            if (!alquiler.isActivo()) continue;
 
+            // Verificar si la fecha de baja ya pasó, de ser asi, cambia su estado Activo a false
+            if (alquiler.getFechaBaja() != null && alquiler.getFechaBaja().isBefore(fechaActual)) {
+                alquiler.setActivo(false);
+            }
+
+            // Obtener el tipo de servicio y ID de Servicio del alquiler actual
             TipoServicio tipo = alquiler.getTipoServicio();
             String idServicio = alquiler.getIdServicio();
 
-            // Solo agregar alquileres a IDs ya inicializados
+            // Agregar el alquiler a la lista correspondiente
             mapa
                     .computeIfAbsent(tipo, k -> new HashMap<>())
                     .computeIfAbsent(idServicio, k -> new ArrayList<>())
                     .add(alquiler);
         }
 
+        // Establecer el mapa de alquileres con los datos filtrados
         setMapaAlquileres(mapa);
     }
 
-
+    /**
+     * Método para mostrar el mapaAlquileres, que representa los Alquileres ordenados por ID y tipoServicio
+     */
     public void mostrarMapa() {
         // Se recorre el primer nivel del mapa (TipoServicio)
 
@@ -146,6 +145,11 @@ public class GestionAlquiler {
     }
 
     /**
+     * Crea un Alquiler, obteniendo los datos a traves del Usuario
+     */
+
+
+    /**
      * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
      *
      * @param idAlquiler id del Alquiler a dar de baja
@@ -159,5 +163,6 @@ public class GestionAlquiler {
         }
         throw new IllegalArgumentException("Alquiler con ID " + idAlquiler + " no encontrado.");
     }
+
 }
 
