@@ -14,18 +14,26 @@ public class Alquiler {
     private boolean activo;
     private TipoServicio tipoServicio;
     private String idServicio;
-    private int idUsuario;
-    private int idFactura;
+    private String idUsuario;
+    private String idFactura;
 
     // Formato para mostrar las fechas de forma amigable
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
     //Constructores
-    public Alquiler() {
+    public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio) {
+        this.id = null;
+        this.fechaAlta = fechaAlta;
+        this.fechaBaja = fechaBaja;
+        this.activo = false;
+        this.tipoServicio = tipoServicio;
+        this.idServicio = null;
+        this.idUsuario = null;
+        this.idFactura = null;
     }
 
-    public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, int idUsuario, int idFactura) {
+    public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, String idUsuario, String idFactura) {
         this.id = generarId();
         this.fechaAlta = fechaAlta;
         this.fechaBaja = fechaBaja;
@@ -77,19 +85,19 @@ public class Alquiler {
         this.idServicio = idServicio;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdFactura() {
+    public String getIdFactura() {
         return idFactura;
     }
 
-    public void setIdFactura(int idFactura) {
+    public void setIdFactura(String idFactura) {
         this.idFactura = idFactura;
     }
 
