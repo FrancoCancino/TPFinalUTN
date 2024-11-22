@@ -69,8 +69,6 @@ public class GestionAlquiler {
 
         List<String> lista = GestionServicio.obtenerIDServiciosExistentes();
 
-        System.out.println(lista.size());
-
         for (String idServicio : lista) {
             // Obtener el tipo de servicio
             TipoServicio tipo = TipoServicio.obtenerTipoPorId(idServicio); // Método que asocia IDs con tipos

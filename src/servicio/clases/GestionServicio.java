@@ -3,9 +3,9 @@ package servicio.clases;
 import java.util.*;
 
 public class GestionServicio<T extends Servicio> {
-    private Set<Carpa> listadoCarpas;
-    private Set<Sombrilla> listadoSombrillas;
-    private Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
+    private static Set<Carpa> listadoCarpas;
+    private static Set<Sombrilla> listadoSombrillas;
+    private static Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
 
 
     private final String nombreArchivoCarpas = "carpas.json";
@@ -50,22 +50,19 @@ public class GestionServicio<T extends Servicio> {
      * Crea un ArrayList con los IDs de todos los Servicios existentes
      */
 
-    public static List<String> obtenerIDServiciosExistentes(GestionServicio<T extends Servicio> gestor){
+    public static List<String> obtenerIDServiciosExistentes(){
         List<String> lista = new ArrayList<>();
-        +
-        for(Carpa carpa: gestor.getListadoCarpas()){
+
+        for(Carpa carpa: listadoCarpas){
             lista.add(carpa.getId());
-            System.out.println(carpa);
         }
 
-        for(Sombrilla sombrilla: gestor.getListadoSombrillas(){
+        for(Sombrilla sombrilla : listadoSombrillas){
             lista.add(sombrilla.getId());
-            System.out.println(sombrilla);
         }
 
-        for(PlazaEstacionamiento plaza: gestor.getListadoPlazasEstacionamiento()){
+        for(PlazaEstacionamiento plaza: listadoPlazasEstacionamiento){
             lista.add(plaza.getId());
-            System.out.println(plaza);
         }
         return lista;
     }
