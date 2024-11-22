@@ -1,3 +1,4 @@
+import usuario.GestionUsuarios;
 import usuario.Usuario;
 
 import java.util.InputMismatchException;
@@ -44,7 +45,7 @@ public class MenuPrincipal {
                         break;
                     case 3:
                         //Modificar datos personales
-                        System.out.println("Hola");
+                        GestionUsuarios.modificarUsuario(usuario);  //Por ahora retorna el usuario nuevo pero quizá la hacemos void.
 
 
                         break;

@@ -1,5 +1,7 @@
 package usuario;
 
+import java.util.Objects;
+
 public class Usuario {
     //Atributos
     private String DNI;
@@ -130,5 +132,6 @@ public class Usuario {
                 ", nacionalidad:'" + nacionalidad + '\'' +
                 ", ciudad:'" + ciudad + '\'';
     }
+
 
 }

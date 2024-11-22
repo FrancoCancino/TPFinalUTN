@@ -30,7 +30,6 @@ public class OperacionesLectoEscritura {
             return tokener;
     }
 
-    //Estos dos metodos estan en prueba. Todavía no funcionan bien
 
     //Grabar y leer JSON Arrays !
     public static JSONArray leerArchivoARRAY(String nombreArchivo){

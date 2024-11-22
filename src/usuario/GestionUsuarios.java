@@ -1,10 +1,15 @@
 package usuario;
 
+import com.sun.jdi.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.security.Key;
+import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.Long.parseLong;
@@ -47,18 +52,27 @@ public final class GestionUsuarios {
             }
 
             //Con estos metodos le pedimos por teclado los datos al usuario y los guardamos en el objeto usuario.
+            //Los souts van afuera de los metodos para así poder hacerlos reutilizables en la reescritura.
+
+            System.out.println("Ingresa tu nombre (sin el apellido)");
             usuario.setNombre(generarNombre());
 
+            System.out.println("Ingresa tu apellido");
             usuario.setApellido(generarApellido());
 
+            System.out.println("Ingresá tu contraseña.");
             usuario.setContrasenia(generarContrasenia());
 
+            System.out.println("Ingresa tu ciudad");
             usuario.setCiudad(generarCiudad());
 
+            System.out.println("De qué país sos?");
             usuario.setNacionalidad(generarNacionalidad());
 
+            System.out.println("Ingresá tu número de celular. Ingresa solo números.");
             usuario.setCelular(generarCelular());
 
+            System.out.println("Ingresá tu correo electronico. Recordá que debe ser una dirección de correo válida. ");
             usuario.setMail(generarMail());
 
             System.out.println("Felicitaciones " + usuario.getNombre() + ", te has registrado con éxito");
@@ -71,9 +85,9 @@ public final class GestionUsuarios {
         return usuario;
     }
 
-    public String generarNombre(){
 
-        System.out.println("Ingresa tu nombre (sin el apellido)");
+    public static String generarNombre(){
+
         while (true) {
             String nombreTemp = scan.nextLine();
             try{
@@ -90,9 +104,8 @@ public final class GestionUsuarios {
         }
     }
 
-    public  String generarApellido(){
+    public static String generarApellido(){
 
-        System.out.println("Ingresa tu apellido");
         while (true) {
             String apellidoTemp = scan.nextLine();
             try{
@@ -109,8 +122,7 @@ public final class GestionUsuarios {
         }
     }
 
-    public String generarContrasenia(){
-        System.out.println("Ingresá tu contraseña.");
+    public static String generarContrasenia(){
         System.out.println("Esta debe contener al menos 5 caracteres, siendo uno un caracter especial.");
         while (true) {
             String contraseniaTemp = scan.nextLine();
@@ -135,8 +147,7 @@ public final class GestionUsuarios {
         }
     }
 
-    public String generarCiudad(){
-        System.out.println("Ingresa tu ciudad");
+    public static String generarCiudad(){
         while (true) {
             String ciudadTemp = scan.nextLine();
             try{
@@ -153,9 +164,8 @@ public final class GestionUsuarios {
         }
     }
 
-    public String generarNacionalidad(){
+    public static String generarNacionalidad(){
 
-        System.out.println("De qué país sos?");
         while (true) {
             String nacionalidadTemp = scan.nextLine();
             try{
@@ -172,9 +182,8 @@ public final class GestionUsuarios {
         }
     }
 
-    public String generarCelular(){
+    public static String generarCelular(){
 
-        System.out.println("Ingresá tu número de celular. Ingresa solo números.");
         while (true) {
             String celularTemp = scan.nextLine();
             try {
@@ -192,8 +201,7 @@ public final class GestionUsuarios {
         }
     }
 
-    public String generarMail(){
-        System.out.println("Ingresá tu correo electronico. Recordá que debe ser una dirección de correo válida. ");
+    public static String generarMail(){
         while (true) {
             String mailTemp = scan.nextLine();
             try{
@@ -212,7 +220,7 @@ public final class GestionUsuarios {
 
 
 
-    public JSONObject pasarUsuarioAObject(Usuario usuario){
+    public static JSONObject pasarUsuarioAObject(Usuario usuario){
 
         //Pasa un objeto usuario.Usuario a JsonObject
         JSONObject JsonObj = null;
@@ -251,6 +259,10 @@ public final class GestionUsuarios {
             return usuario;
     }
 
+
+
+
+
     public String registro(GestionUsuarios g1) {
 
         Usuario usuario = g1.crearUsuario();
@@ -263,7 +275,7 @@ public final class GestionUsuarios {
 
         JSONObject temp; //Creo un objeto Json temporal
 
-        temp = g1.pasarUsuarioAObject(usuario);     //Guardo el usuario en el objetoJson(Para eso uso la función que lo convierte en objetoJson
+        temp = pasarUsuarioAObject(usuario);     //Guardo el usuario en el objetoJson(Para eso uso la función que lo convierte en objetoJson
 
 
         JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
@@ -315,6 +327,9 @@ public final class GestionUsuarios {
             return usuario; //Se retorna un Usuario null.
     }
 
+
+
+
     public Usuario extraerUsuarioPorDNI(String DNI){
 
         //Creo un JsonArray para guardar el archivo actual del programa.
@@ -340,7 +355,145 @@ public final class GestionUsuarios {
         }
             return null;
     }
+
+
+    public static int actualizacionDatos(LinkedHashMap<Integer,String> LHM,int numero){
+        LHM.remove(numero);
+        System.out.println("Si queres modificar otro dato escribí '0'");
+        numero = scan.nextInt();
+        if (numero == 0){
+            numero = -1;
+        }else{
+            numero = 0;
+        }
+        return numero;
+    }
+
+    public static Usuario modificarUsuario(Usuario usuario){
+
+        LinkedHashMap<Integer,String> LHM = new LinkedHashMap<>();
+        LHM.put(1,"Nombre");
+        LHM.put(2,"Apellido");
+        LHM.put(3,"Contraseña");
+        LHM.put(4,"Ciudad");
+        LHM.put(5,"Nacionalidad");
+        LHM.put(6,"Celular");
+        LHM.put(7,"Mail");
+        LHM.put(0,"Salir");
+
+        int numero = -1;
+
+        do {
+            System.out.println("-------------------------------------------------------------------");
+
+            System.out.println("Modificar datos personales. Elegí qué dato querés modificar:");
+            for (Map.Entry<Integer, String> opcion : LHM.entrySet()) {
+                System.out.println(opcion.getKey() + ". " + opcion.getValue() +".");
+            }
+
+            System.out.println("-------------------------------------------------------------------");
+            try {
+                numero = scan.nextInt();
+                scan.nextLine();
+                if (!LHM.containsKey(numero)){
+                    throw new AutenticacionFallidaExcepcion("La opción ingresada ya se modifico.");
+                }
+
+                switch (numero) {
+
+                    case 0:
+
+                        System.out.println("Saliendo...");
+
+                        break;
+
+                    case 1:
+
+                        System.out.println("1. Ingresa tu nuevo nombre: (tu nombre actual es: " + usuario.getNombre() + ")");
+                        usuario.setNombre(generarNombre());
+                        numero = actualizacionDatos(LHM,numero);
+
+                        break;
+
+                    case 2:
+
+                        System.out.println("2. Ingresa tu nuevo apellido: (tu apellido actual es: " + usuario.getApellido() + ")");
+                        usuario.setApellido(generarApellido());
+                        numero = actualizacionDatos(LHM,numero);
+
+
+                        break;
+
+                    case 3:
+
+                        System.out.println("3. Ingresa tu nueva contraseña.");
+                        usuario.setContrasenia(generarContrasenia());
+                        numero = actualizacionDatos(LHM,numero);
+
+
+                        break;
+
+                    case 4:
+
+                        System.out.println("4. Ingresa tu nueva ciudad: (tu ciudad actual es: " + usuario.getCiudad() + ")");
+                        usuario.setCiudad(generarCiudad());
+                        numero = actualizacionDatos(LHM,numero);
+
+
+                        break;
+
+                    case 5:
+
+                        System.out.println("5. Ingresa de donde sos: (tu nacionalidad actual es: " + usuario.getNacionalidad() + ")");
+                        usuario.setNacionalidad(generarNacionalidad());
+                        numero = actualizacionDatos(LHM,numero);
+
+                        break;
+
+                    case 6:
+
+                        System.out.println("6. Ingresa tu nuevo celular: (tu celular actual es: " + usuario.getCelular() + ")");
+                        usuario.setCelular(generarCelular());
+                        numero = actualizacionDatos(LHM,numero);
+
+                        break;
+
+                    case 7:
+
+                        System.out.println("7. Ingresa tu nuevo mail: (tu mail actual es: " + usuario.getMail() + ")");
+                        usuario.setMail(generarMail());
+                        numero = actualizacionDatos(LHM,numero);
+
+                        break;
+
+                    default:
+                        System.out.println("Opción incorrecta. Vuelve a intentarlo. (del 0 al 7)");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: No se ingresó un número. Vuelve a intentarlo. (del 0 al 7)");
+                scan.nextLine();
+                numero = -1;
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage() + " Vuelve a intentarlo. (Reinicia el programa para volver a cambiar el dato)");
+                numero = -1;
+            }
+        } while (numero < 0 || numero > 7) ;
+
+        if(LHM.size() != 8){  //Si el size es distinto de 8 es porque se elimino algun par clave valor (Es decir, se modifico algún dato)
+                                //De esta manera evitamos sobreescribir el archivo si no se hicieron cambios.
+
+            System.out.println("Sobreescribiendo datos...");             //Sobreescribir el archivo.
+        }
+            return usuario;     //Es útil que retorne el usuario?
+    }
+
+
+
+
 }
+
+
 
 
 

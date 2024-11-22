@@ -42,5 +42,16 @@
       "nombre": "Franco",
       "DNI": "19851475",
       "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "natalia@hotmail.com",
+      "ciudad": "Mar del plata",
+      "apellido": "Cantalupi",
+      "celular": "223598176",
+      "contrasenia": "medicina!",
+      "nombre": "Natalia",
+      "DNI": "43740867",
+      "nacionalidad": "Argentina"
    }
 ]
