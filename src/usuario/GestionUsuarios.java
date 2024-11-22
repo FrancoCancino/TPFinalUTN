@@ -9,17 +9,18 @@ import java.util.Scanner;
 
 import static java.lang.Long.parseLong;
 
-public class GestionUsuarios {
+public final class GestionUsuarios {
+    static Scanner scan = new Scanner(System.in);
 
-    public static Usuario crearUsuario(){
+
+    public Usuario crearUsuario(){
 
         //Crea el objeto usuario.Usuario cargado de información para el registro
-        Scanner scan = new Scanner(System.in);
         Usuario usuario = new Usuario();
 
         System.out.println("Vamos a registrarte en nuestro gestor de balneario.");
         usuario.setActivo(true);
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         System.out.println("Ingresá tu DNI. Ingresa solo números.");
         try{
             while (true) {
@@ -44,141 +45,172 @@ public class GestionUsuarios {
                     System.out.println(e.getMessage());
                 }
             }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresa tu nombre (sin el apellido)");
-            while (true) {
-                String nombreTemp = scan.nextLine();
-                try{
-                    if (!nombreTemp.matches("^[\\p{L}\\s]+$")) {    //Se asegura de que el nombre no tenga numeros.
-                        throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo.");
-                    }else if (nombreTemp.length() < 3){
-                        throw new AutenticacionFallidaExcepcion("El nombre no puede tener menos de 3 letras.");
-                    }else{
-                        usuario.setNombre(nombreTemp);
-                        break;
-                    }
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresa tu apellido");
-            while (true) {
-                String apellidoTemp = scan.nextLine();
-                try{
-                    if (!apellidoTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que el apellido no tenga numeros.
-                        throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo.");
-                    }else if (apellidoTemp.length() < 3){
-                        throw new AutenticacionFallidaExcepcion("El apellido no puede tener menos de 3 letras.");
-                    }else{
-                        usuario.setApellido(apellidoTemp);
-                        break;
-                    }
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresá tu contraseña.");
-            System.out.println("Esta debe contener al menos 5 caracteres, siendo uno un caracter especial.");
-            while (true) {
-                String contraseniaTemp = scan.nextLine();
-                try {
-                    if (contraseniaTemp.length() < 5) {
-                        throw new AutenticacionFallidaExcepcion("La contraseña es muy corta");
-                    } else if (!contraseniaTemp.matches(".*[^a-zA-Z0-9].*")) {      //Se asegura de que tenga un caracter especial
-                        throw new AutenticacionFallidaExcepcion("La contraseña no dispone de un caracter especial");
-                    }
+            //Con estos metodos le pedimos por teclado los datos al usuario y los guardamos en el objeto usuario.
+            usuario.setNombre(generarNombre());
 
-                    System.out.println("Confirma tu contraseña de vuelta.");
-                    String contraseniaTemp2 = scan.nextLine();
-                    if (contraseniaTemp.equals(contraseniaTemp2)) {
-                        usuario.setContrasenia(contraseniaTemp);
-                        break;
-                    } else {
-                        System.out.println("Las contraseñas ingresadas no son las mismas. Ingresalas de vuelta.");
-                    }
-                } catch (AutenticacionFallidaExcepcion e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+            usuario.setApellido(generarApellido());
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresa tu ciudad");
-            while (true) {
-                String ciudadTemp = scan.nextLine();
-                try{
-                    if (!ciudadTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que la ciudad no tenga numeros.
-                        throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo");
-                    } else if (ciudadTemp.length() < 3) {
-                        throw new AutenticacionFallidaExcepcion("El nombre de la ciudad debe tener al menos 3 letras");
-                    } else {
-                        usuario.setCiudad(ciudadTemp);
-                        break;
-                    }
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("De qué país sos?");
-            while (true) {
-                String nacionalidadTemp = scan.nextLine();
-                try{
-                    if (!nacionalidadTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que el pais no tenga numeros.
-                        throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo");
-                    } else if (nacionalidadTemp.length() < 3) {
-                        throw new AutenticacionFallidaExcepcion("El nombre del pais debe tener al menos 3 letras");
-                    } else {
-                        usuario.setNacionalidad(nacionalidadTemp);
-                        break;
-                    }
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresá tu número de celular. Ingresa solo números.");
-            while (true) {
-                String celularTemp = scan.nextLine();
-                try {
-                    parseLong(celularTemp);
-                    if(celularTemp.length() < 7){
-                        throw new AutenticacionFallidaExcepcion("El número debe tener al menos 7 digitos.");
-                    }
-                    usuario.setCelular(celularTemp);
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("El dato introducido no es un celular válido. Recordá que solo se admiten números.");
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.out.println("Ingresá tu correo electronico. Recordá que debe ser una dirección de correo válida. ");
-            while (true) {
-                String mailTemp = scan.nextLine();
-                try{
-                    if (mailTemp.matches(".*@(gmail\\.com|hotmail\\.com|yahoo\\.com|outlook\\.com|icloud\\.com|estudiante.mdp.utn.edu.ar|mail\\.com|.*\\.edu\\|*\\.es)")) {
-                        //Con este regex nos aseguramos de que el mail ingresado por el usuario contenga dichos dominios de correo.
-                        usuario.setMail(mailTemp);
-                        break;
-                    } else {
-                        throw new AutenticacionFallidaExcepcion("El dato ingresado no es un correo electronico válido.");
-                    }
-                }catch (AutenticacionFallidaExcepcion e){
-                    System.out.println(e.getMessage());
-                }
-            }
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            usuario.setContrasenia(generarContrasenia());
+
+            usuario.setCiudad(generarCiudad());
+
+            usuario.setNacionalidad(generarNacionalidad());
+
+            usuario.setCelular(generarCelular());
+
+            usuario.setMail(generarMail());
+
             System.out.println("Felicitaciones " + usuario.getNombre() + ", te has registrado con éxito");
+
         } catch (AutenticacionFallidaExcepcion e){
+
             usuario.setDNI("-1");
         }
 
         return usuario;
     }
+
+    public String generarNombre(){
+
+        System.out.println("Ingresa tu nombre (sin el apellido)");
+        while (true) {
+            String nombreTemp = scan.nextLine();
+            try{
+                if (!nombreTemp.matches("^[\\p{L}\\s]+$")) {    //Se asegura de que el nombre no tenga numeros.
+                    throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo.");
+                }else if (nombreTemp.length() < 3){
+                    throw new AutenticacionFallidaExcepcion("El nombre no puede tener menos de 3 letras.");
+                }else{
+                    return nombreTemp;
+                }
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public  String generarApellido(){
+
+        System.out.println("Ingresa tu apellido");
+        while (true) {
+            String apellidoTemp = scan.nextLine();
+            try{
+                if (!apellidoTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que el apellido no tenga numeros.
+                    throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo.");
+                }else if (apellidoTemp.length() < 3){
+                    throw new AutenticacionFallidaExcepcion("El apellido no puede tener menos de 3 letras.");
+                }else{
+                    return apellidoTemp;
+                }
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public String generarContrasenia(){
+        System.out.println("Ingresá tu contraseña.");
+        System.out.println("Esta debe contener al menos 5 caracteres, siendo uno un caracter especial.");
+        while (true) {
+            String contraseniaTemp = scan.nextLine();
+            try {
+                if (contraseniaTemp.length() < 5) {
+                    throw new AutenticacionFallidaExcepcion("La contraseña es muy corta");
+                } else if (!contraseniaTemp.matches(".*[^a-zA-Z0-9].*")) {      //Se asegura de que tenga un caracter especial
+                    throw new AutenticacionFallidaExcepcion("La contraseña no dispone de un caracter especial");
+                }
+
+                System.out.println("Confirma tu contraseña de vuelta.");
+                String contraseniaTemp2 = scan.nextLine();
+                if (contraseniaTemp.equals(contraseniaTemp2)) {
+                    return contraseniaTemp;
+
+                } else {
+                    System.out.println("Las contraseñas ingresadas no son las mismas. Ingresalas de vuelta.");
+                }
+            } catch (AutenticacionFallidaExcepcion e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public String generarCiudad(){
+        System.out.println("Ingresa tu ciudad");
+        while (true) {
+            String ciudadTemp = scan.nextLine();
+            try{
+                if (!ciudadTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que la ciudad no tenga numeros.
+                    throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo");
+                } else if (ciudadTemp.length() < 3) {
+                    throw new AutenticacionFallidaExcepcion("El nombre de la ciudad debe tener al menos 3 letras");
+                } else {
+                    return ciudadTemp;
+                }
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public String generarNacionalidad(){
+
+        System.out.println("De qué país sos?");
+        while (true) {
+            String nacionalidadTemp = scan.nextLine();
+            try{
+                if (!nacionalidadTemp.matches("^[\\p{L}\\s]+$")) { //Se asegura de que el pais no tenga numeros.
+                    throw new AutenticacionFallidaExcepcion("Los números no son validos en este campo");
+                } else if (nacionalidadTemp.length() < 3) {
+                    throw new AutenticacionFallidaExcepcion("El nombre del pais debe tener al menos 3 letras");
+                } else {
+                    return nacionalidadTemp;
+                }
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public String generarCelular(){
+
+        System.out.println("Ingresá tu número de celular. Ingresa solo números.");
+        while (true) {
+            String celularTemp = scan.nextLine();
+            try {
+                parseLong(celularTemp);
+                if(celularTemp.length() < 7){
+                    throw new AutenticacionFallidaExcepcion("El número debe tener al menos 7 digitos.");
+                }
+                return celularTemp;
+
+            } catch (NumberFormatException e) {
+                System.out.println("El dato introducido no es un celular válido. Recordá que solo se admiten números.");
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public String generarMail(){
+        System.out.println("Ingresá tu correo electronico. Recordá que debe ser una dirección de correo válida. ");
+        while (true) {
+            String mailTemp = scan.nextLine();
+            try{
+                if (mailTemp.matches(".*@(gmail\\.com|hotmail\\.com|yahoo\\.com|outlook\\.com|icloud\\.com|estudiante.mdp.utn.edu.ar|mail\\.com|.*\\.edu\\|*\\.es)")) {
+                    //Con este regex nos aseguramos de que el mail ingresado por el usuario contenga dichos dominios de correo.
+                    return mailTemp;
+                } else {
+                    throw new AutenticacionFallidaExcepcion("El dato ingresado no es un correo electronico válido.");
+                }
+            }catch (AutenticacionFallidaExcepcion e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+
+
 
     public JSONObject pasarUsuarioAObject(Usuario usuario){
 
@@ -201,7 +233,7 @@ public class GestionUsuarios {
         return JsonObj;
     }
 
-    public static Usuario pasarJSONObjectAUsuario(JSONTokener tokener){
+    public Usuario pasarJSONObjectAUsuario(JSONTokener tokener){
 
         //Crea un objeto Json a un objeto usuario.Usuario
         JSONObject JSONObj = new JSONObject(tokener);
@@ -221,7 +253,7 @@ public class GestionUsuarios {
 
     public String registro(GestionUsuarios g1) {
 
-        Usuario usuario = GestionUsuarios.crearUsuario();
+        Usuario usuario = g1.crearUsuario();
         //Se guarda el usuario registrado en un objeto usuario temporal para luego ser grabado en el archivo.
 
         if (usuario.getDNI().equals("-1")){
@@ -245,7 +277,7 @@ public class GestionUsuarios {
             return "Registro éxitoso";
     }
 
-    public void inicioSesion(){
+    public Usuario inicioSesion(){
         Scanner scan = new Scanner(System.in);
 
         System.out.println("------------------------------------------------------");
@@ -276,14 +308,14 @@ public class GestionUsuarios {
                 if (!contrasenia.equals(usuario.getContrasenia())){     //Se compara el string con la  contraseña leida del archivo.
                     System.out.println("Contraseña incorrecta. Intente nuevamente. Si deseas salir del programa escribí '0'");
                 } else {
-                    System.out.println("Bienvenido: "+ usuario.getNombre());
-                    System.out.println("------------------------------------------------------");
+                    return usuario;
                 }
             } while(!contrasenia.equals(usuario.getContrasenia()));
         }
+            return usuario; //Se retorna un Usuario null.
     }
 
-    public static Usuario extraerUsuarioPorDNI(String DNI){
+    public Usuario extraerUsuarioPorDNI(String DNI){
 
         //Creo un JsonArray para guardar el archivo actual del programa.
         //Si el  array esta vacio se retorna un usuario Vacio.
@@ -309,5 +341,8 @@ public class GestionUsuarios {
             return null;
     }
 }
+
+
+
 
 

@@ -31,5 +31,16 @@
       "nombre": "Sofia",
       "DNI": "41547625",
       "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "Dani@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Herrera",
+      "celular": "2235847159",
+      "contrasenia": "progra!",
+      "nombre": "Franco",
+      "DNI": "19851475",
+      "nacionalidad": "Argentina"
    }
 ]

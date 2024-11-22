@@ -31,7 +31,7 @@ Scanner scan = new Scanner(System.in);
                      case 1:
                          //Registro
 
-                        g1.inicioSesion();
+                         MenuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
 
                          break;
 
