@@ -245,7 +245,7 @@ public class GestionUsuarios {
             return "Registro éxitoso";
     }
 
-    public Usuario inicioSesion(){
+    public void inicioSesion(){
         Scanner scan = new Scanner(System.in);
 
         System.out.println("------------------------------------------------------");
@@ -277,11 +277,10 @@ public class GestionUsuarios {
                     System.out.println("Contraseña incorrecta. Intente nuevamente. Si deseas salir del programa escribí '0'");
                 } else {
                     System.out.println("Bienvenido: "+ usuario.getNombre());
-                    return usuario;
+                    System.out.println("------------------------------------------------------");
                 }
             } while(!contrasenia.equals(usuario.getContrasenia()));
         }
-        return usuario;
     }
 
     public static Usuario extraerUsuarioPorDNI(String DNI){
