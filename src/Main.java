@@ -1,5 +1,6 @@
 import alquiler.clases.Alquiler;
 import alquiler.clases.GestionAlquiler;
+import alquiler.clases.GestionComprobanteAlquiler;
 import alquiler.enums.TipoServicio;
 import servicio.clases.*;
 import servicio.enums.VarianteCarpa;
@@ -63,6 +64,7 @@ public class Main {
         Alquiler alquiler3 = new Alquiler(LocalDate.of(2024, 11, 23), LocalDate.of(2024, 11, 26), TipoServicio.CARPA,"CP-2","3");
 
         GestionAlquiler gestorAlquiler = new GestionAlquiler();
+        GestionComprobanteAlquiler gestionComprobanteAlquiler = new GestionComprobanteAlquiler();
 
         gestorAlquiler.agregarAlquiler(alquiler1);
         gestorAlquiler.agregarAlquiler(alquiler2);
@@ -82,7 +84,7 @@ public class Main {
         System.out.println("---------------------- probando crear alquiler");
         Alquiler alquilerParcial = new Alquiler(LocalDate.of(2025, 11, 21), LocalDate.of(2025, 11, 24),TipoServicio.CARPA);
         try{
-            gestorAlquiler.crearAlquilerUsuario(alquilerParcial, gestorServicio);
+            gestorAlquiler.crearAlquilerUsuario(alquilerParcial, gestorServicio, gestionComprobanteAlquiler);
         }catch(Exception exception){
             System.out.println(exception.getMessage());
         }

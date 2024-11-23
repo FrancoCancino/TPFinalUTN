@@ -59,7 +59,7 @@ public class MenuPrincipal {
 
                         //Pedir datos para hacer una reserva.
 
-                        GestionUsuarios.solicitarInfoParaAlquiler();
+                        //GestionUsuarios.solicitarInfoParaAlquiler();
 
                         break;
                     case 3:
