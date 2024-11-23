@@ -14,6 +14,7 @@ public class ComprobanteAlquiler {
     private double subTotal;
     private double importeTotal;
     private String descripcion;
+    private boolean activo;
     private List<Servicio> serviciosAlquilados;
 
     // Formato para mostrar fecha y hora
@@ -26,6 +27,9 @@ public class ComprobanteAlquiler {
         this.id = generarID();
         this.fechaEmision = LocalDateTime.now();
         this.descripcion = DESCRIPCION;
+        this.subTotal = 0;
+        this.importeTotal = 0;
+        this.activo = true;
         this.serviciosAlquilados = serviciosAlquilados;
 
     }
@@ -38,7 +42,8 @@ public class ComprobanteAlquiler {
         this.subTotal = subTotal;
         this.importeTotal = importeTotal;
         this.descripcion = DESCRIPCION;
-        this.serviciosAlquilados = new ArrayList<>();
+        this.activo = true;
+        this.serviciosAlquilados = serviciosAlquilados;
     }
 
     //Setters / Getters
@@ -88,6 +93,14 @@ public class ComprobanteAlquiler {
 
     public void setServiciosAlquilados(List<Servicio> serviciosAlquilados) {
         this.serviciosAlquilados = serviciosAlquilados;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     // Metodos Utilitarios
