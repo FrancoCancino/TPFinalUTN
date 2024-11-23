@@ -33,7 +33,7 @@ public class Alquiler {
         this.idFactura = null;
     }
 
-    public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, String idUsuario, String idFactura) {
+    public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, String idUsuario) {
         this.id = generarId();
         this.fechaAlta = fechaAlta;
         this.fechaBaja = fechaBaja;
@@ -41,7 +41,6 @@ public class Alquiler {
         this.tipoServicio = tipoServicio;
         this.idServicio = idServicio;
         this.idUsuario = idUsuario;
-        this.idFactura = idFactura;
     }
 
     //Setters / Getters
