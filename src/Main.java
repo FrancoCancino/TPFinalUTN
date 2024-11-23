@@ -25,16 +25,16 @@ public class Main {
         PlazaEstacionamiento plaza3 = new PlazaEstacionamiento();
         PlazaEstacionamiento plaza4 = new PlazaEstacionamiento();
 
-        GestionServicio<Servicio> gestorServicio = new GestionServicio<>();
+        GestionServicio gestorServicio = new GestionServicio();
 
-        gestorServicio.agregarServicio(sombrilla1);
-        gestorServicio.agregarServicio(sombrilla2);
-        gestorServicio.agregarServicio(sombrilla3);
+        gestorServicio.agregarSombrilla(sombrilla1);
+        gestorServicio.agregarSombrilla(sombrilla2);
+        gestorServicio.agregarSombrilla(sombrilla3);
 
-        gestorServicio.agregarServicio(plaza1);
-        gestorServicio.agregarServicio(plaza2);
-        gestorServicio.agregarServicio(plaza3);
-        gestorServicio.agregarServicio(plaza4);
+        gestorServicio.agregarPlazaEstacionamiento(plaza1);
+        gestorServicio.agregarPlazaEstacionamiento(plaza2);
+        gestorServicio.agregarPlazaEstacionamiento(plaza3);
+        gestorServicio.agregarPlazaEstacionamiento(plaza4);
 
         // Se agrega plaza de estacionamiento en carpas
         carpa1.setIdPlazaEstacionamiento(gestorServicio.obtenerPlazaEstacionamientoVacia());
@@ -42,9 +42,9 @@ public class Main {
         carpa3.setIdPlazaEstacionamiento(gestorServicio.obtenerPlazaEstacionamientoVacia());
 
 
-        gestorServicio.agregarServicio(carpa1);
-        gestorServicio.agregarServicio(carpa2);
-        gestorServicio.agregarServicio(carpa3);
+        gestorServicio.agregarCarpa(carpa1);
+        gestorServicio.agregarCarpa(carpa2);
+        gestorServicio.agregarCarpa(carpa3);
 
 
         System.out.println("-----------------------Carpas-----------------------");
@@ -52,14 +52,14 @@ public class Main {
         System.out.println("-----------------------Sombrillas-----------------------");
         gestorServicio.listarSombrillas();
         System.out.println("-----------------------Plazas-----------------------");
-        gestorServicio.listarPlazasEstacionaiento();
+        gestorServicio.listarPlazasEstacionamiento();
 
 
         // Creacion de alquileres
 
-        Alquiler alquiler1 = new Alquiler(LocalDate.of(2024, 11, 21), LocalDate.of(2024, 11, 24), TipoServicio.CARPA,"CP-1",1,1);
-        Alquiler alquiler2 = new Alquiler(LocalDate.of(2024, 11, 28), LocalDate.of(2024, 11, 29), TipoServicio.SOMBRILLA,"SM-1",2,3);
-        Alquiler alquiler3 = new Alquiler(LocalDate.of(2024, 11, 23), LocalDate.of(2024, 11, 26), TipoServicio.CARPA,"CP-2",3,4);
+        Alquiler alquiler1 = new Alquiler(LocalDate.of(2024, 11, 21), LocalDate.of(2024, 11, 24), TipoServicio.CARPA,"CP-1","1");
+        Alquiler alquiler2 = new Alquiler(LocalDate.of(2024, 11, 28), LocalDate.of(2024, 11, 29), TipoServicio.SOMBRILLA,"SM-1","2");
+        Alquiler alquiler3 = new Alquiler(LocalDate.of(2024, 11, 23), LocalDate.of(2024, 11, 26), TipoServicio.CARPA,"CP-2","3");
 
         GestionAlquiler gestorAlquiler = new GestionAlquiler();
 
@@ -67,7 +67,7 @@ public class Main {
         gestorAlquiler.agregarAlquiler(alquiler2);
         gestorAlquiler.agregarAlquiler(alquiler3);
 
-        gestorAlquiler.construirMapa();
+        gestorAlquiler.construirMapa(gestorServicio);
 
         System.out.println("--------------------MAPA-------------------");
         gestorAlquiler.mostrarMapa();
@@ -76,6 +76,15 @@ public class Main {
 
         System.out.println("---------------------------------- disponibles");
         System.out.println(alquileresDisponibles);
+
+
+        System.out.println("---------------------- probando crear alquiler");
+        Alquiler alquilerParcial = new Alquiler(LocalDate.of(2025, 11, 21), LocalDate.of(2025, 11, 24),TipoServicio.CARPA);
+        try{
+            gestorAlquiler.crearAlquilerUsuario(alquilerParcial, gestorServicio);
+        }catch(Exception exception){
+            System.out.println(exception.getMessage());
+        }
 
     }
 }
