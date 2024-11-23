@@ -1,12 +1,13 @@
 package servicio.clases;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
-public class GestionServicio<T extends Servicio> {
-    private Set<Carpa> listadoCarpas;
-    private Set<Sombrilla> listadoSombrillas;
-    private Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
+
+
+public class GestionServicio {
+    private static Set<Carpa> listadoCarpas;
+    private static Set<Sombrilla> listadoSombrillas;
+    private static Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
 
     private final String nombreArchivoCarpas = "carpas.json";
     private final String nombreArchivoSombrillas = "sombrillas.json";
@@ -19,96 +20,152 @@ public class GestionServicio<T extends Servicio> {
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
 
-    // Getters
+    // Getters y Setters
+    public Set<Carpa> getListadoCarpas() {
+        return listadoCarpas;
+    }
+
+    public void setListadoCarpas(Set<Carpa> listadoCarpas) {
+        this.listadoCarpas = listadoCarpas;
+    }
+
     public Set<Sombrilla> getListadoSombrillas() {
         return listadoSombrillas;
     }
 
-    public Set<Carpa> getListadoCarpas() {
-        return listadoCarpas;
+    public void setListadoSombrillas(Set<Sombrilla> listadoSombrillas) {
+        this.listadoSombrillas = listadoSombrillas;
     }
 
     public Set<PlazaEstacionamiento> getListadoPlazasEstacionamiento() {
         return listadoPlazasEstacionamiento;
     }
 
+    public void setListadoPlazasEstacionamiento(Set<PlazaEstacionamiento> listadoPlazasEstacionamiento) {
+        this.listadoPlazasEstacionamiento = listadoPlazasEstacionamiento;
+    }
 
-    // -------------------------------- CRUD
-    /**
-     * Agrega un servicio al conjunto correspondiente basado en su tipo.
-     * @param servicio: servicio a agregar. Puede ser de tipo {@link Carpa}, {@link Sombrilla}, o {@link PlazaEstacionamiento}.
-     * @return {@code true} si el servicio se agregó correctamente; {@code false} si ya existía o el tipo no es válido.
-     */
-    public boolean agregarServicio(T servicio) {
-        if (servicio instanceof Carpa) {
-            return listadoCarpas.add((Carpa) servicio);
-        }
-        if (servicio instanceof Sombrilla) {
-            return listadoSombrillas.add((Sombrilla) servicio);
-        }
-        if (servicio instanceof PlazaEstacionamiento) {
-            return listadoPlazasEstacionamiento.add((PlazaEstacionamiento) servicio);
+    // Métodos CRUD
+    public boolean agregarCarpa(Carpa carpa) {
+        return listadoCarpas.add(carpa);
+    }
+
+    public boolean agregarSombrilla(Sombrilla sombrilla) {
+        return listadoSombrillas.add(sombrilla);
+    }
+
+    public boolean agregarPlazaEstacionamiento(PlazaEstacionamiento plaza) {
+        return listadoPlazasEstacionamiento.add(plaza);
+    }
+
+    public boolean eliminarCarpa(Carpa carpa) {
+        return listadoCarpas.remove(carpa);
+    }
+
+    public boolean eliminarSombrilla(Sombrilla sombrilla) {
+        return listadoSombrillas.remove(sombrilla);
+    }
+
+    public boolean eliminarPlazaEstacionamiento(PlazaEstacionamiento plaza) {
+        return listadoPlazasEstacionamiento.remove(plaza);
+    }
+
+    public boolean modificarCarpa(Carpa original, Carpa modificada) {
+        if (eliminarCarpa(original)) {
+            return agregarCarpa(modificada);
         }
         return false;
     }
 
-    /**
-     * Elimina un servicio del conjunto correspondiente basado en su tipo.
-     * @param servicio el servicio a eliminar. Puede ser de tipo {@link Carpa}, {@link Sombrilla}, o {@link PlazaEstacionamiento}.
-     * @return {@code true} si el servicio se eliminó correctamente; {@code false} si no existía o el tipo no es válido.
-     */
-    public boolean eliminarServicio(T servicio) {
-        if (servicio instanceof Carpa) {
-            return listadoCarpas.remove((Carpa) servicio);
-        }
-        if (servicio instanceof Sombrilla) {
-            return listadoSombrillas.remove((Sombrilla) servicio);
-        }
-        if (servicio instanceof PlazaEstacionamiento) {
-            return listadoPlazasEstacionamiento.remove((PlazaEstacionamiento) servicio);
+    public boolean modificarSombrilla(Sombrilla original, Sombrilla modificada) {
+        if (eliminarSombrilla(original)) {
+            return agregarSombrilla(modificada);
         }
         return false;
     }
 
-    /**
-     * Modifica un servicio existente reemplazándolo con una nueva versión.
-     * @param servicioOriginal el servicio original que se desea modificar. Debe existir en el conjunto correspondiente.
-     * @param servicioModificado el nuevo servicio que reemplazará al original. Debe ser del mismo tipo que el servicio original.
-     * @return {@code true} si el servicio fue modificado correctamente; {@code false} si el servicio original no existía o no se pudo agregar el nuevo servicio.
-     */
-    public boolean modificarlistadoServicio(T servicioOriginal, T servicioModificado){
-        if(eliminarServicio(servicioOriginal)){
-            return agregarServicio(servicioModificado);
-        }else {
-            return false;
+    public boolean modificarPlazaEstacionamiento(PlazaEstacionamiento original, PlazaEstacionamiento modificada) {
+        if (eliminarPlazaEstacionamiento(original)) {
+            return agregarPlazaEstacionamiento(modificada);
         }
+        return false;
     }
 
-    /**
-     * Muestra todos los servicios de tipo {@link Carpa}
-     */
-    public void listarCarpas(){
-        for(Carpa carpa : listadoCarpas){
+    // Listar Servicios
+    public void listarCarpas() {
+        System.out.println("Listado de Carpas:");
+        for (Carpa carpa : listadoCarpas) {
             System.out.println(carpa);
         }
     }
-    /**
-     * Muestra todos los servicios de tipo {@link Sombrilla}
-     */
-    public void listarSombrillas(){
-        for(Sombrilla sombrilla : listadoSombrillas){
+
+    public void listarSombrillas() {
+        System.out.println("Listado de Sombrillas:");
+        for (Sombrilla sombrilla : listadoSombrillas) {
             System.out.println(sombrilla);
         }
     }
 
-    /**
-     * Muestra todos los servicios de tipo {@link PlazaEstacionamiento}
-     */
-    public void listarPlazasEstacionaiento(){
-        for(PlazaEstacionamiento plaza: listadoPlazasEstacionamiento){
+    public void listarPlazasEstacionamiento() {
+        System.out.println("Listado de Plazas de Estacionamiento:");
+        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
             System.out.println(plaza);
         }
     }
-    
+
+    // Métodos Utilitarios
+    // Recorre los Sets para obtener un ArrayList con los IDs de los Servicios existentes
+    public List<String> obtenerIDServiciosExistentes() {
+        List<String> ids = new ArrayList<>();
+        for (Carpa carpa : listadoCarpas) {
+            ids.add(carpa.getId());
+        }
+        for (Sombrilla sombrilla : listadoSombrillas) {
+            ids.add(sombrilla.getId());
+        }
+        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+            ids.add(plaza.getId());
+        }
+        return ids;
+    }
+
+    public String obtenerPlazaEstacionamientoVacia() {
+        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+            if (!plaza.getOcupado()) {
+                plaza.setOcupado(true);
+                return plaza.getId();
+            }
+        }
+        throw new IllegalStateException("No hay plazas disponibles.");
+    }
+
+    // Busca una Carpa por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public Carpa obtenerCarpaPorID(String id) {
+        for (Carpa carpa : listadoCarpas) {
+            if (carpa.getId().equals(id)) {
+                return carpa;
+            }
+        }
+        return new Carpa();
+    }
+
+    // Busca una Sombrilla por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public Sombrilla obtenerSombrillaPorID(String id) {
+        for (Sombrilla sombrilla : listadoSombrillas) {
+            if (sombrilla.getId().equals(id)) {
+                return sombrilla;
+            }
+        }
+        return new Sombrilla();
+    }
+    // Busca una Carpa por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public PlazaEstacionamiento obtenerPlazaEstacionamientoPorID(String id) {
+        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+            if (plaza.getId().equals(id)) {
+                return plaza;
+            }
+        }
+        return new PlazaEstacionamiento();
+    }
 
 }

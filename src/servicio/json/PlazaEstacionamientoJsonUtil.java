@@ -18,7 +18,6 @@ public final class PlazaEstacionamientoJsonUtil {
             jsonObject.put("id", plazaEstacionamiento.getId());
             jsonObject.put("ocupado", plazaEstacionamiento.getOcupado());
             jsonObject.put("precio", plazaEstacionamiento.getPrecio());
-            jsonObject.put("prioritario", plazaEstacionamiento.getIsPrioritario());
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());
@@ -33,10 +32,9 @@ public final class PlazaEstacionamientoJsonUtil {
         PlazaEstacionamiento plaza = new PlazaEstacionamiento();
 
         try {
-            plaza.setId(jsonObject.getInt("id"));
+            plaza.setId(jsonObject.getString("id"));
             plaza.setOcupado(jsonObject.getBoolean("ocupado"));
             plaza.setPrecio(jsonObject.getDouble("precio"));
-            plaza.setPrioritario(jsonObject.getBoolean("prioritario"));
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());
