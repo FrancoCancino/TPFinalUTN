@@ -1,0 +1,57 @@
+[
+   {
+      "estado": true,
+      "mail": "Raul@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Mayo",
+      "celular": "2235474854",
+      "contrasenia": "Boca!",
+      "nombre": "Raul",
+      "DNI": "39514726",
+      "nacionalidad": "Bolivia"
+   },
+   {
+      "estado": true,
+      "mail": "Sofia@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Cantalupi",
+      "celular": "2235847159",
+      "contrasenia": "Medicina!",
+      "nombre": "Sofia",
+      "DNI": "41547625",
+      "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "Dani@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Herrera",
+      "celular": "2235847159",
+      "contrasenia": "progra!",
+      "nombre": "Franco",
+      "DNI": "19851475",
+      "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "natalia@hotmail.com",
+      "ciudad": "Mar del plata",
+      "apellido": "Cantalupi",
+      "celular": "223598176",
+      "contrasenia": "medicina!",
+      "nombre": "Natalia",
+      "DNI": "43740867",
+      "nacionalidad": "Argentina"
+   },
+   {
+      "estado": true,
+      "mail": "Francocancino0@gmail.com",
+      "ciudad": "Mar del Plata",
+      "apellido": "Cancino",
+      "celular": "2236940914",
+      "contrasenia": "River!",
+      "nombre": "Franco",
+      "DNI": "43740866",
+      "nacionalidad": "Argentina"
+   }
+]

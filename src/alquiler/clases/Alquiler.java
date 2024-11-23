@@ -22,6 +22,18 @@ public class Alquiler {
 
 
     //Constructores
+
+    public Alquiler() {
+        this.id = null;
+        this.fechaAlta = null;
+        this.fechaBaja = null;
+        this.activo = false;
+        this.tipoServicio = null;
+        this.idServicio = null;
+        this.idUsuario = null;
+        this.idComprobante = null;
+    }
+
     public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio) {
         this.id = null;
         this.fechaAlta = fechaAlta;

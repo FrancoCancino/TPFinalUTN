@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
         //Inicializar carpas
         Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
         Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
