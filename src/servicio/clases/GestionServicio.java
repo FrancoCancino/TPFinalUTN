@@ -114,6 +114,7 @@ public class GestionServicio {
     }
 
     // Métodos Utilitarios
+    // Recorre los Sets para obtener un ArrayList con los IDs de los Servicios existentes
     public List<String> obtenerIDServiciosExistentes() {
         List<String> ids = new ArrayList<>();
         for (Carpa carpa : listadoCarpas) {
@@ -137,4 +138,34 @@ public class GestionServicio {
         }
         throw new IllegalStateException("No hay plazas disponibles.");
     }
+
+    // Busca una Carpa por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public Carpa obtenerCarpaPorID(String id) {
+        for (Carpa carpa : listadoCarpas) {
+            if (carpa.getId().equals(id)) {
+                return carpa;
+            }
+        }
+        return new Carpa();
+    }
+
+    // Busca una Sombrilla por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public Sombrilla obtenerSombrillaPorID(String id) {
+        for (Sombrilla sombrilla : listadoSombrillas) {
+            if (sombrilla.getId().equals(id)) {
+                return sombrilla;
+            }
+        }
+        return new Sombrilla();
+    }
+    // Busca una Carpa por medio del ID, en caso de no encuentrarlo retorna un objeto vacio
+    public PlazaEstacionamiento obtenerPlazaEstacionamientoPorID(String id) {
+        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+            if (plaza.getId().equals(id)) {
+                return plaza;
+            }
+        }
+        return new PlazaEstacionamiento();
+    }
+
 }
