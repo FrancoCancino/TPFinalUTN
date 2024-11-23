@@ -45,12 +45,12 @@ public final class CarpaJsonUtil {
         Carpa carpa = new Carpa();
 
         try {
-            carpa.setId(jsonObject.getInt("id"));
+            carpa.setId(jsonObject.getString("id"));
             carpa.setOcupado(jsonObject.getBoolean("ocupado"));
             carpa.setPrecio(jsonObject.getDouble("precio"));
 
             carpa.setVarianteCarpa(VarianteCarpa.valueOf(jsonObject.getString("varianteCarpa")));
-            carpa.setIdPlazaEstacionamiento(jsonObject.getInt("idPlazaEstacionamiento"));
+            carpa.setIdPlazaEstacionamiento(jsonObject.getString("idPlazaEstacionamiento"));
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());

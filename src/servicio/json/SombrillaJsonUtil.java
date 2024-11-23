@@ -33,7 +33,7 @@ public final class SombrillaJsonUtil {
         Sombrilla sombrilla = new Sombrilla();
 
         try {
-            sombrilla.setId(jsonObject.getInt("id"));
+            sombrilla.setId(jsonObject.getString("id"));
             sombrilla.setOcupado(jsonObject.getBoolean("ocupado"));
             sombrilla.setPrecio(jsonObject.getDouble("precio"));
 
