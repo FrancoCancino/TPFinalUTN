@@ -23,12 +23,34 @@ public class GestionComprobanteAlquiler {
     }
 
     // CRUD
+    /**
+     * Realiza la baja logica de un ComprobanteAlquiler. Modifica el boolean Activo a false del ComprobanteAlquiler.
+     *
+     * @param idComprobante id del Comprobante a dar de baja
+     */
+    public void darBajaAlquiler(String idComprobante) {
+        for (ComprobanteAlquiler comprobanteAlquiler: listaComprobanteAlquiler) {
+            if (comprobanteAlquiler.getId().equals(idComprobante)) {
+                comprobanteAlquiler.setActivo(false); // Marcar como inactivo
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Comprobante con ID " + idComprobante + " no encontrado.");
+    }
+
     public ComprobanteAlquiler crearComprobanteAlquiler(List<Servicio> serviciosAlquilados){
+        double importeTotal = 0;
+        double subTotal = 0;
 
-        // crea un ComprobanteAlquiler con todos los atributos, menos el importeTotal y subTotal
-        ComprobanteAlquiler comprobante = new ComprobanteAlquiler(serviciosAlquilados);
+        // Recorre la lista se ServiciosAlquilados y calcula los montos subtotales y totales
+        for(Servicio servicio: serviciosAlquilados){
+            subTotal+= servicio.getPrecio();
+            importeTotal = subTotal;
+        }
 
-        // agrega el ComprobanteAlquiler a la coleccion
+        // crea un ComprobanteAlquiler nuevo, solo falta el importaTotal
+        ComprobanteAlquiler comprobante = new ComprobanteAlquiler(subTotal,importeTotal, serviciosAlquilados);
+
         listaComprobanteAlquiler.add(comprobante);
 
         return comprobante;
