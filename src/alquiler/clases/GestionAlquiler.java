@@ -220,7 +220,7 @@ public class GestionAlquiler {
      */
     public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio) throws ServiciosNoDisponiblesException {
 
-        List<String> IdsServiciosAlquilados = new ArrayList<>();
+        List<Servicio> serviciosAlquilados = new ArrayList<>();
         String control;
 
         do{
@@ -238,31 +238,39 @@ public class GestionAlquiler {
             // Retorna solo los numeros del ID
             String numerosID = solicitarIDServicio();
 
-            // Reconstruye el ID completo a partir del TipoServicio
+            // Reconstruye el ID completo a partir del TipoServicio e incorpora el objeto Carpa/Sombrilla/Plaza en la lista de ServiciosAlquilados
             String idCompleto;
             switch (alquilerParcial.getTipoServicio()) {
-                case CARPA -> idCompleto = "CP-" + numerosID;
-                case SOMBRILLA -> idCompleto = "SM-" + numerosID;
-                case PLAZA_ESTACIONAMIENTO -> idCompleto = "PE-" + numerosID;
+                case CARPA -> {
+                    idCompleto = "CP-" + numerosID;
+                    serviciosAlquilados.add(gestionServicio.obtenerCarpaPorID(idCompleto));
+                }
+                case SOMBRILLA -> {
+                    idCompleto = "SM-" + numerosID;
+                    serviciosAlquilados.add(gestionServicio.obtenerSombrillaPorID(idCompleto));
+                }
+                case PLAZA_ESTACIONAMIENTO -> {
+                    idCompleto = "PE-" + numerosID;
+                    serviciosAlquilados.add(gestionServicio.obtenerPlazaEstacionamientoPorID(idCompleto));
+                }
                 default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
             }
 
             //Aca hace falta poner un metodo que obtenga el id del Usuario logeado
             Alquiler alquilerNuevo = new Alquiler(alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja(), alquilerParcial.getTipoServicio(),idCompleto, "idusuario");
 
-            IdsServiciosAlquilados.add(idCompleto); // se agrega el id a la lista
 
             System.out.print("¿Quiere reservar otro servicio? (s/n): ");
             control = scanner.next();
             scanner.nextLine();
 
-            //System.out.println(alquilerNuevo);
 
         } while (control.equalsIgnoreCase("s"));
 
 
         // crear factura
 
+        // mostrar alquiler generado
         // grabar alquiler nuevo en alchivo
     }
 
