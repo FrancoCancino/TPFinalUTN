@@ -13,7 +13,7 @@ public class GestionAlquiler {
     private List<Alquiler> listaAlquileres;
     // Cada vez que se ejecuta el programa, mapaAlquileres se carga con la informacion que persiste a traves de listaAlquileres
 
-    private Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     // Constructores
     public GestionAlquiler() {
