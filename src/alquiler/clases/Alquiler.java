@@ -8,6 +8,7 @@ import alquiler.enums.TipoServicio;
 
 
 public class Alquiler {
+
     private String id;
     private LocalDate fechaAlta;
     private LocalDate fechaBaja;
