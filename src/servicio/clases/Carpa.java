@@ -11,6 +11,7 @@ public class Carpa extends Servicio {
     private static int cantidadCarpas = 0;
     private static final double PRECIO_ACTUAL_STANDARD = 20000;
     private static final double PRECIO_ACTUAL_PREMIUM = 25000;
+    private static final String PREFIJO_CARPA ="CP-";
 
     // Constructores
     public Carpa() {
@@ -25,7 +26,7 @@ public class Carpa extends Servicio {
             this.setPrecio(PRECIO_ACTUAL_STANDARD);
 
         ++cantidadCarpas;
-        this.setId("CP-" + cantidadCarpas);
+        this.setId(PREFIJO_CARPA + cantidadCarpas);
     }
 
     // Setters / Getters
@@ -48,7 +49,7 @@ public class Carpa extends Servicio {
     // toString
     @Override
     public String toString() {
-        return  this.getId() +
+        return  this.getId().replace(PREFIJO_CARPA,"") +
                 " Tipo de carpa= " + varianteCarpa +
                 " Ocupado= " + this.getOcupado() +
                 " Precio= " + this.getPrecio() +
