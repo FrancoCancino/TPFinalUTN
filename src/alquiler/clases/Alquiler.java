@@ -121,6 +121,14 @@ public class Alquiler {
         this.activo = activo;
     }
 
+    public String getIdComprobante() {
+        return idComprobante;
+    }
+
+    public void setIdComprobante(String idComprobante) {
+        this.idComprobante = idComprobante;
+    }
+
     // Generar ID con caracteres y enteros aleatorios de 5 digitos
     public static String generarId() {
         long mostSigBits = UUID.randomUUID().getMostSignificantBits();

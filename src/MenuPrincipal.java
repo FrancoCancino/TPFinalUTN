@@ -94,6 +94,7 @@ public class MenuPrincipal {
                         gestorAlquiler.construirMapa(gestorServicio);
 
                         InteraccionUsuarioAlquiler a = new InteraccionUsuarioAlquiler(gestorAlquiler);
+
                         a.listarReservas();
                         System.out.println("Queres dar de baja alguna?");
                         gestorAlquiler.darBajaAlquiler("137a");
