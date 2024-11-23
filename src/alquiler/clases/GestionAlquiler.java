@@ -38,27 +38,6 @@ public class GestionAlquiler {
         this.listaAlquileres = listaAlquileres;
     }
 
-    // Metodos CRUD
-
-    // Método para agregar un Alquiler a listaAlquileres
-    public boolean agregarAlquiler(Alquiler alquiler) {
-        return listaAlquileres.add(alquiler);
-    }
-
-    /**
-     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
-     *
-     * @param idAlquiler id del Alquiler a dar de baja
-     */
-    public void darBajaAlquiler(String idAlquiler) {
-        for (Alquiler alquiler : listaAlquileres) {
-            if (alquiler.getId().equals(idAlquiler)) {
-                alquiler.setActivo(false); // Marcar como inactivo
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Alquiler con ID " + idAlquiler + " no encontrado.");
-    }
 
     // Metodos Utilitarios
 
@@ -166,25 +145,36 @@ public class GestionAlquiler {
     /**
      * Lista los Servicios Disponibles segun el TipoServicio
      * @param listaIdsDisponibles contiene los IDs ya filtrados por TipoServicio.
+     * @param tipoServicio utilizado para el switch
+     * muestra como maximo 8 servicios disponibles
+     *
      */
 
-    public void mostrarServiciosDisponibles(Alquiler alquiler, GestionServicio gestionServicio, List<String> listaIdsDisponibles ){
+    public void mostrarServiciosDisponibles(TipoServicio tipoServicio, GestionServicio gestionServicio, List<String> listaIdsDisponibles) {
         System.out.println("Servicios disponibles en las fechas ingresadas:");
-        if(alquiler.getTipoServicio() == TipoServicio.CARPA){
-            for(String id: listaIdsDisponibles){
-                Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
-                System.out.println(carpa);
-            }
-        }else if (alquiler.getTipoServicio() == TipoServicio.SOMBRILLA){
-            for(String id : listaIdsDisponibles) {
-                Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
-                System.out.println(sombrilla);
-            }
-        }else
-        {
-            for (String id : listaIdsDisponibles){
-                PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
-                System.out.println(plaza);
+
+        int limite = 8;
+        int cantidadAMostrar = Math.min(listaIdsDisponibles.size(), limite); // Determina la cantidad a mostrar en base al numero menor entre el limite y el tamno de la lista
+
+        // Iterar solo hasta `cantidadAMostrar`
+        for (int i = 0; i < cantidadAMostrar; i++) {
+            // Guarda el id del objeto
+            String id = listaIdsDisponibles.get(i);
+            // Segun el tipoServicio, obtiene el Servicio a partir del id leido
+            switch (tipoServicio) {
+                case CARPA -> {
+                    Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
+                    System.out.println(carpa);
+                }
+                case SOMBRILLA -> {
+                    Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
+                    System.out.println(sombrilla);
+                }
+                case PLAZA_ESTACIONAMIENTO -> {
+                    PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
+                    System.out.println(plaza);
+                }
+                default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
             }
         }
     }
@@ -215,10 +205,32 @@ public class GestionAlquiler {
         return entrada;
     }
 
+    // Metodos CRUD
+
+    // Método para agregar un Alquiler a listaAlquileres
+    public boolean agregarAlquiler(Alquiler alquiler) {
+        return listaAlquileres.add(alquiler);
+    }
+
+    /**
+     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
+     *
+     * @param idAlquiler id del Alquiler a dar de baja
+     */
+    public void darBajaAlquiler(String idAlquiler) {
+        for (Alquiler alquiler : listaAlquileres) {
+            if (alquiler.getId().equals(idAlquiler)) {
+                alquiler.setActivo(false); // Marcar como inactivo
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Alquiler con ID " + idAlquiler + " no encontrado.");
+    }
+
     /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
-    public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio) throws ServiciosNoDisponiblesException {
+    public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio, GestionComprobanteAlquiler gestionComprobanteAlquiler) throws ServiciosNoDisponiblesException {
 
         List<Servicio> serviciosAlquilados = new ArrayList<>();
         String control;
@@ -233,7 +245,7 @@ public class GestionAlquiler {
             }
 
             // Se listan los Servicios relacionados a los ids de la lista
-            mostrarServiciosDisponibles(alquilerParcial, gestionServicio, listaIdsDisponibles);
+            mostrarServiciosDisponibles(alquilerParcial.getTipoServicio(), gestionServicio, listaIdsDisponibles);
 
             // Retorna solo los numeros del ID
             String numerosID = solicitarIDServicio();
@@ -268,9 +280,14 @@ public class GestionAlquiler {
         } while (control.equalsIgnoreCase("s"));
 
 
-        // crear factura
+        // Crear comprobanteAlquiler
+        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(serviciosAlquilados);
 
-        // mostrar alquiler generado
+        // Mostrar alquiler generado
+        System.out.println("Su reserva se ha realizado con exito!");
+        comprobanteAlquiler.mostrarComprobanteAlquiler();
+
+
         // grabar alquiler nuevo en alchivo
     }
 
