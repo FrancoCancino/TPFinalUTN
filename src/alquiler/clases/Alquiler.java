@@ -15,7 +15,7 @@ public class Alquiler {
     private TipoServicio tipoServicio;
     private String idServicio;
     private String idUsuario;
-    private String idFactura;
+    private String idComprobante;
 
     // Formato para mostrar las fechas de forma amigable
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -30,7 +30,7 @@ public class Alquiler {
         this.tipoServicio = tipoServicio;
         this.idServicio = null;
         this.idUsuario = null;
-        this.idFactura = null;
+        this.idComprobante = null;
     }
 
     public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, String idUsuario) {
@@ -93,11 +93,11 @@ public class Alquiler {
     }
 
     public String getIdFactura() {
-        return idFactura;
+        return idComprobante;
     }
 
     public void setIdFactura(String idFactura) {
-        this.idFactura = idFactura;
+        this.idComprobante = idFactura;
     }
 
     public boolean isActivo() {
@@ -108,10 +108,10 @@ public class Alquiler {
         this.activo = activo;
     }
 
-    // Generar ID con caracteres y enteros aleatorios de 8 digitos
+    // Generar ID con caracteres y enteros aleatorios de 5 digitos
     public static String generarId() {
         long mostSigBits = UUID.randomUUID().getMostSignificantBits();
-        return Long.toUnsignedString(mostSigBits, 36).substring(0, 8); // Convierte a base 36, se obtienen 13 caracteres y luego 8
+        return Long.toUnsignedString(mostSigBits, 36).substring(0, 4); // Convierte a base 36, se obtienen 13 caracteres y luego 5
     }
 
     //toString
@@ -124,7 +124,7 @@ public class Alquiler {
                 ", Servicio=" + tipoServicio +
                 ", idServicio=" + idServicio +
                 ", idUsuario=" + idUsuario +
-                ", idFactura=" + idFactura
+                ", idComprobante=" + idComprobante
                 ;
     }
 }
