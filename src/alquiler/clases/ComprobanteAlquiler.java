@@ -23,6 +23,15 @@ public class ComprobanteAlquiler {
     private static final String DESCRIPCION = "Alquiler de servicios de playa";
 
     //Constructores
+    public ComprobanteAlquiler(){
+        this.id = null;
+        this.fechaEmision = null;
+        this.descripcion = null;
+        this.subTotal = 0;
+        this.importeTotal = 0;
+        this.activo = true;
+        this.serviciosAlquilados = new ArrayList<>();
+    }
     public ComprobanteAlquiler(List<Servicio> serviciosAlquilados){
         this.id = generarID();
         this.fechaEmision = LocalDateTime.now();
@@ -31,7 +40,6 @@ public class ComprobanteAlquiler {
         this.importeTotal = 0;
         this.activo = true;
         this.serviciosAlquilados = serviciosAlquilados;
-
     }
 
     public ComprobanteAlquiler(double subTotal,
