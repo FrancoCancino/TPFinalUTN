@@ -33,14 +33,33 @@ public class MenuPrincipal {
                     case 1:
                         //Mis reservas
                         System.out.println("Hola");
+                        
+                        //To do list.
+
+                        //Modificar alquiler (fecha y servicio).
+                        //Hacer el listar reservas.
+
+                        //Interacción usuario pedirle datos para hacer un alquiler.   -   (lo hago)
+                        //Como hacer la interfaz promocionable.    - (espero a Sofi)
+
+
+                        //Serializar alquiler(1) y factura(2).
+                        //1) Pasar objeto alquiler a ObjetoJson y al archivo se guarda la lista alquiler (No el map).       (Lo hago)
+                        //2) Coming soon        (Espero a Sofi [factura])
+
+
+                        //Diagramar los menus.   -
+                        //Investigar como dejar linda la consola.   -       (visuales, para lo ultimo)
 
 
                         break;
 
                     case 2:
                         //Reservar
-                        System.out.println("Hola");
 
+                        //Pedir datos para hacer una reserva.
+
+                        GestionUsuarios.solicitarInfoParaAlquiler();
 
                         break;
                     case 3:
