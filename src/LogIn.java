@@ -1,4 +1,4 @@
-import org.json.JSONArray;
+import usuario.GestionUsuarios;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class LogIn {
 Scanner scan = new Scanner(System.in);
      public void Menu() {
+         GestionUsuarios g1 = new GestionUsuarios();
+
          System.out.println("-------------------------------------------------------------------");
          System.out.println("Bienvenid@ a nuestro gestor de balneario. Ingrese la opción deseada.");
          System.out.println("1. Iniciar sesión.");
@@ -27,36 +29,25 @@ Scanner scan = new Scanner(System.in);
                          break;
 
                      case 1:
-                         //Este va a ser el inicio de sesión, la idea es que lea el archivo para verificar que exista
-                         //el DNI que ingreso el usuario, si no existe le avisa el error (Posible excepción personalizada) y una vez
-                         //ingresado el DNI verificado, le pide la contraseña y la verifica en el archivo para dejarlo ingresar
-                         //y ahí que vaya al menú principal.
-                         System.out.println("------------------------------------------------------");
-                         System.out.println("Ingresá tu DNI:");
-                         String dni = scan.nextLine();
-                         System.out.println("Ingresá tu contraseña:");
-                         String contrasenia = scan.nextLine();
-                         System.out.println("Bienvenido: (nombre)");
-                         System.out.println("------------------------------------------------------");
+                         //Registro
+
+                         MenuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
+
                          break;
 
                      case 2:
-                         //Esto vendría a ser el registro.
-                         GestionUsuarios g1 = new GestionUsuarios();
-                         Usuario usuario = GestionUsuarios.registrarUsuario(); //Se guarda el usuario registrado en un objeto usuario temporal para luego ser grabado en el archivo.
-                         //JSONArray JSONArrayTemporal = g1.agregarJSONObjectAJsonArray(g1.pasarUsuarioAObject(usuario),OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json"));
-                         //OperacionesLectoEscritura.grabarArchivoARRAY(JSONArrayTemporal,"usuarios.json");
+                         //Inicio Sesión
 
-                         OperacionesLectoEscritura.grabarArchivo(g1.pasarUsuarioAObject(usuario),"usuarios.JSON"); //Acá se guarda un usuario al archivo.
-                         //Una vez registrado, se deberia de llevar al usuario al menú principal.
+                         System.out.println(g1.registro(g1));
+
                          break;
 
                      default:
-                         System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse...");
+                         System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse.");
                          break;
                  }
              } catch (InputMismatchException e) {
-                 System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse...");
+                 System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse.");
                  scan.nextLine();
                  numero = -1;
              }
