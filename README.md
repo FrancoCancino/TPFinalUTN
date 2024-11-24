@@ -1,2 +1,2 @@
-# BarcoUTN
-holi
+# GestorBalnearioUTN
+Gestor de balnearios desarollado en Java
