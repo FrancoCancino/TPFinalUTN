@@ -5,7 +5,9 @@ import alquiler.enums.TipoServicio;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class InteraccionUsuarioAlquiler {
@@ -45,14 +47,6 @@ public class InteraccionUsuarioAlquiler {
 
         return alquiler;
 
-
-        //    private int id;
-        //    private LocalDate fechaAlta;
-        //    private LocalDate fechaBaja;
-        //    private TipoServicio tipoServicio;
-        //    private int idServicio;
-        //    private int idUsuario;
-        //    private int idFactura;
 
     }
 
@@ -99,7 +93,7 @@ public class InteraccionUsuarioAlquiler {
 
     public static LocalDate generarFechaAlta(){     //No digo si es alta o baja pq se puede implementar en ambas
         LocalDate fecha = null;
-        //LocalDate hoy = LocalDate.now();      //Hacer que no puedan poner fechas viejas. /WIP/.
+        LocalDate hoy = LocalDate.now();      //Hacer que no puedan poner fechas viejas. /WIP/.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Hay que actualizar para accceder al foramttter de la clase
 
         while (fecha == null){
@@ -110,13 +104,18 @@ public class InteraccionUsuarioAlquiler {
             if (esFormatoValido(fechaIngresada)){
                 try{
                     fecha = LocalDate.parse(fechaIngresada,formatter);
-                    return fecha;
+                    if (fecha.isBefore(hoy)){
+                        System.err.println("La fecha tiene que ser a partir de hoy.");
+                        fecha = null;
+                    }else {
+                        return fecha;
+                    }
 
                 }catch (DateTimeParseException e){
-                    System.out.println("La fecha ingresada no es valida. Verificá los datos e intenta de nuevo.");
+                    System.err.println("La fecha ingresada no es valida. Verificá los datos e intenta de nuevo.");
                 }
             }else {
-                System.out.println("El formato ingresado no es válido.");
+                System.err.println("El formato ingresado no es válido.");
             }
 
         }
@@ -136,18 +135,18 @@ public class InteraccionUsuarioAlquiler {
                 try{
                     fechaBaja = LocalDate.parse(fechaIngresada,formatter);
 
-                    if (fechaBaja.isAfter(fechaAlta)){
+                    if (fechaBaja.isAfter(fechaAlta) || fechaBaja.isEqual(fechaAlta)){
                         return fechaBaja;
                     }else{
-                        System.out.println("La fecha de salida (" + fechaBaja.format(formatter) + ") no puede ser antes que la fecha de entrada (" + fechaAlta.format(formatter) + ").");
+                        System.err.println("La fecha de salida (" + fechaBaja.format(formatter) + ") no puede ser antes que la fecha de entrada (" + fechaAlta.format(formatter) + ").");
                         fechaBaja = null;
                     }
 
                 }catch (DateTimeParseException e){
-                    System.out.println("La fecha ingresada no es valida. Verificá los datos e intenta de nuevo.");
+                    System.err.println("La fecha ingresada no es valida. Verificá los datos e intenta de nuevo.");
                 }
             }else {
-                System.out.println("El formato ingresado no es válido. Recordá usar el formato dd/MM/yyyy.");
+                System.err.println("El formato ingresado no es válido. Recordá usar el formato dd/MM/yyyy.");
             }
 
         }
@@ -156,6 +155,16 @@ public class InteraccionUsuarioAlquiler {
 
     public static boolean esFormatoValido(String fecha) {
         return fecha.matches("^\\d{2}/\\d{2}/\\d{4}$");     //Este regex verifica que se cummpla el formato dd/MM/yyyy.
+    }
+
+    public void listarReservas(){
+
+        ArrayList<Alquiler> alquileres = new ArrayList<>(gestionAlquiler.getListaAlquileres());
+        System.out.println("Mis reservas: ");
+        for (Alquiler alquiler : alquileres){
+            System.out.println(alquiler);
+        }
+
     }
 
 

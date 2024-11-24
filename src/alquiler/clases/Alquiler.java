@@ -8,6 +8,7 @@ import alquiler.enums.TipoServicio;
 
 
 public class Alquiler {
+
     private String id;
     private LocalDate fechaAlta;
     private LocalDate fechaBaja;
@@ -118,6 +119,14 @@ public class Alquiler {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getIdComprobante() {
+        return idComprobante;
+    }
+
+    public void setIdComprobante(String idComprobante) {
+        this.idComprobante = idComprobante;
     }
 
     // Generar ID con caracteres y enteros aleatorios de 5 digitos
