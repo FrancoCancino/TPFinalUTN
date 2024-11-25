@@ -53,7 +53,7 @@ public class MenuMisReservas {
 
                     case 2:
                         //Cancelar reserva
-                        // Se muestran las reservas a mostrar
+                        // Se muestran las reservas que pueden ser canceladas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
 
                         boolean resultadoDarBaja;
@@ -69,22 +69,7 @@ public class MenuMisReservas {
                                 System.out.println("La reserva fue cancelada con éxito!");
                             }
 
-                        }while(!resultadoDarBaja);
-
-
-                        /*
-
-                        for (Alquiler alquiler : listaAlquileres){
-                            //Recorro la lista
-
-                            if(alquiler.getId().equals(opcion)){
-                                //Encuentro el alquiler con el ID ingresado del usuario y lo seteo  en false.
-                                alquiler.setActivo(false);
-                                //Una  vez modificado este dato, serializo el array ccon la modiifacccion y  lo grabo
-                                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),"AlquilerPrueba.json");
-                                System.out.println("La reserva fue cancelada con éxito!");
-                            }
-                        }*/
+                        }while(!resultadoDarBaja); // se ejecuta hasta que se pudo dar de baja el alquiler, es decir, hasta que el id ingresado es correcto
 
                         break;
 
