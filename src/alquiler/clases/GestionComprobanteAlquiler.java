@@ -5,6 +5,7 @@ import servicio.clases.*;
 import usuario.OperacionesLectoEscritura;
 import utils.Constantes;
 
+import javax.xml.stream.events.Comment;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +30,19 @@ public class GestionComprobanteAlquiler {
 
     // CRUD
     /**
-     * Realiza la baja logica de un ComprobanteAlquiler. Modifica el boolean Activo a false del ComprobanteAlquiler.
-     *
-     * @param idComprobante id del Comprobante a dar de baja
+     * Elimina de la lista de alquileres que posee el comprobante, un alquiler en especifico.
+     * @param idAlquilerCancelado representa el alquiler que se borro
      */
-    public void darBajaAlquiler(String idComprobante) {
-        for (ComprobanteAlquiler comprobanteAlquiler: listaComprobanteAlquiler) {
-            if (comprobanteAlquiler.getId().equals(idComprobante)) {
-                comprobanteAlquiler.setActivo(false); // Marcar como inactivo
-                return;
+
+    public void eliminarAlquilerDelComprobante(String idAlquilerCancelado){
+        for(ComprobanteAlquiler comprobanteAlquiler : listaComprobanteAlquiler){
+            for(Alquiler alquiler : comprobanteAlquiler.getListaAlquileres()){
+                if(alquiler.getId().equals(idAlquilerCancelado)){
+                    comprobanteAlquiler.getListaAlquileres().remove(alquiler);
+                    OperacionesLectoEscritura.grabarArchivoARRAY(ComprobanteJsonUtil.serializarListadoComprobanteAlquiler(listaComprobanteAlquiler), Constantes.nombreArchivoComprobante);
+                }
             }
         }
-        throw new IllegalArgumentException("Comprobante con ID " + idComprobante + " no encontrado.");
     }
 
     public ComprobanteAlquiler crearComprobanteAlquiler(List<Alquiler> listaAlquileres, GestionServicio gestionServicio){
