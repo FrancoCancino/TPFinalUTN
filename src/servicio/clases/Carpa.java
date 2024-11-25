@@ -51,10 +51,9 @@ public class Carpa extends Servicio {
     @Override
     public String toString() {
         return  this.getId().replace(PREFIJO_CARPA,"") +
-                " Tipo de carpa= " + varianteCarpa +
-                " Ocupado= " + this.getOcupado() +
-                " Precio= " + this.getPrecio() +
-                ", Plaza de estacionamiento asignada= " + idPlazaEstacionamiento
+                " Tipo de carpa = " + varianteCarpa +
+                " Precio = " + this.getPrecio() +
+                ", Plaza de estacionamiento asignada = " + idPlazaEstacionamiento
                 ;
     }
 

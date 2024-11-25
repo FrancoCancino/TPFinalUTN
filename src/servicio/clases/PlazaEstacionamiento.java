@@ -18,8 +18,7 @@ public class PlazaEstacionamiento extends Servicio {
     @Override
     public String toString() {
         return  this.getId().replace(Constantes.PREFIJO_PLAZA_ESTACIONAMIENTO, "") + // no se muestra el prefijo al usuario
-                " Ocupado= " + this.getOcupado() +
-                " Precio= " + this.getPrecio()
+                " Precio = " + this.getPrecio()
                 ;
     }
 }

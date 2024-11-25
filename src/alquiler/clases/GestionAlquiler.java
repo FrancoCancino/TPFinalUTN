@@ -2,10 +2,9 @@ package alquiler.clases;
 
 import alquiler.enums.TipoServicio;
 import alquiler.exception.ServiciosNoDisponiblesException;
-import alquiler.json.AlquilerJsonUtil;
 import servicio.clases.*;
-import usuario.OperacionesLectoEscritura;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -232,10 +231,13 @@ public class GestionAlquiler {
     /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
-    public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio, GestionComprobanteAlquiler gestionComprobanteAlquiler, String idUsuario) throws ServiciosNoDisponiblesException {
+    public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario) throws ServiciosNoDisponiblesException {
 
         List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
+        Alquiler alquilerParcial = new Alquiler();
+        alquilerParcial = InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+        //!!!Habria que pedirle el tipo de servicio fuera de esta función para que el usuario pueda hacer una reserva con más  de 1 tipo de servicio.
 
         do{
             List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
@@ -244,6 +246,7 @@ public class GestionAlquiler {
             if(listaIdsDisponibles.isEmpty()){
                 throw new ServiciosNoDisponiblesException(toString());
             }
+
 
             // Se listan los Servicios relacionados a los ids de la lista
             mostrarServiciosDisponibles(alquilerParcial.getTipoServicio(), gestionServicio, listaIdsDisponibles);
@@ -269,13 +272,14 @@ public class GestionAlquiler {
             // Se cambia el estado ocupado a true
             gestionServicio.ocupar(idCompleto);
 
-            Alquiler alquilerNuevo = new Alquiler(alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja(), alquilerParcial.getTipoServicio(),idCompleto, idUsuario);
+            Alquiler alquilerNuevo = new Alquiler(alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja(), alquilerParcial.getTipoServicio(),idCompleto, DNIusuario);
 
             // Se agrega el id del alquiler recien generado al arrayList
             listaAlquileres.add(alquilerNuevo);
 
-            // Graba el alquiler en el archivo
-            OperacionesLectoEscritura.grabarArchivo(AlquilerJsonUtil.serializarAlquiler(alquilerNuevo),"AlquilerPrueba.json");
+            //Quito el ID elegido para no volver a alquiler el mismo.
+            eliminarId(alquilerNuevo.getIdServicio(),alquilerNuevo.getTipoServicio());
+
 
             System.out.print("¿Quiere reservar otro servicio? (s/n): ");
             control = scanner.next();
@@ -284,15 +288,25 @@ public class GestionAlquiler {
 
         } while (control.equalsIgnoreCase("s"));
 
+            return listaAlquileres;
+    }
 
-        // Crear comprobanteAlquiler
-        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestionServicio);
 
-        // Mostrar alquiler generado
-        System.out.println("Su reserva se ha realizado con exito!");
-        comprobanteAlquiler.mostrarComprobanteAlquiler();
+    //Metodo para eliminar un ID  disponible del mapa (Así al usuario se le acortan las opciones una vez que ya eligio ese servicio)
+    public void eliminarId(String idServicio, TipoServicio tipoServicio) {
+
+        // Obtener el submapa correspondiente al tipo de servicio
+        Map<String, List<Alquiler>> alquileresPorId = mapaAlquileres.get(tipoServicio);
+
+        // Verificar si el ID del servicio existe en el submapa
+        if (alquileresPorId.containsKey(idServicio)) {
+            alquileresPorId.remove(idServicio); // Eliminar el ID del servicio
+        } else {
+            System.out.println("El ID especificado no existe en el submapa.");
+        }
 
     }
+
 
 
 }
