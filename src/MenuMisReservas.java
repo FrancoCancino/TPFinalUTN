@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 public class MenuMisReservas {
 
-  static Scanner scan = new Scanner(System.in);
+    private final static Scanner scan = new Scanner(System.in);
+
+    // Sobreescritura de metodos de la interfaz IMenuPresentable
 
     public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario) {
 

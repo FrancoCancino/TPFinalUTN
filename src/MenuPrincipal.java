@@ -16,8 +16,11 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
+    private final static Scanner scan = new Scanner(System.in);
+
+    // Sobreescritura de metodos de la interfaz IMenuPresentable
+
     public static void Menu(Usuario usuario){
-        Scanner scan = new Scanner(System.in);
 
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Bienvenid@ de vuelta, " + usuario.getNombre() + " " + usuario.getApellido() + ". Elegí una opción");
