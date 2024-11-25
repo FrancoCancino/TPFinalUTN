@@ -1,75 +1,98 @@
+import servicio.json.SombrillaJsonUtil;
 import usuario.GestionUsuarios;
+import utils.ConsolaUtils;
+import utils.Constantes;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-public class LogIn implements iMenuPresentable{
-Scanner scan = new Scanner(System.in);
+public class LogIn implements iMenuPresentable {
 
+    private final Scanner scan = new Scanner(System.in);
+
+    // Sobreescritura de metodos de la interfaz IMenuPresentable
     @Override
-    public void imprimirLogo() {
-        System.out.println();
-        System.out.println("╔══════════════════════════════════════════════╗");
-        System.out.println("║                                              ║");
-        System.out.println("║ 🌊Bienvenid@ a nuestro gestor de balneario🌞 ║");
-        System.out.println("║                                              ║");
-        System.out.println("╚══════════════════════════════════════════════╝");
+    public void imprimirEncabezado() {
+        System.err.println(
+                " _    _   _ _   _    _      ____   ___      _   _     \n" +
+                        "| |  | | | | \\ | |  / \\    |  _ \\ / _ \\    | | / \\    \n" +
+                        "| |  | | | |  \\| | / _ \\   | |_) | | | |_  | |/ _ \\   \n" +
+                        "| |__| |_| | |\\  |/ ___ \\  |  _ <| |_| | |_| / ___ \\  \n" +
+                        "|_____\\___/|_| \\_/_/   \\_\\ |_| \\_\\\\___/ \\___/_/   \\_\\ "
+        );
+        ConsolaUtils.imprimirTitulo("🌊Bienvenid@ a nuestro gestor de balneario🌞");
     }
 
     @Override
     public void imprimirInfo() {
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("Ingrese la opción deseada.");
-        System.out.println("1. Iniciar sesión.");
-        System.out.println("2. Registrarse.");
-        System.out.println("0. Salir.");
-        System.out.println("-------------------------------------------------------------------");
+        ConsolaUtils.imprimirCentrado("Luna Roja, el sur de Marpla te espera");
+    }
+
+    @Override
+    public void imprimirOpciones() {
+
+        String[] opciones ={
+                "Iniciar sesión.",
+                "Registrarse.",
+        };
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirMenuCentrado(opciones);
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirCentrado("Ingresa la opcion deseada");
+
     }
 
     public void Menu() {
-         GestionUsuarios g1 = new GestionUsuarios();
+        GestionUsuarios g1 = new GestionUsuarios();
 
-         imprimirLogo();
-         imprimirInfo();
+        imprimirEncabezado();
+        imprimirInfo();
+        imprimirOpciones();
 
-         int numero;
-         do {
-             try {
-                 numero = scan.nextInt();
-                 scan.nextLine();
+        int numero;
+        do {
+            try {
+                numero = scan.nextInt();
+                scan.nextLine();
 
-                 switch (numero) {
+                switch (numero) {
 
-                     case 0:
-                         System.out.println("¡Gracias por usar nuestro gestor de balneario!");
+                    case 0:
+                        System.out.println("¡Gracias por usar nuestro gestor de balneario!");
 
-                         break;
+                        break;
 
-                     case 1:
-                         //Registro
+                    case 1:
+                        //Registro
 
-                         MenuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
+                        MenuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
 
-                         break;
+                        break;
 
-                     case 2:
-                         //Inicio Sesión
+                    case 2:
+                        //Inicio Sesión
 
-                         System.out.println(g1.registro(g1));
+                        System.out.println(g1.registro(g1));
 
-                         break;
+                        break;
 
-                     default:
-                         System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse.");
-                         break;
-                 }
-             } catch (InputMismatchException e) {
-                 System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse.");
-                 scan.nextLine();
-                 numero = -1;
-             }
-             } while (numero != 1 && numero != 2 && numero != 0) ;
-         }
-     }
+                    default:
+                        System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse.");
+                scan.nextLine();
+                numero = -1;
+            }
+        } while (numero != 1 && numero != 2 && numero != 0);
+    }
+}
 
 
