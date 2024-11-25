@@ -231,18 +231,23 @@ public class GestionAlquiler {
     /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
-    public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario) throws ServiciosNoDisponiblesException {
+    public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario, GestionAlquiler gestionAlquiler) throws ServiciosNoDisponiblesException {
 
         List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
 
 
         do{
-            Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+            Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio,gestionAlquiler);
 
-            if(alquilerParcial == null){
-                alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
-            }
+            do{     //Verificación de que alquilerParcial no sea nulo (Es decir, tenga servicios cargados.
+                if(alquilerParcial == null){
+                    System.err.println("No hay servicios disponibles para esa fecha. Intenta con otra fecha");
+                    alquilerParcial = InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio,gestionAlquiler);
+                }
+            } while(alquilerParcial == null);
+
+
 
             List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
 

@@ -70,9 +70,10 @@ public class Main {
 
         // manejar la excepcion donde no hay serviciosdisponibles, que estaba en crearAlquiler()
 
+
+
         // DAR DE BAJA EL COMPROBANTE CUANDO SE CANCELA UNA RESERVA
-
-
+        
         // FUNCIONES PARA INICIALIZAR LOS SERVICIOS, TIPO CREA LAS CARPAS, PLAZAS. SE USAN UNA UNICA VEZ Y SE CARGAN EL ARCHIVO. EL SISTEMA DESPUES LAS LEE DEL ARCHIVO
 
         // ACOMODAR LOS TEXTOS DE LAS INTERFACES

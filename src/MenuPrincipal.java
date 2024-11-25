@@ -68,7 +68,7 @@ public class MenuPrincipal {
 
                         //Reservar
 
-                        listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI());   //Genera la lista de alquileres. (Basicamente alquilar).
+                        listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI(),GA);   //Genera la lista de alquileres. (Basicamente alquilar).
                         //La guardo en una lista nueva así despues puedo mostrar el comprobante de la reserva más comodo.
 
 

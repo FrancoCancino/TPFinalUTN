@@ -1,5 +1,8 @@
 package servicio.clases;
 
+import alquiler.clases.Alquiler;
+import alquiler.clases.GestionAlquiler;
+import alquiler.enums.TipoServicio;
 import servicio.enums.VarianteCarpa;
 import utils.Constantes;
 
@@ -20,8 +23,6 @@ public class GestionServicio {
     }
 
     public void cargarGestionServicioParaPruebas() {
-
-        /*
 
         Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
         Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
@@ -47,7 +48,6 @@ public class GestionServicio {
         agregarSombrilla(sombrilla2);
         agregarSombrilla(sombrilla3);
 
-         */
 
     }
 
@@ -270,14 +270,15 @@ public class GestionServicio {
     }
 
     //Funcion para  verificar que haya por lo menos 1 servicio disponible
-    public boolean verificarSiExistenServiciosDisponibles(){
-        int cantidadCarpas = contarCarpasDisponibles();
-        int cantidadSombrillas = contarSombrillasDisponibles();
+    public boolean verificarSiExistenServiciosDisponibles(GestionAlquiler gestionAlquiler, Alquiler alquiler) {
 
-        // El metodo retorna true si se puede alquilar SOLO la plaza
-        boolean existenPlazasDisponibles = verificarSiExistenPlazasDisponibles();
 
-        return (existenPlazasDisponibles || cantidadSombrillas > 0 || cantidadCarpas > 0 );     //Si hay servicios disponibles esto devuelve false. Chequear
+        List<String> listaIdsCarpasDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.CARPA, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+        List<String> listaIdsSombrillasDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.SOMBRILLA, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+        List<String> listaIdsPlazasEstacionamientoDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.PLAZA_ESTACIONAMIENTO, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+
+        return !listaIdsCarpasDisponibles.isEmpty() || !listaIdsSombrillasDisponibles.isEmpty() || !listaIdsPlazasEstacionamientoDisponibles.isEmpty();
+        //Si hay servicios disponibles esto devuelve false. Chequear
     }
 
 }
