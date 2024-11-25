@@ -1,13 +1,14 @@
 package alquiler.clases;
 
-import servicio.clases.Servicio;
+import alquiler.enums.TipoServicio;
+import servicio.clases.*;
 import utils.Constantes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Random;
 
 public class ComprobanteAlquiler {
     private String id;
@@ -24,7 +25,7 @@ public class ComprobanteAlquiler {
     private static final String DESCRIPCION = "Alquiler de servicios de playa";
 
     //Constructores
-    public ComprobanteAlquiler(){
+    public ComprobanteAlquiler() {
         this.id = null;
         this.fechaEmision = null;
         this.descripcion = null;
@@ -33,7 +34,8 @@ public class ComprobanteAlquiler {
         this.activo = true;
         this.listaAlquileres = new ArrayList<>();
     }
-    public ComprobanteAlquiler(List<Alquiler> listaAlquileres){
+
+    public ComprobanteAlquiler(List<Alquiler> listaAlquileres) {
         this.id = generarID();
         this.fechaEmision = LocalDateTime.now();
         this.descripcion = DESCRIPCION;
@@ -113,24 +115,21 @@ public class ComprobanteAlquiler {
     }
 
     // Metodos Utilitarios
+
     /**
      * Crea un ID de tipo String de 6 digitos numericos aleatorios mas significantes
      */
-    public String generarID(){
-        long id = UUID.randomUUID().getMostSignificantBits();
-        String idFinal = String.valueOf(id);
-
-        return idFinal.substring(0, 5 );
+    public String generarID() {
+        Random random = new Random();
+        int id = 10000 + random.nextInt(90000); // Genera un número entre 10000 y 99999
+        return String.valueOf(id);
     }
 
     /**
      * Muestra la informacion del comprobante formateado como una salida de texto estructurada
-     *
      */
-    public void mostrarComprobanteAlquiler() {
-
-
-      // Encabezado de la factura
+    public void mostrarComprobanteAlquiler(GestionServicio gestorServicio) {
+        // Encabezado de la factura
         System.out.println("=========================================");
         System.out.println("               Comprobante               ");
         System.out.println("=========================================");
@@ -147,15 +146,30 @@ public class ComprobanteAlquiler {
         System.out.printf("%-15s %-25s %-10s%n", "ID Servicio", "Tipo Servicio", "Precio");
         System.out.println("-----------------------------------------");
 
-        /*
-        for (Servicio servicio : listaAlquileres) {
-            System.out.printf("%-15s %-25s %-10.2f%n",
-                    servicio.getId(),
-                    servicio.getClass().getSimpleName(),
-                    servicio.getPrecio());
-        }
+        for (Alquiler alquiler : listaAlquileres) {
+            String tipoServicio = alquiler.getTipoServicio().toString(); // Convertir el tipo a texto
+            double precio = 0.0;
 
-         */
+
+            // Obtener el precio basado en el tipo de servicio
+            switch (alquiler.getTipoServicio()) {
+                case CARPA -> {
+                    Carpa carpa = gestorServicio.obtenerCarpaPorID(alquiler.getIdServicio());
+                    precio = carpa.getPrecio();
+                }
+                case SOMBRILLA -> {
+                    Sombrilla sombrilla = gestorServicio.obtenerSombrillaPorID(alquiler.getIdServicio());
+                    precio = sombrilla.getPrecio();
+                }
+                case PLAZA_ESTACIONAMIENTO -> {
+                    PlazaEstacionamiento plaza = gestorServicio.obtenerPlazaEstacionamientoPorID(alquiler.getIdServicio());
+                    precio = plaza.getPrecio();
+                }
+            }
+
+            // Imprimir los datos del alquiler
+            System.out.printf("%-15s %-25s %-10.2f%n", alquiler.getIdServicio(), tipoServicio, precio);
+        }
 
         System.out.println("-----------------------------------------");
 
@@ -164,6 +178,7 @@ public class ComprobanteAlquiler {
         System.out.printf("Importe Total: %.2f%n", importeTotal);
         System.out.println("=========================================");
     }
+
 
     @Override
     public String toString() {
