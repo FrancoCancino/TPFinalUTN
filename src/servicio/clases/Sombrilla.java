@@ -1,22 +1,22 @@
 package servicio.clases;
 
+import utils.Constantes;
+
 public class Sombrilla extends Servicio {
 
     private static int cantidadSombrillas = 0;
-    private static final double PRECIO_ACTUAL = 18000;
-    private static final String PREFIJO_SOMBRILLA ="SM-";
 
     // Constructor
     public Sombrilla() {
         ++cantidadSombrillas;
-        this.setId(PREFIJO_SOMBRILLA + cantidadSombrillas);
-        this.setPrecio(PRECIO_ACTUAL);
+        this.setId(Constantes.PREFIJO_SOMBRILLA + cantidadSombrillas);
+        this.setPrecio(Constantes.PRECIO_ACTUAL_SOMBRILLA);
     }
 
     // toString
     @Override
     public String toString() {
-        return  this.getId().replace(PREFIJO_SOMBRILLA, "") +
+        return  this.getId().replace(Constantes.PREFIJO_SOMBRILLA, "") +
                 " Ocupado= " + this.getOcupado() +
                 " Precio= " + this.getPrecio()
                 ;
