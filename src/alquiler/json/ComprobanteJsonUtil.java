@@ -1,16 +1,11 @@
 package alquiler.json;
 
+import alquiler.clases.Alquiler;
 import alquiler.clases.ComprobanteAlquiler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import servicio.clases.Carpa;
-import servicio.clases.PlazaEstacionamiento;
-import servicio.clases.Servicio;
-import servicio.clases.Sombrilla;
-import servicio.json.CarpaJsonUtil;
-import servicio.json.PlazaEstacionamientoJsonUtil;
-import servicio.json.SombrillaJsonUtil;
+import utils.Constantes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,8 +14,6 @@ import java.util.List;
 
 
 public class ComprobanteJsonUtil {
-
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
     /**
@@ -46,21 +39,13 @@ public class ComprobanteJsonUtil {
             jsonObject.put("activo", comprobante.isActivo());
 
             // Recorre la lista de Servicios alquilados y segun la instancia que sea de Servicio lo serializa a jsonObject
-            for (Servicio servicio : comprobante.getServiciosAlquilados()) {
-                if (servicio instanceof Carpa) {
-                    JSONObject jsonObject1 = CarpaJsonUtil.serializarCarpa((Carpa) servicio);
-                    jsonArray.put(jsonObject1);
-                } else if (servicio instanceof Sombrilla) {
-                    JSONObject jsonObject1 = SombrillaJsonUtil.serializarSombrilla((Sombrilla) servicio);
-                    jsonArray.put(jsonObject1);
-                } else {
-                    JSONObject jsonObject1 = PlazaEstacionamientoJsonUtil.serializarPlazaEstacionamiento((PlazaEstacionamiento) servicio);
-                    jsonArray.put(jsonObject1);
-                }
+            for (Alquiler alquiler : comprobante.getListaAlquileres()) {
+                JSONObject jsonObject1 = AlquilerJsonUtil.serializarAlquiler(alquiler);
+                jsonArray.put(jsonObject1);
             }
 
-            // Agregar el array de servicios al objeto json
-            jsonObject.put("serviciosAlquilados", jsonArray);
+            // Agregar el array de alquileres al objeto json
+            jsonObject.put("listaAlquileres", jsonArray);
 
         } catch (JSONException exception) {
             System.err.println(exception.getMessage());
@@ -73,45 +58,36 @@ public class ComprobanteJsonUtil {
      *
      * @param jsonObject el objeto de tipo {@code JSONObject} que se desea deserializar.
      * @return un {@link ComprobanteAlquiler}
-     * Si ocurre una excepción, se devuelve una Carpa vacía.
+     * Si ocurre una excepción, se devuelve una ComprobanteAlquiler vacío.
      */
     public static ComprobanteAlquiler deserializarComprobanteAlquiler(JSONObject jsonObject) {
         ComprobanteAlquiler comprobante = new ComprobanteAlquiler();
 
         try {
             comprobante.setId(jsonObject.getString("id"));
-            comprobante.setFechaEmision(LocalDateTime.parse(jsonObject.getString("fechaEmision"), FORMATTER));
+            comprobante.setFechaEmision(LocalDateTime.parse(jsonObject.getString("fechaEmision"), Constantes.FORMATTER_DATE_TIME));
             comprobante.setSubTotal(jsonObject.getDouble("subTotal"));
             comprobante.setImporteTotal(jsonObject.getDouble("importeTotal"));
             comprobante.setDescripcion(jsonObject.getString("descripcion"));
             comprobante.setActivo(jsonObject.getBoolean("activo"));
 
-            // DESERIALIZAR SERVICIOS ALQUILADOS
+            // DESERIALIZAR alquileres
 
-            // Primero analiza si el jsonObject tiene una key para serviciosAlquilados
-            if (jsonObject.has("serviciosAlquilados")) {
-                // Se crea un jsonArray para guardarlo
-                JSONArray serviciosArray = jsonObject.getJSONArray("serviciosAlquilados");
-                List<Servicio> serviciosAlquilados = new ArrayList<>();
+            // Primero analiza si el jsonObject tiene una key para listaAlquileres
+            if (jsonObject.has("listaAlquileres")) {
+                // Obtiene el jsonArray
+                JSONArray alquileresArray = jsonObject.getJSONArray("listaAlquileres");
+                List<Alquiler> alquileres = new ArrayList<>();
 
-                // Se recorre el jsonArray y por cada jsonObject
-                for (int i = 0; i < serviciosArray.length(); i++) {
-                    JSONObject servicioJson = serviciosArray.getJSONObject(i);
-
-                    // Identificar el tipo de servicio y deserializar
-                    if (servicioJson.has("tipo")) {
-                        String tipo = servicioJson.getString("tipo");
-                        switch (tipo) {
-                            case "Carpa" -> serviciosAlquilados.add(CarpaJsonUtil.deserializarCarpa(servicioJson));
-                            case "Sombrilla" ->
-                                    serviciosAlquilados.add(SombrillaJsonUtil.deserializarSombrilla(servicioJson));
-                            case "PlazaEstacionamiento" ->
-                                    serviciosAlquilados.add(PlazaEstacionamientoJsonUtil.deserializarPlazaEstacionamiento(servicioJson));
-                        }
-                    }
+                // Recorre el jsonArray y por cada jsonObject crea un Alquiler, el cual agrega al arrayList
+                for (int i = 0; i < alquileresArray.length(); i++) {
+                    JSONObject jsonObject1 = alquileresArray.getJSONObject(i);
+                    Alquiler alquiler = AlquilerJsonUtil.deserializarAlquiler(jsonObject1);
+                    alquileres.add(alquiler);
                 }
-                // Se settea serviciosAlquilados con el arrayList generado
-                comprobante.setServiciosAlquilados(serviciosAlquilados);
+
+                // Agrega la lista del alquileres al ComprobanteAlquiler
+                comprobante.setListaAlquileres(alquileres);
             }
 
             } catch(JSONException exception){

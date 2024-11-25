@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import alquiler.enums.TipoServicio;
+import utils.Constantes;
 
 
 public class Alquiler {
@@ -16,10 +17,6 @@ public class Alquiler {
     private TipoServicio tipoServicio;
     private String idServicio;
     private String idUsuario;
-    private String idComprobante;
-
-    // Formato para mostrar las fechas de forma amigable
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
     //Constructores
@@ -32,7 +29,6 @@ public class Alquiler {
         this.tipoServicio = null;
         this.idServicio = null;
         this.idUsuario = null;
-        this.idComprobante = null;
     }
 
     public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio) {
@@ -43,7 +39,6 @@ public class Alquiler {
         this.tipoServicio = tipoServicio;
         this.idServicio = null;
         this.idUsuario = null;
-        this.idComprobante = null;
     }
 
     public Alquiler(LocalDate fechaAlta, LocalDate fechaBaja, TipoServicio tipoServicio, String idServicio, String idUsuario) {
@@ -105,14 +100,6 @@ public class Alquiler {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdFactura() {
-        return idComprobante;
-    }
-
-    public void setIdFactura(String idFactura) {
-        this.idComprobante = idFactura;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -121,13 +108,6 @@ public class Alquiler {
         this.activo = activo;
     }
 
-    public String getIdComprobante() {
-        return idComprobante;
-    }
-
-    public void setIdComprobante(String idComprobante) {
-        this.idComprobante = idComprobante;
-    }
 
     // Generar ID con caracteres y enteros aleatorios de 5 digitos
     public static String generarId() {
@@ -140,12 +120,11 @@ public class Alquiler {
     public String toString() {
         return "Alquiler" +
                 "ID= " + id +
-                ", fechaAlta=" + fechaAlta.format(FORMATTER) +
-                ", fechaBaja=" + fechaBaja.format(FORMATTER) +
+                ", fechaAlta=" + fechaAlta.format(Constantes.FORMATTER_DATE) +
+                ", fechaBaja=" + fechaBaja.format(Constantes.FORMATTER_DATE) +
                 ", Servicio=" + tipoServicio +
                 ", idServicio=" + idServicio +
-                ", idUsuario=" + idUsuario +
-                ", idComprobante=" + idComprobante
+                ", idUsuario=" + idUsuario
                 ;
     }
 }

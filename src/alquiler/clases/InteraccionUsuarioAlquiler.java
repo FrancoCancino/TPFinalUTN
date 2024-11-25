@@ -128,7 +128,7 @@ public class InteraccionUsuarioAlquiler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Define el formato esperado
         while (fechaBaja == null){
 
-            System.out.println("El formato tiene que ser 'dd/MM/yyyy'. Por ejemplo: 24/01/2025 sería 24 de enero del 2025.");
+            System.out.println("El formato tiene que ser 'dd/MM/AAAA'. Por ejemplo: 24/01/2025 sería 24 de enero del 2025.");
             String fechaIngresada = scanner.nextLine();
 
             if (esFormatoValido(fechaIngresada)){
@@ -146,7 +146,7 @@ public class InteraccionUsuarioAlquiler {
                     System.err.println("La fecha ingresada no es valida. Verificá los datos e intenta de nuevo.");
                 }
             }else {
-                System.err.println("El formato ingresado no es válido. Recordá usar el formato dd/MM/yyyy.");
+                System.err.println("El formato ingresado no es válido. Recordá usar el formato dd/MM/AAAA.");
             }
 
         }

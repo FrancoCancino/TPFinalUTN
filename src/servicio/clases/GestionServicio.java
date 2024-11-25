@@ -1,5 +1,7 @@
 package servicio.clases;
 
+import utils.Constantes;
+
 import java.util.*;
 
 
@@ -114,6 +116,33 @@ public class GestionServicio {
     }
 
     // Métodos Utilitarios
+    // Cambia el estado ocupado igual a false por true
+    public void ocupar(String id){
+        if(id.startsWith(Constantes.PREFIJO_CARPA)){
+            for(Carpa carpa : listadoCarpas){
+                if(carpa.getId().equals(id)){
+                    carpa.setOcupado(true);
+                    break;
+                }
+            }
+        }else if(id.startsWith(Constantes.PREFIJO_SOMBRILLA)){
+            for(Sombrilla sombrilla : listadoSombrillas){
+                if(sombrilla.getId().equals(id)){
+                    sombrilla.setOcupado(true);
+                    break;
+                }
+            }
+        }else{
+            for(PlazaEstacionamiento plazaEstacionamiento : listadoPlazasEstacionamiento){
+                if (plazaEstacionamiento.getId().equals(id)){
+                    plazaEstacionamiento.setOcupado(true);
+                    break;
+                }
+            }
+        }
+    }
+
+
     // Recorre los Sets para obtener un ArrayList con los IDs de los Servicios existentes
     public List<String> obtenerIDServiciosExistentes() {
         List<String> ids = new ArrayList<>();
@@ -128,6 +157,7 @@ public class GestionServicio {
         }
         return ids;
     }
+
 
     public String obtenerPlazaEstacionamientoVacia() {
         for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
@@ -166,6 +196,47 @@ public class GestionServicio {
             }
         }
         return new PlazaEstacionamiento();
+    }
+
+    // Metodos que cuentan cantidad de servicios disponibles
+    public int contarCarpasDisponibles(){
+        int cantidadCarpas = 0;
+        for(Carpa carpa : listadoCarpas){
+            if(!carpa.getOcupado()){
+                cantidadCarpas++;
+            }
+        }
+        return cantidadCarpas;
+    }
+
+    public int contarPlazasEstacionamientoDisponibles(){
+        int cantidadPlazaEstacionamientos = 0;
+        for(PlazaEstacionamiento plaza : listadoPlazasEstacionamiento){
+            if(!plaza.getOcupado()){
+                cantidadPlazaEstacionamientos++;
+            }
+        }
+        return cantidadPlazaEstacionamientos;
+    }
+
+    public int contarSombrillasDisponibles(){
+        int cantidadSombrillas = 0;
+        for(Sombrilla sombrilla : listadoSombrillas){
+            if(!sombrilla.getOcupado()){
+                cantidadSombrillas++;
+            }
+        }
+        return cantidadSombrillas;
+    }
+
+
+    // Valida si existen plazas disponibles para alquilar. Si la cantidad libre de plazas es mayor a las carpas, existen
+    // plazas disponibles para cubrir las carpas libres y para alquiler, por lo cual retorna true
+    public boolean verificarSiExistenPlazasDisponibles(){
+        int cantidadCarpas = contarCarpasDisponibles();
+        int cantidadPlazas = contarPlazasEstacionamientoDisponibles();
+
+        return cantidadPlazas > cantidadCarpas;
     }
 
 }

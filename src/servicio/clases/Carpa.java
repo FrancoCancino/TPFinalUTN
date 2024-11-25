@@ -1,17 +1,18 @@
 package servicio.clases;
 
 import servicio.enums.VarianteCarpa;
+import utils.Constantes;
 
 import java.util.Set;
+
+import static utils.Constantes.PREFIJO_CARPA;
 
 public class Carpa extends Servicio {
     private VarianteCarpa varianteCarpa;
     private String idPlazaEstacionamiento;
 
     private static int cantidadCarpas = 0;
-    private static final double PRECIO_ACTUAL_STANDARD = 20000;
-    private static final double PRECIO_ACTUAL_PREMIUM = 25000;
-    private static final String PREFIJO_CARPA ="CP-";
+
 
     // Constructores
     public Carpa() {
@@ -21,12 +22,12 @@ public class Carpa extends Servicio {
         this.varianteCarpa = varianteCarpa;
 
         if(varianteCarpa == VarianteCarpa.PREMIUM){
-            this.setPrecio(PRECIO_ACTUAL_PREMIUM);
+            this.setPrecio(Constantes.PRECIO_ACTUAL_PREMIUM);
         }else
-            this.setPrecio(PRECIO_ACTUAL_STANDARD);
+            this.setPrecio(Constantes.PRECIO_ACTUAL_STANDARD);
 
         ++cantidadCarpas;
-        this.setId(PREFIJO_CARPA + cantidadCarpas);
+        this.setId(Constantes.PREFIJO_CARPA + cantidadCarpas);
     }
 
     // Setters / Getters
