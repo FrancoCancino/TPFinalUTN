@@ -1,6 +1,7 @@
 package alquiler.clases;
 
 import servicio.clases.Servicio;
+import utils.Constantes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,7 @@ public class ComprobanteAlquiler {
     private double importeTotal;
     private String descripcion;
     private boolean activo;
-    private List<Servicio> serviciosAlquilados;
+    private List<Alquiler> listaAlquileres;
 
     // Formato para mostrar fecha y hora
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -30,28 +31,28 @@ public class ComprobanteAlquiler {
         this.subTotal = 0;
         this.importeTotal = 0;
         this.activo = true;
-        this.serviciosAlquilados = new ArrayList<>();
+        this.listaAlquileres = new ArrayList<>();
     }
-    public ComprobanteAlquiler(List<Servicio> serviciosAlquilados){
+    public ComprobanteAlquiler(List<Alquiler> listaAlquileres){
         this.id = generarID();
         this.fechaEmision = LocalDateTime.now();
         this.descripcion = DESCRIPCION;
         this.subTotal = 0;
         this.importeTotal = 0;
         this.activo = true;
-        this.serviciosAlquilados = serviciosAlquilados;
+        this.listaAlquileres = listaAlquileres;
     }
 
     public ComprobanteAlquiler(double subTotal,
                                double importeTotal,
-                               List<Servicio> serviciosAlquilados) {
+                               List<Alquiler> listaAlquileres) {
         this.id = generarID();
         this.fechaEmision = LocalDateTime.now();
         this.subTotal = subTotal;
         this.importeTotal = importeTotal;
         this.descripcion = DESCRIPCION;
         this.activo = true;
-        this.serviciosAlquilados = serviciosAlquilados;
+        this.listaAlquileres = listaAlquileres;
     }
 
     //Setters / Getters
@@ -95,12 +96,12 @@ public class ComprobanteAlquiler {
         this.descripcion = descripcion;
     }
 
-    public List<Servicio> getServiciosAlquilados() {
-        return serviciosAlquilados;
+    public List<Alquiler> getListaAlquileres() {
+        return listaAlquileres;
     }
 
-    public void setServiciosAlquilados(List<Servicio> serviciosAlquilados) {
-        this.serviciosAlquilados = serviciosAlquilados;
+    public void setListaAlquileres(List<Alquiler> listaAlquileres) {
+        this.listaAlquileres = listaAlquileres;
     }
 
     public boolean isActivo() {
@@ -146,12 +147,15 @@ public class ComprobanteAlquiler {
         System.out.printf("%-15s %-25s %-10s%n", "ID Servicio", "Tipo Servicio", "Precio");
         System.out.println("-----------------------------------------");
 
-        for (Servicio servicio : serviciosAlquilados) {
+        /*
+        for (Servicio servicio : listaAlquileres) {
             System.out.printf("%-15s %-25s %-10.2f%n",
                     servicio.getId(),
                     servicio.getClass().getSimpleName(),
                     servicio.getPrecio());
         }
+
+         */
 
         System.out.println("-----------------------------------------");
 
@@ -159,6 +163,19 @@ public class ComprobanteAlquiler {
         System.out.printf("Subtotal: %.2f%n", subTotal);
         System.out.printf("Importe Total: %.2f%n", importeTotal);
         System.out.println("=========================================");
+    }
+
+    @Override
+    public String toString() {
+        return "ComprobanteAlquiler{" +
+                "id='" + id + '\'' +
+                ", fechaEmision=" + fechaEmision.format(Constantes.FORMATTER_DATE_TIME_MOSTRAR) +
+                ", subTotal=" + subTotal +
+                ", importeTotal=" + importeTotal +
+                ", descripcion='" + descripcion + '\'' +
+                ", activo=" + activo +
+                ", listaAlquileres=" + listaAlquileres +
+                '}';
     }
 }
 

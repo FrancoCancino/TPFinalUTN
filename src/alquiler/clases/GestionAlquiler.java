@@ -2,7 +2,9 @@ package alquiler.clases;
 
 import alquiler.enums.TipoServicio;
 import alquiler.exception.ServiciosNoDisponiblesException;
+import alquiler.json.AlquilerJsonUtil;
 import servicio.clases.*;
+import usuario.OperacionesLectoEscritura;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -230,13 +232,12 @@ public class GestionAlquiler {
     /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
-    public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio, GestionComprobanteAlquiler gestionComprobanteAlquiler) throws ServiciosNoDisponiblesException {
+    public void crearAlquilerUsuario(Alquiler alquilerParcial, GestionServicio gestionServicio, GestionComprobanteAlquiler gestionComprobanteAlquiler, String idUsuario) throws ServiciosNoDisponiblesException {
 
-        List<Servicio> serviciosAlquilados = new ArrayList<>();
+        List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
 
         do{
-            // aca iria metodo solicitarInformacionUsuario, que retorna un Alquiler con los datos solicitados = fecha baja y alta, y tipo Servicio.
             List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
 
             // En caso de retornar una lista vacia, se lanza una excepcion
@@ -250,27 +251,31 @@ public class GestionAlquiler {
             // Retorna solo los numeros del ID
             String numerosID = solicitarIDServicio();
 
-            // Reconstruye el ID completo a partir del TipoServicio e incorpora el objeto Carpa/Sombrilla/Plaza en la lista de ServiciosAlquilados
+            // Reconstruye el ID completo a partir del TipoServicio
             String idCompleto;
             switch (alquilerParcial.getTipoServicio()) {
                 case CARPA -> {
                     idCompleto = "CP-" + numerosID;
-                    serviciosAlquilados.add(gestionServicio.obtenerCarpaPorID(idCompleto));
                 }
                 case SOMBRILLA -> {
                     idCompleto = "SM-" + numerosID;
-                    serviciosAlquilados.add(gestionServicio.obtenerSombrillaPorID(idCompleto));
                 }
                 case PLAZA_ESTACIONAMIENTO -> {
                     idCompleto = "PE-" + numerosID;
-                    serviciosAlquilados.add(gestionServicio.obtenerPlazaEstacionamientoPorID(idCompleto));
                 }
                 default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
             }
 
-            //Aca hace falta poner un metodo que obtenga el id del Usuario logeado
-            Alquiler alquilerNuevo = new Alquiler(alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja(), alquilerParcial.getTipoServicio(),idCompleto, "idusuario");
+            // Se cambia el estado ocupado a true
+            gestionServicio.ocupar(idCompleto);
 
+            Alquiler alquilerNuevo = new Alquiler(alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja(), alquilerParcial.getTipoServicio(),idCompleto, idUsuario);
+
+            // Se agrega el id del alquiler recien generado al arrayList
+            listaAlquileres.add(alquilerNuevo);
+
+            // Graba el alquiler en el archivo
+            OperacionesLectoEscritura.grabarArchivo(AlquilerJsonUtil.serializarAlquiler(alquilerNuevo),"AlquilerPrueba.json");
 
             System.out.print("¿Quiere reservar otro servicio? (s/n): ");
             control = scanner.next();
@@ -281,14 +286,12 @@ public class GestionAlquiler {
 
 
         // Crear comprobanteAlquiler
-        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(serviciosAlquilados);
+        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestionServicio);
 
         // Mostrar alquiler generado
         System.out.println("Su reserva se ha realizado con exito!");
         comprobanteAlquiler.mostrarComprobanteAlquiler();
 
-
-        // grabar alquiler nuevo en alchivo
     }
 
 
