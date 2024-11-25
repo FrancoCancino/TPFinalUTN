@@ -17,8 +17,7 @@ public class Sombrilla extends Servicio {
     @Override
     public String toString() {
         return  this.getId().replace(Constantes.PREFIJO_SOMBRILLA, "") +
-                " Ocupado= " + this.getOcupado() +
-                " Precio= " + this.getPrecio()
+                " Precio = " + this.getPrecio()
                 ;
     }
 

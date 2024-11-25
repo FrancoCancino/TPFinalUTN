@@ -124,7 +124,8 @@ public class Alquiler {
                 ", fechaBaja=" + fechaBaja.format(Constantes.FORMATTER_DATE) +
                 ", Servicio=" + tipoServicio +
                 ", idServicio=" + idServicio +
-                ", idUsuario=" + idUsuario
-                ;
+        ", activo=" + activo ;
+
     }
+
 }

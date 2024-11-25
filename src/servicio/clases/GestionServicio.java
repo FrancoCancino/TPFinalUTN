@@ -1,5 +1,6 @@
 package servicio.clases;
 
+import servicio.enums.VarianteCarpa;
 import utils.Constantes;
 
 import java.util.*;
@@ -21,6 +22,35 @@ public class GestionServicio {
         this.listadoSombrillas = new TreeSet<>();
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
+
+    public void cargarGestionServicioParaPruebas() {
+
+        Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
+        Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
+        Carpa carpa3 = new Carpa(VarianteCarpa.PREMIUM);
+        PlazaEstacionamiento plaza1 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza2 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza3 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza4 = new PlazaEstacionamiento();
+        agregarPlazaEstacionamiento(plaza1);
+        agregarPlazaEstacionamiento(plaza2);
+        agregarPlazaEstacionamiento(plaza3);
+        agregarPlazaEstacionamiento(plaza4);
+        carpa1.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+        carpa2.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+        carpa3.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+        agregarCarpa(carpa1);
+        agregarCarpa(carpa2);
+        agregarCarpa(carpa3);
+        Sombrilla sombrilla1 = new Sombrilla();
+        Sombrilla sombrilla2 = new Sombrilla();
+        Sombrilla sombrilla3 = new Sombrilla();
+        agregarSombrilla(sombrilla1);
+        agregarSombrilla(sombrilla2);
+        agregarSombrilla(sombrilla3);
+
+    }
+
 
     // Getters y Setters
     public Set<Carpa> getListadoCarpas() {
@@ -238,5 +268,15 @@ public class GestionServicio {
 
         return cantidadPlazas > cantidadCarpas;
     }
+
+    //Funcion para  verificar que haya por lo menos 1 servicio disponible
+    public boolean verificarSiExistenServiciosDisponibles(){
+        int cantidadCarpas = contarCarpasDisponibles();
+        int cantidadPlazas = contarPlazasEstacionamientoDisponibles();
+        int cantidadSombrillas = contarSombrillasDisponibles();
+
+        return (cantidadPlazas > cantidadCarpas || cantidadSombrillas > 0);     //Si hay servicios disponibles esto devuelve false. Chequear
+    }
+
 
 }

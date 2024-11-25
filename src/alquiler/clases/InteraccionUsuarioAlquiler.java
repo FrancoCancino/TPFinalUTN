@@ -1,6 +1,7 @@
 package alquiler.clases;
 
 import alquiler.enums.TipoServicio;
+import servicio.clases.GestionServicio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,14 +28,19 @@ public class InteraccionUsuarioAlquiler {
 
 
     //Metodo para solicitar las fechas y el tipo de servicio.
-    public static Alquiler solicitarInfoParaAlquiler(){
+    public static Alquiler solicitarInfoParaAlquiler(GestionServicio gestionservicio){
+
 
         //Crea el objeto alquiler
         Alquiler alquiler = new Alquiler();
 
+        if (!gestionservicio.verificarSiExistenServiciosDisponibles()){
+                return alquiler;        //Si no hay servicios disponibles devuelve un objeto alquiler vacio.
+        }
+
         System.out.println("Estas a punto de realizar una reserva.");
         //Le defino el ID con un setter. Si es autoincremental lo hacemos de una. Si no lectura de archivos.
-
+        alquiler.setActivo(true);
 
         System.out.println("Ingresa la fecha en la que vas a venir al balneario.");
         alquiler.setFechaAlta(generarFechaAlta());
@@ -43,50 +49,63 @@ public class InteraccionUsuarioAlquiler {
         alquiler.setFechaBaja(generarFechaBaja(alquiler.getFechaAlta()));
 
         System.out.println("Ingresa el servicio que queres alquilar.");
-        alquiler.setTipoServicio(generarTipoServicio());
+        alquiler.setTipoServicio(generarTipoServicio(gestionservicio));
 
         return alquiler;
 
-
     }
 
-    public static TipoServicio generarTipoServicio(){
-
-        //Acá habria que tener una validación de que haya cada cosa disponible
-
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("1. Carpa.");
-        System.out.println("2. Sombrilla.");
-        System.out.println("3. Estacionamiento");
-        System.out.println("-------------------------------------------------------------------");
+    public static TipoServicio generarTipoServicio(GestionServicio gestionServicio){
 
         int numero;
         do {
             try {
+
+                System.out.println("-------------------------------------------------------------------");
+                System.out.println("1. Carpa.");
+                System.out.println("2. Sombrilla.");
+                System.out.println("3. Estacionamiento");
+                System.out.println("-------------------------------------------------------------------");
+
                 numero = scanner.nextInt();
                 scanner.nextLine();
 
                 switch (numero) {
 
                     case 1:
-                        return TipoServicio.CARPA;
+
+                        if (gestionServicio.contarCarpasDisponibles() > 0){
+                            return TipoServicio.CARPA;
+                        } else {
+                            System.err.println("El servicio ingresado no esta disponible. Prueba con otro");
+                        }
 
                     case 2:
 
-                        return TipoServicio.SOMBRILLA;
+                        if (gestionServicio.contarSombrillasDisponibles() > 0){
+                            return TipoServicio.SOMBRILLA;
+                        } else {
+                            System.err.println("El servicio ingresado no esta disponible. Prueba con otro");
+                        }
 
                     case 3:
 
-                        return TipoServicio.PLAZA_ESTACIONAMIENTO;
+                        if (gestionServicio.verificarSiExistenPlazasDisponibles()){
+                            return TipoServicio.PLAZA_ESTACIONAMIENTO;
+                        } else {
+                            System.err.println("El servicio ingresado no esta disponible. Prueba con otro");
+                        }
 
                     default:
-                        System.out.println("Opción incorrecta. Ingresá una de las tres opciones.");
+                        if(numero != 1 && numero != 2 && numero != 3){
+                            System.out.println("Opción incorrecta. Ingresá una de las tres opciones.");
+                        }
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: No se ingresó un número. Ingresá una de las tres opciones");
                 scanner.nextLine();
                 numero = -1;
+                throw new InputMismatchException("Error: No se ingresó un número. Ingresá una de las tres opciones");
             }
         } while (true) ;
     }
@@ -157,7 +176,7 @@ public class InteraccionUsuarioAlquiler {
         return fecha.matches("^\\d{2}/\\d{2}/\\d{4}$");     //Este regex verifica que se cummpla el formato dd/MM/yyyy.
     }
 
-    public void listarReservas(){
+    public void listarReservas(){           //Borrar...
 
         ArrayList<Alquiler> alquileres = new ArrayList<>(gestionAlquiler.getListaAlquileres());
         System.out.println("Mis reservas: ");
