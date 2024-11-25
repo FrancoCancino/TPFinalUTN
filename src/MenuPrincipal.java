@@ -37,6 +37,7 @@ public class MenuPrincipal {
 
         //Creo un gestor para los alquileres
         GestionAlquiler GA = new GestionAlquiler();
+        GestionComprobanteAlquiler GC = new GestionComprobanteAlquiler();
 
         //Le cargo los servicios que se pusieron en el gestor de servicios al mapa de gestor Alquiler.
         GA.construirMapa(gestorServicio);
@@ -60,7 +61,8 @@ public class MenuPrincipal {
 
                     case 1:
                         //Mis reservas
-                        MenuMisReservas.Menu(listaAlquileres,usuario);
+                        //-------------------------------------------- AGREGUE GA
+                        MenuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
 
                 break;
 
