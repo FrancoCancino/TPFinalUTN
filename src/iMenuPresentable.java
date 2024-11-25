@@ -1,4 +1,6 @@
 public interface iMenuPresentable {
-    public void imprimirLogo();
-    public void imprimirInfo();
+
+    void imprimirEncabezado();
+    void imprimirInfo();
+    void imprimirOpciones();
 }
