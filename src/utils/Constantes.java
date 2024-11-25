@@ -13,7 +13,7 @@ public final class Constantes {
     public static final double PRECIO_ACTUAL_PlAZA_ESTACIONAMIENTO = 8000;
 
     public static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.n]");
-    public static final DateTimeFormatter FORMATTER_DATE_TIME_MOSTRAR = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss[.n]");
+    public static final DateTimeFormatter FORMATTER_DATE_TIME_MOSTRAR = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd") ;
 
     // Tipos de servicio
