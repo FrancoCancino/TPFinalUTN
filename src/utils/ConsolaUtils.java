@@ -1,6 +1,8 @@
 package utils;
 
 
+import alquiler.clases.Alquiler;
+
 public class ConsolaUtils {
     /**
      * Clase utilitaria para manejar la presentación en consola
@@ -8,7 +10,7 @@ public class ConsolaUtils {
      */
 
     // Constantes
-    private static final int ANCHO_LINEA = 50;
+    private static final int ANCHO_LINEA = 60;
     private static final String CARACTER_LINEA = "-";
     private static final String CARACTER_DOBLE = "=";
 
@@ -41,13 +43,13 @@ public class ConsolaUtils {
         try {
             String sistemaOperativo = System.getProperty("os.name").toLowerCase();
 
-            if(sistemaOperativo.contains("windows")) {
+            if (sistemaOperativo.contains("windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
-        } catch(Exception e) {
-            for(int i = 0; i < 50; i++) {
+        } catch (Exception e) {
+            for (int i = 0; i < 50; i++) {
                 System.out.println();
             }
         }
@@ -69,6 +71,7 @@ public class ConsolaUtils {
 
     /**
      * Centra un texto en el ancho especificado
+     *
      * @param texto El texto a centrar
      * @return El texto centrado con espacios
      */
@@ -79,6 +82,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un texto centrado
+     *
      * @param texto El texto a centrar e imprimir
      */
     public static void imprimirCentrado(String texto) {
@@ -87,8 +91,9 @@ public class ConsolaUtils {
 
     /**
      * Imprime una opción de menú centrada
+     *
      * @param numero Número de la opción
-     * @param texto Descripción de la opción
+     * @param texto  Descripción de la opción
      */
     public static void imprimirOpcionCentrada(int numero, String texto) {
         String opcion = numero + ". " + texto;
@@ -97,6 +102,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un título centrado entre líneas dobles
+     *
      * @param titulo El título a imprimir
      */
     public static void imprimirTitulo(String titulo) {
@@ -107,6 +113,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un subtítulo centrado entre líneas simples
+     *
      * @param subtitulo El subtítulo a imprimir
      */
     public static void imprimirSubtitulo(String subtitulo) {
@@ -117,6 +124,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un menú centrado con opciones
+     *
      * @param opciones Array con las opciones del menú
      */
     public static void imprimirMenuCentrado(String[] opciones) {
@@ -128,6 +136,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un mensaje de error centrado y formateado
+     *
      * @param mensaje El mensaje de error
      */
     public static void imprimirError(String mensaje) {
@@ -138,6 +147,7 @@ public class ConsolaUtils {
 
     /**
      * Imprime un mensaje de éxito centrado y formateado
+     *
      * @param mensaje El mensaje de éxito
      */
     public static void imprimirExito(String mensaje) {
@@ -148,11 +158,32 @@ public class ConsolaUtils {
 
     /**
      * Imprime una lista de elementos centrados
+     *
      * @param elementos Array con los elementos a imprimir
      */
     public static void imprimirListaCentrada(String[] elementos) {
         for (String elemento : elementos) {
             imprimirCentrado("• " + elemento);
         }
+    }
+
+
+    public static void imprimirEncabezadoCarpas() {
+
+        System.out.println("Carpas disponibles");
+
+        System.out.printf("%-10s %-15s %-15s %-8s%n",
+                "ID", "Tipo de Carpa", "Precio", "N estacionamiento");
+        imprimirLineaDoble();
+    }
+
+    public static void imprimirEncabezadoSombrillasYPlazas(String tipoServicio){
+
+        System.out.println(tipoServicio + "disponibles");
+
+        System.out.printf("%-10s %-10s%n",
+                "ID", "Precio");
+        imprimirLineaDoble();
+
     }
 }

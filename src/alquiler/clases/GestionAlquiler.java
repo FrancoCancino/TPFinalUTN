@@ -2,7 +2,10 @@ package alquiler.clases;
 
 import alquiler.enums.TipoServicio;
 import alquiler.exception.ServiciosNoDisponiblesException;
+import alquiler.json.AlquilerJsonUtil;
 import servicio.clases.*;
+import usuario.OperacionesLectoEscritura;
+import utils.ConsolaUtils;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
@@ -165,14 +168,17 @@ public class GestionAlquiler {
             switch (tipoServicio) {
                 case CARPA -> {
                     Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
+                    ConsolaUtils.imprimirEncabezadoCarpas();
                     System.out.println(carpa);
                 }
                 case SOMBRILLA -> {
                     Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
+                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Sombrillas ");
                     System.out.println(sombrilla);
                 }
                 case PLAZA_ESTACIONAMIENTO -> {
                     PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
+                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Plazas de Estacionamiento ");
                     System.out.println(plaza);
                 }
                 default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
@@ -218,14 +224,18 @@ public class GestionAlquiler {
      *
      * @param idAlquiler id del Alquiler a dar de baja
      */
-    public void darBajaAlquiler(String idAlquiler) {
-        for (Alquiler alquiler : listaAlquileres) {
-            if (alquiler.getId().equals(idAlquiler)) {
-                alquiler.setActivo(false); // Marcar como inactivo
-                return;
+
+    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler){
+
+        for(Alquiler alquiler : listaAlquileres){
+            if (alquiler.getId().equals(idAlquiler)){
+                alquiler.setActivo(false);
+                gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
+                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),"AlquilerPrueba.json");
+                return true;
             }
         }
-        throw new IllegalArgumentException("Alquiler con ID " + idAlquiler + " no encontrado.");
+        return false;
     }
 
     /**
@@ -302,7 +312,7 @@ public class GestionAlquiler {
     }
 
 
-    //Metodo para eliminar un ID  disponible del mapa (Así al usuario se le acortan las opciones una vez que ya eligio ese servicio)
+    // Metodo para eliminar un ID  disponible del mapa (Así al usuario se le acortan las opciones una vez que ya eligio ese servicio)
     public void eliminarId(String idServicio, TipoServicio tipoServicio) {
 
         // Obtener el submapa correspondiente al tipo de servicio
@@ -315,6 +325,22 @@ public class GestionAlquiler {
             System.out.println("El ID especificado no existe en el submapa.");
         }
 
+    }
+    // ------------------------------ agregue metodo
+    // Listar alquileres, metodo estatico que recibe una lista y muestra sus registros
+    public static void listarAlquileres(List<Alquiler> listaAlquileres, String id){
+
+        System.out.println("TUS RESERVAS");
+
+        System.out.printf("%-10s %-15s %-15s %-15s %-12s %-8s%n",
+                "ID", "Fecha Alta", "Fecha Baja", "Tipo Servicio", "ID Servicio", "Activo");
+        System.out.println("----------------------------------------------------------------------");
+
+        for(Alquiler alquiler : listaAlquileres){
+            if(alquiler.getIdUsuario().equals(id)){
+                System.out.println(alquiler);
+            }
+        }
     }
 
 
