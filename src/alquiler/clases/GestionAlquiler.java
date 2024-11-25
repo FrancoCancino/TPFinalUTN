@@ -235,18 +235,21 @@ public class GestionAlquiler {
 
         List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
-        Alquiler alquilerParcial = new Alquiler();
-        alquilerParcial = InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
-        //!!!Habria que pedirle el tipo de servicio fuera de esta función para que el usuario pueda hacer una reserva con más  de 1 tipo de servicio.
+
 
         do{
+            Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+
+            if(alquilerParcial == null){
+                alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+            }
+
             List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
 
             // En caso de retornar una lista vacia, se lanza una excepcion
             if(listaIdsDisponibles.isEmpty()){
                 throw new ServiciosNoDisponiblesException(toString());
             }
-
 
             // Se listan los Servicios relacionados a los ids de la lista
             mostrarServiciosDisponibles(alquilerParcial.getTipoServicio(), gestionServicio, listaIdsDisponibles);
@@ -284,6 +287,8 @@ public class GestionAlquiler {
             System.out.print("¿Quiere reservar otro servicio? (s/n): ");
             control = scanner.next();
             scanner.nextLine();
+
+            // -------------------------- System.out.println("Para la misma fecha?");
 
 
         } while (control.equalsIgnoreCase("s"));

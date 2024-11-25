@@ -37,7 +37,7 @@ public class MenuMisReservas {
                 switch (numero) {
 
                     case 0:
-                        System.out.println("Volviendo...");
+                        System.out.println("Volviendo atrás...");
 
                         break;
 
