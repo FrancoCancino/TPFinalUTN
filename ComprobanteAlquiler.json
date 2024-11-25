@@ -1,17 +1,28 @@
 [{
    "descripcion": "Alquiler de servicios de playa",
-   "importeTotal": 100000,
-   "fechaEmision": "2024-11-25T12:24:53.431397",
-   "id": "-6711",
-   "subTotal": 100000,
-   "listaAlquileres": [{
-      "fechaBaja": "2025-01-16",
-      "tipoServicio": "CARPA",
-      "fechaAlta": "2025-01-13",
-      "idUsuario": "43740866",
-      "id": "38nu",
-      "idServicio": "CP-2",
-      "activo": true
-   }],
+   "importeTotal": 48000,
+   "fechaEmision": "2024-11-25T18:47:26.158180800",
+   "id": "52085",
+   "subTotal": 48000,
+   "listaAlquileres": [
+      {
+         "fechaBaja": "2025-01-01",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "43740866",
+         "id": "14vh",
+         "idServicio": "CP-1",
+         "activo": true
+      },
+      {
+         "fechaBaja": "2025-02-01",
+         "tipoServicio": "SOMBRILLA",
+         "fechaAlta": "2025-02-01",
+         "idUsuario": "43740866",
+         "id": "39wz",
+         "idServicio": "SM-1",
+         "activo": true
+      }
+   ],
    "activo": true
 }]

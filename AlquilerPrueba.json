@@ -16,5 +16,23 @@
       "id": "1dxv",
       "idServicio": "SM-1",
       "activo": false
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "14vh",
+      "idServicio": "CP-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-01",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-02-01",
+      "idUsuario": "43740866",
+      "id": "39wz",
+      "idServicio": "SM-1",
+      "activo": true
    }
 ]
