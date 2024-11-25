@@ -115,7 +115,7 @@ public class Alquiler {
         return Long.toUnsignedString(mostSigBits, 36).substring(0, 4); // Convierte a base 36, se obtienen 13 caracteres y luego 5
     }
 
-    //toString
+    /*toString
     @Override
     public String toString() {
         return "Alquiler" +
@@ -126,6 +126,23 @@ public class Alquiler {
                 ", idServicio=" + idServicio +
         ", activo=" + activo ;
 
+    }
+
+     */
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        // Datos del alquiler
+        sb.append(String.format("%-10s %-15s %-15s %-15s %-12s %-8s",
+                id,
+                fechaAlta.format(Constantes.FORMATTER_DATE),
+                fechaBaja.format(Constantes.FORMATTER_DATE),
+                tipoServicio,
+                idServicio,
+                activo ? "Sí" : "No"));
+
+        return sb.toString();
     }
 
 }

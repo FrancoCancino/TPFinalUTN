@@ -47,7 +47,8 @@ public class Carpa extends Servicio {
         this.idPlazaEstacionamiento = idPlazaEstacionamiento;
     }
 
-    // toString
+
+    /* toString NO UTILIZADO, SIN FORMATEAR LA SALIDA
     @Override
     public String toString() {
         return  this.getId().replace(PREFIJO_CARPA,"") +
@@ -56,5 +57,23 @@ public class Carpa extends Servicio {
                 ", Plaza de estacionamiento asignada = " + idPlazaEstacionamiento
                 ;
     }
+
+     */
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        String precio = "$ " + getPrecio();
+        String variante = String.valueOf(getVarianteCarpa());
+
+        sb.append(String.format("%-10s %-15s %-15s %-8s%n",
+                this.getId().replace(PREFIJO_CARPA,""),
+                variante,
+                precio,
+                idPlazaEstacionamiento));
+        return sb.toString();
+    }
+
+
 
 }

@@ -1,4 +1,6 @@
 import alquiler.clases.Alquiler;
+import alquiler.clases.GestionAlquiler;
+import alquiler.clases.GestionComprobanteAlquiler;
 import alquiler.json.AlquilerJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
@@ -8,13 +10,15 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import static alquiler.clases.GestionAlquiler.listarAlquileres;
+
 public class MenuMisReservas {
 
     private final static Scanner scan = new Scanner(System.in);
 
     // Sobreescritura de metodos de la interfaz IMenuPresentable
 
-    public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario) {
+    public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario, GestionAlquiler gestionAlquiler, GestionComprobanteAlquiler gestionComprobanteAlquiler) {
 
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Ingrese la opción deseada.");
@@ -43,35 +47,32 @@ public class MenuMisReservas {
 
                     case 1:
                         //Listar mis reservas
-
-
-                        for (Alquiler alquiler : listaAlquileres){
-                            //Recorro la lista
-                            if(alquiler.getIdUsuario().equals(usuario.getDNI())){
-                                //Encuentro los alquileres que coincidan con el Dni del usuario logeado y los imprimo
-                                System.out.println(alquiler);
-                            }
-                        }
-
+                        listarAlquileres(listaAlquileres, usuario.getDNI());
 
                         break;
 
                     case 2:
                         //Cancelar reserva
+                        // Se muestran las reservas a mostrar
+                        listarAlquileres(listaAlquileres, usuario.getDNI());
 
-                        System.out.println("Tus reservas:");
+                        boolean resultadoDarBaja;
+                        do{
+                            System.out.println("Escribí el ID de la reserva que queres cancelar:");
+                            String opcion = scan.nextLine();
 
-                        for (Alquiler alquiler : listaAlquileres){
-                            //Recorro la lista
-                            if(alquiler.getIdUsuario().equals(usuario.getDNI())){
-                                //Encuentro los alquileres que coincidan con el Dni del usuario logeado y los imprimo
-                                System.out.println(alquiler);
+                            resultadoDarBaja = gestionAlquiler.darBajaAlquiler(opcion, gestionComprobanteAlquiler);
+
+                            if(!resultadoDarBaja){
+                                System.out.println("El ID ingresado no existe. Intentelo nuevamente");
+                            }else{
+                                System.out.println("La reserva fue cancelada con éxito!");
                             }
-                        }
 
-                        System.out.println("Escribí el ID de la reserva que queres cancelar:");
-                        String opcion = scan.nextLine();
+                        }while(!resultadoDarBaja);
 
+
+                        /*
 
                         for (Alquiler alquiler : listaAlquileres){
                             //Recorro la lista
@@ -83,7 +84,7 @@ public class MenuMisReservas {
                                 OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),"AlquilerPrueba.json");
                                 System.out.println("La reserva fue cancelada con éxito!");
                             }
-                        }
+                        }*/
 
                         break;
 
