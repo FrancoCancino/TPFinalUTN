@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import servicio.clases.Sombrilla;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 public final class SombrillaJsonUtil {
@@ -51,7 +52,7 @@ public final class SombrillaJsonUtil {
      * @return un {@link JSONArray} que representa los datos del {@code listado}.
      * Si ocurre una excepción, se devuelve un JSONArray vacío.
      */
-    public static JSONArray serializarListadoSombrillas(TreeSet<Sombrilla> listado) {
+    public static JSONArray serializarListadoSombrillas(Set<Sombrilla> listado) {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray();
@@ -73,8 +74,8 @@ public final class SombrillaJsonUtil {
      * @return un {@link TreeSet<Sombrilla>}
      * Si ocurre una excepción, se devuelve un listado vacío.
      */
-    public static TreeSet<Sombrilla> deserializarListadoSombrillas(JSONArray jsonArray) {
-        TreeSet<Sombrilla> listadoSombrillas = new TreeSet<>();
+    public static Set<Sombrilla> deserializarListadoSombrillas(JSONArray jsonArray) {
+        Set<Sombrilla> listadoSombrillas = new TreeSet<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 Sombrilla sombrilla = deserializarSombrilla(jsonArray.getJSONObject(i));

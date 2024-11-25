@@ -34,5 +34,32 @@
       "id": "39wz",
       "idServicio": "SM-1",
       "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "37tc",
+      "idServicio": "CP-2",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "tcm9",
+      "idServicio": "PE-4",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "2j6w",
+      "idServicio": "PE-10",
+      "activo": true
    }
 ]

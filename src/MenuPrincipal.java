@@ -2,7 +2,12 @@ import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
 import alquiler.json.ComprobanteJsonUtil;
+import org.json.JSONObject;
 import servicio.clases.GestionServicio;
+import servicio.json.CarpaJsonUtil;
+import servicio.json.GestorServiciosJsonUtil;
+import servicio.json.PlazaEstacionamientoJsonUtil;
+import servicio.json.SombrillaJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
@@ -29,11 +34,16 @@ public class MenuPrincipal {
         System.out.println("0. Salir.");
         System.out.println("-------------------------------------------------------------------");
 
-        //Se crea un gestorde servicios al finalizar el log in.
+        //Se crea un gestor de servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
 
-        //En este gestor de servicios se cargan Sombrillas, Plazas de estacionamiento y carpas.
-        gestorServicio.cargarGestionServicioParaPruebas();
+        //Este metodo graba el archivo servicios. Usar cuando pongamos muchos servicios en un GestorServicio.
+            //OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
+
+        //Metodo para leer el archivo servicios y cargarlo en el GestorServicio
+        JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));   //Guardo el tokener en un JsonObject
+        gestorServicio = GestorServiciosJsonUtil.deserializarServicios(jsonObj);    //Pongo el object y lo deserializo, cargandolo en el gestorServicio vacio.
+
 
         //Creo un gestor para los alquileres
         GestionAlquiler GA = new GestionAlquiler();

@@ -1,0 +1,64 @@
+{
+   "carpas": [
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-1",
+         "ocupado": false,
+         "id": "CP-1"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-2",
+         "ocupado": false,
+         "id": "CP-2"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-3",
+         "ocupado": false,
+         "id": "CP-3"
+      }
+   ],
+   "sombrillas": [
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-1"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-2"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-3"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-4"
+      }
+   ],
+   "plazasEstacionamiento": [
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-1"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-2"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-3"
+      }
+   ]
+}
