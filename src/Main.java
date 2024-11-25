@@ -23,7 +23,7 @@ public class Main {
         //Si queres pegale un ojo a ver si lo podes dejar andando. Deberia ser un tema de arreglar cuando hay o cuando no hay servicios.
 
 
-        //resolver el tema de la interfaz (No lo toque)
+        //resolver el tema de la interfaz (No lo toque) --  falta implementar en cada menu...
 
         //armar los menues (Hecho, falta pulir las validaciones (En el menuMisReservas no puse ninguna))
 
@@ -62,7 +62,22 @@ public class Main {
 
         //En teoria ahí los menus deberian estar al 100%, fijate si quisieras cambiar algo
 
+        // ============================================= cosas para hacer
 
+        // GRABAR TODOS LOS SERVICIOS EN EL MISMO ARCHIVO  // CARGAR LAS COLECCIONES DE SERVICIOS DESDE EL ARCHIVO
+
+        // copiar fecha en creacionReserva ();
+
+        // manejar la excepcion donde no hay serviciosdisponibles, que estaba en crearAlquiler()
+
+        // DAR DE BAJA EL COMPROBANTE CUANDO SE CANCELA UNA RESERVA
+
+
+        // FUNCIONES PARA INICIALIZAR LOS SERVICIOS, TIPO CREA LAS CARPAS, PLAZAS. SE USAN UNA UNICA VEZ Y SE CARGAN EL ARCHIVO. EL SISTEMA DESPUES LAS LEE DEL ARCHIVO
+
+        // ACOMODAR LOS TEXTOS DE LAS INTERFACES
+
+        //DIAGRAMA UML
 
 
 /*

@@ -1,13 +1,14 @@
 package alquiler.clases;
 
+import alquiler.json.ComprobanteJsonUtil;
 import servicio.clases.*;
+import usuario.OperacionesLectoEscritura;
+import utils.Constantes;
 
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static alquiler.enums.TipoServicio.CARPA;
 
 public class GestionComprobanteAlquiler {
     private List<ComprobanteAlquiler> listaComprobanteAlquiler;
@@ -78,8 +79,9 @@ public class GestionComprobanteAlquiler {
         // crea un ComprobanteAlquiler nuevo
         ComprobanteAlquiler comprobante = new ComprobanteAlquiler(subTotal, importeTotal, listaAlquileres);
 
-        // Lo agrega al listado de comprobantes
+        // Lo agrega al listado de comprobantes y luego se graba en el archivo
         listaComprobanteAlquiler.add(comprobante);
+        OperacionesLectoEscritura.grabarArchivoARRAY(ComprobanteJsonUtil.serializarListadoComprobanteAlquiler(listaComprobanteAlquiler), Constantes.nombreArchivoComprobante);
 
         return comprobante;
     }

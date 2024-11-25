@@ -90,10 +90,12 @@ public class InteraccionUsuarioAlquiler {
 
                     case 3:
 
+                        // Se evalua si hay plazas disponibles para cubrir las carpas disponibles y el alquiler de la plaza que quiere realizar el usuario
+                        // retorna true si existe aunque sea una plaza para alquilar
                         if (gestionServicio.verificarSiExistenPlazasDisponibles()){
                             return TipoServicio.PLAZA_ESTACIONAMIENTO;
                         } else {
-                            System.err.println("El servicio ingresado no esta disponible. Prueba con otro");
+                            System.err.println("El servicio ingresado no esta disponible. Prueba con otro"); // pensar si lo hacemos una constante
                         }
 
                     default:

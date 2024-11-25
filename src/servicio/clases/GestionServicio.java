@@ -12,10 +12,6 @@ public class GestionServicio {
     private static Set<Sombrilla> listadoSombrillas;
     private static Set<PlazaEstacionamiento> listadoPlazasEstacionamiento;
 
-    private final String nombreArchivoCarpas = "carpas.json";
-    private final String nombreArchivoSombrillas = "sombrillas.json";
-    private final String nombreArchivoPlazasEstacionamiento = "plazasEstacionamiento.json";
-
     // Constructor
     public GestionServicio() {
         this.listadoCarpas = new TreeSet<>();
@@ -24,6 +20,8 @@ public class GestionServicio {
     }
 
     public void cargarGestionServicioParaPruebas() {
+
+        /*
 
         Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
         Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
@@ -48,6 +46,8 @@ public class GestionServicio {
         agregarSombrilla(sombrilla1);
         agregarSombrilla(sombrilla2);
         agregarSombrilla(sombrilla3);
+
+         */
 
     }
 
@@ -272,11 +272,12 @@ public class GestionServicio {
     //Funcion para  verificar que haya por lo menos 1 servicio disponible
     public boolean verificarSiExistenServiciosDisponibles(){
         int cantidadCarpas = contarCarpasDisponibles();
-        int cantidadPlazas = contarPlazasEstacionamientoDisponibles();
         int cantidadSombrillas = contarSombrillasDisponibles();
 
-        return (cantidadPlazas > cantidadCarpas || cantidadSombrillas > 0);     //Si hay servicios disponibles esto devuelve false. Chequear
-    }
+        // El metodo retorna true si se puede alquilar SOLO la plaza
+        boolean existenPlazasDisponibles = verificarSiExistenPlazasDisponibles();
 
+        return (existenPlazasDisponibles || cantidadSombrillas > 0 || cantidadCarpas > 0 );     //Si hay servicios disponibles esto devuelve false. Chequear
+    }
 
 }

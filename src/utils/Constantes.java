@@ -16,10 +16,10 @@ public final class Constantes {
     public static final DateTimeFormatter FORMATTER_DATE_TIME_MOSTRAR = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd") ;
 
-    // Tipos de servicio
-    public static final String TIPO_CARPA = "Carpa";
-    public static final String TIPO_SOMBRILLA = "Sombrilla";
-    public static final String TIPO_PLAZA = "Plaza de Estacionamiento";
+    public static final String nombreArchivoComprobante = "ComprobanteAlquiler.json";
+    public static final String nombreArchivoServicios = "Servicios.json";
+    public static final String nombreArchivoUsuario = "Usuario.json";
+    public static final String nombreArchivoAlquiler = "AlquilerPrueba.json";
 
 
     private Constantes() {

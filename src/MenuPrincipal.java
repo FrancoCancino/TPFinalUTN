@@ -1,13 +1,12 @@
-import alquiler.clases.Alquiler;
-import alquiler.clases.ComprobanteAlquiler;
-import alquiler.clases.GestionAlquiler;
-import alquiler.clases.GestionComprobanteAlquiler;
+import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
+import alquiler.json.ComprobanteJsonUtil;
 import servicio.clases.GestionServicio;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
+import utils.ConsolaUtils;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -16,8 +15,11 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
+    private final static Scanner scan = new Scanner(System.in);
+
+    // Sobreescritura de metodos de la interfaz IMenuPresentable
+
     public static void Menu(Usuario usuario){
-        Scanner scan = new Scanner(System.in);
 
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Bienvenid@ de vuelta, " + usuario.getNombre() + " " + usuario.getApellido() + ". Elegí una opción");
@@ -66,15 +68,17 @@ public class MenuPrincipal {
 
                         //Reservar
 
-                        listaAlquileres = GA.crearAlquiler(gestorServicio,usuario.getDNI());   //Genera la lista de alquileres. (Basicamente alquilar).
+                        listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI());   //Genera la lista de alquileres. (Basicamente alquilar).
                         //La guardo en una lista nueva así despues puedo mostrar el comprobante de la reserva más comodo.
 
 
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();
+                        // Se crear un comprobante a partir de los Alquileres realizados
                         ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio);
+
                         System.out.println("Su reserva se realizó con éxito!");
-                        comprobanteAlquiler.mostrarComprobanteAlquiler();
+                        comprobanteAlquiler.mostrarComprobanteAlquiler(gestorServicio);
 
                         //Serializar reserva y comprobante.
 

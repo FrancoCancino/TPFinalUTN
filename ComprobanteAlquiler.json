@@ -1,0 +1,17 @@
+[{
+   "descripcion": "Alquiler de servicios de playa",
+   "importeTotal": 100000,
+   "fechaEmision": "2024-11-25T12:24:53.431397",
+   "id": "-6711",
+   "subTotal": 100000,
+   "listaAlquileres": [{
+      "fechaBaja": "2025-01-16",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-13",
+      "idUsuario": "43740866",
+      "id": "38nu",
+      "idServicio": "CP-2",
+      "activo": true
+   }],
+   "activo": true
+}]
