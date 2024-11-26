@@ -78,14 +78,19 @@ public class AlquilerJsonUtil {
     public static JSONArray serializarListaAlquiler(List<Alquiler> listaAlquiler) {
 
         JSONObject temp; //Creo un objeto Json temporal
+
         JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler);
         //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
-
+    try{
         for (Alquiler alquiler : listaAlquiler){
             temp = new JSONObject();
             temp = serializarAlquiler(alquiler);  //Guardo el alquiler  en el objetoJson(Para eso uso la función que lo convierte en objetoJson
             arrTemp.put(temp);
         }
+        }catch (JSONException e){
+    System.out.println(e.getMessage());
+    }
+
             return arrTemp;
     }
 
@@ -94,12 +99,16 @@ public class AlquilerJsonUtil {
         JSONObject temp; //Creo un objeto Json temporal
         JSONArray arrTemp = new JSONArray();
         //Creo un JsonArr temporal vacio
-
-        for (Alquiler alquiler : listaAlquiler){
-            temp = new JSONObject();
-            temp = serializarAlquiler(alquiler);  //Guardo el alquiler  en el objetoJson(Para eso uso la función que lo convierte en objetoJson
-            arrTemp.put(temp);
+        try{
+            for (Alquiler alquiler : listaAlquiler){
+                temp = new JSONObject();
+                temp = serializarAlquiler(alquiler);  //Guardo el alquiler  en el objetoJson(Para eso uso la función que lo convierte en objetoJson
+                arrTemp.put(temp);
+            }
+        }catch (JSONException e){
+            System.out.println(e.getMessage());
         }
+
         return arrTemp;
     }
 
@@ -109,12 +118,16 @@ public class AlquilerJsonUtil {
         List<Alquiler> listaAlquileres = new ArrayList<>();
 
         JSONObject jsonObject;
-
-        for (int i = 0; i < jsonArray.length();i++){
-            jsonObject = new JSONObject();
-            jsonObject = jsonArray.getJSONObject(i);
-            listaAlquileres.add(deserializarAlquiler(jsonObject));
+        try{
+            for (int i = 0; i < jsonArray.length();i++){
+                jsonObject = new JSONObject();
+                jsonObject = jsonArray.getJSONObject(i);
+                listaAlquileres.add(deserializarAlquiler(jsonObject));
+            }
+        }catch(JSONException e){
+            System.out.println(e.getMessage());
         }
+
         return listaAlquileres;
     }
 
