@@ -21,7 +21,7 @@ public class MenuMisReservas {
     public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario, GestionAlquiler gestionAlquiler, GestionComprobanteAlquiler gestionComprobanteAlquiler) {
 
         System.out.println("-------------------------------------------------------------------");
-        System.out.println("Ingrese la opción deseada.");
+        System.out.println("Ingresá una opción:");
         System.out.println("1. Listar mis reservas");
         System.out.println("2. Cancelar reserva");
         System.out.println("0. Salir.");
