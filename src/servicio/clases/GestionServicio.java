@@ -1,5 +1,6 @@
 package servicio.clases;
 
+import alquiler.enums.TipoServicio;
 import servicio.enums.VarianteCarpa;
 import utils.Constantes;
 

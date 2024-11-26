@@ -44,12 +44,13 @@ public class LogIn implements iMenuPresentable {
 
         ConsolaUtils.imprimirLineaDoble();
 
-        ConsolaUtils.imprimirCentrado("Ingresa la opcion deseada");
+        ConsolaUtils.imprimirCentrado("Ingresá una opción:");
 
     }
 
     public void Menu() {
         GestionUsuarios g1 = new GestionUsuarios();
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
 
         imprimirEncabezado();
         imprimirInfo();
@@ -71,7 +72,7 @@ public class LogIn implements iMenuPresentable {
                     case 1:
                         //Registro
 
-                        MenuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
+                        menuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
 
                         break;
 

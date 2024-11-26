@@ -1,7 +1,6 @@
 import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
-import alquiler.json.ComprobanteJsonUtil;
 import servicio.clases.GestionServicio;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
@@ -13,21 +12,19 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuPrincipal {
+public class MenuPrincipal implements iMenuPresentable {
 
     private final static Scanner scan = new Scanner(System.in);
 
     // Sobreescritura de metodos de la interfaz IMenuPresentable
 
-    public static void Menu(Usuario usuario){
+    public void Menu(Usuario usuario){
 
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("Bienvenid@ de vuelta, " + usuario.getNombre() + " " + usuario.getApellido() + ". Elegí una opción");
-        System.out.println("1. Mis reservas.");
-        System.out.println("2. Reservar.");
-        System.out.println("3. Modificar datos personales.");
-        System.out.println("0. Salir.");
-        System.out.println("-------------------------------------------------------------------");
+        imprimirEncabezado();
+        System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
+        ConsolaUtils.imprimirLinea();
+        imprimirInfo();
+        imprimirOpciones();
 
         //Se crea un gestorde servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
@@ -55,7 +52,7 @@ public class MenuPrincipal {
                 switch (numero) {
 
                     case 0:
-                        System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + "!");
+                        ConsolaUtils.imprimirCentrado("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + "!");
 
                         break;
 
@@ -110,4 +107,33 @@ public class MenuPrincipal {
         } while (numero != 1 && numero != 2 && numero != 0 && numero != 3) ;
     }
 
+    @Override
+    public void imprimirEncabezado() {
+        System.out.println(ConsolaUtils.CIAN + "Bienvenid@ de vuelta " + ConsolaUtils.RESET);
+    }
+
+    @Override
+    public void imprimirInfo() {
+        System.out.println("De la compu a la arena, sin escalas " + ConsolaUtils.MAR + ConsolaUtils.SOMBRILLA);
+        System.out.println("A través de la aplicación te asegurás siempre tu lugar.");
+    }
+
+    @Override
+    public void imprimirOpciones() {
+
+        String[] opciones ={
+                "Mis reservas.",
+                "Reservar.",
+                "Modificar datos personales."
+        };
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirMenuCentrado(opciones);
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirCentrado("Ingresá una opción:");
+
+    }
 }
