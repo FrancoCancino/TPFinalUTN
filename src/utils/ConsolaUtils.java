@@ -49,18 +49,8 @@ public class ConsolaUtils {
      * Limpia la consola del IDE
      */
     public static void limpiarConsola() {
-        try {
-            String sistemaOperativo = System.getProperty("os.name").toLowerCase();
-
-            if (sistemaOperativo.contains("windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (Exception e) {
-            for (int i = 0; i < 50; i++) {
-                System.out.println();
-            }
+        for (int i = 0; i < 50; ++i) {
+            System.out.println();
         }
     }
 
@@ -186,7 +176,7 @@ public class ConsolaUtils {
         imprimirLineaDoble();
     }
 
-    public static void imprimirEncabezadoSombrillasYPlazas(String tipoServicio){
+    public static void imprimirEncabezadoSombrillasYPlazas(String tipoServicio) {
 
         System.out.println(tipoServicio + "disponibles");
 
