@@ -4,6 +4,7 @@ import alquiler.clases.Alquiler;
 import alquiler.clases.GestionAlquiler;
 import alquiler.enums.TipoServicio;
 import servicio.enums.VarianteCarpa;
+import servicio.json.GestorServiciosJsonUtil;
 import utils.Constantes;
 
 import java.util.*;
@@ -20,6 +21,43 @@ public class GestionServicio {
         this.listadoCarpas = new TreeSet<>();
         this.listadoSombrillas = new TreeSet<>();
         this.listadoPlazasEstacionamiento = new TreeSet<>();
+    }
+
+    public GestionServicio CargarGestion(){
+
+        GestionServicio gestorServicio = new GestionServicio();
+
+        Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
+        Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
+        Carpa carpa3 = new Carpa(VarianteCarpa.PREMIUM);
+
+        PlazaEstacionamiento plaza1 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza2 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza3 = new PlazaEstacionamiento();
+        PlazaEstacionamiento plaza4 = new PlazaEstacionamiento();
+
+        Sombrilla sombrilla1 = new Sombrilla();
+        Sombrilla sombrilla2 = new Sombrilla();
+        Sombrilla sombrilla3 = new Sombrilla();
+
+        gestorServicio.agregarPlazaEstacionamiento(plaza1);
+        gestorServicio.agregarPlazaEstacionamiento(plaza2);
+        gestorServicio.agregarPlazaEstacionamiento(plaza3);
+        gestorServicio.agregarPlazaEstacionamiento(plaza4);
+
+        carpa1.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+        carpa2.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+        carpa3.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
+
+        gestorServicio.agregarCarpa(carpa1);
+        gestorServicio.agregarCarpa(carpa2);
+        gestorServicio.agregarCarpa(carpa3);
+
+        gestorServicio.agregarSombrilla(sombrilla1);
+        gestorServicio.agregarSombrilla(sombrilla2);
+        gestorServicio.agregarSombrilla(sombrilla3);
+
+        return gestorServicio;
     }
 
     // Getters y Setters
@@ -144,18 +182,25 @@ public class GestionServicio {
 
 
     // Recorre los Sets para obtener un ArrayList con los IDs de los Servicios existentes
-    public List<String> obtenerIDServiciosExistentes() {
+    public List<String> obtenerIDServiciosExistentes(GestionServicio gestorServicio ) {
+
+        Set<Carpa> listadoCarpa = gestorServicio.getListadoCarpas();
+        Set<Sombrilla> listadoSombrilla = gestorServicio.getListadoSombrillas();
+        Set<PlazaEstacionamiento> listadoPlazaEstacionamiento = gestorServicio.getListadoPlazasEstacionamiento();
+
         List<String> ids = new ArrayList<>();
-        for (Carpa carpa : listadoCarpas) {
+
+        for (Carpa carpa : listadoCarpa) {
             ids.add(carpa.getId());
         }
-        for (Sombrilla sombrilla : listadoSombrillas) {
+        for (Sombrilla sombrilla : listadoSombrilla) {
             ids.add(sombrilla.getId());
         }
-        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+        for (PlazaEstacionamiento plaza : listadoPlazaEstacionamiento) {
             ids.add(plaza.getId());
         }
         return ids;
+
     }
 
 
@@ -250,5 +295,7 @@ public class GestionServicio {
         return !listaIdsCarpasDisponibles.isEmpty() || !listaIdsSombrillasDisponibles.isEmpty() || !listaIdsPlazasEstacionamientoDisponibles.isEmpty();
         //Si hay servicios disponibles esto devuelve false. Chequear
     }
+
+
 
 }

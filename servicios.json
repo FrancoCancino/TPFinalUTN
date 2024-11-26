@@ -24,6 +24,23 @@
    ],
    "sombrillas": [
       {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-1"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-2"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-3"
+      }
+   ],
+   "plazasEstacionamiento": [
+      {
          "precio": 8000,
          "ocupado": true,
          "id": "PE-1"
@@ -42,23 +59,6 @@
          "precio": 8000,
          "ocupado": false,
          "id": "PE-4"
-      }
-   ],
-   "plazasEstacionamiento": [
-      {
-         "precio": 18000,
-         "ocupado": false,
-         "id": "SM-1"
-      },
-      {
-         "precio": 18000,
-         "ocupado": false,
-         "id": "SM-2"
-      },
-      {
-         "precio": 18000,
-         "ocupado": false,
-         "id": "SM-3"
       }
    ]
 }

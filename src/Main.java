@@ -60,7 +60,8 @@ public class Main {
 
         //Cuando se da de baja una reserva ignore complettamente el comprobantte. Habria q pensar si una vez cambiado el estado del archivo reservas habria q cambiarlo ttmb del archivo Comprobanttes
 
-        //En teoria ahí los menus deberian estar al 100%, fijate si quisieras cambiar algo
+        //En teoria ahí los menus deberian1
+        // estar al 100%, fijate si quisieras cambiar algo
 
         // ============================================= cosas para hacer
 

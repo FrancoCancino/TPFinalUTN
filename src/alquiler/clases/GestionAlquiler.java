@@ -3,9 +3,12 @@ package alquiler.clases;
 import alquiler.enums.TipoServicio;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
+import org.json.JSONObject;
 import servicio.clases.*;
+import servicio.json.GestorServiciosJsonUtil;
 import usuario.OperacionesLectoEscritura;
 import utils.ConsolaUtils;
+import utils.Constantes;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
@@ -57,7 +60,7 @@ public class GestionAlquiler {
         LocalDate fechaActual = LocalDate.now();
 
         // Obtener una lista con los IDs de todos los Servicios existentes
-        List<String> lista = gestionServicio.obtenerIDServiciosExistentes();
+        List<String> lista = gestionServicio.obtenerIDServiciosExistentes(gestionServicio);
 
         // Crear la estructura del mapa
         for (String idServicio : lista) {
@@ -123,28 +126,7 @@ public class GestionAlquiler {
         }
     }
 
-    /**
-     * Método para obtener las carpas/sombrillas/plazas disponibles en una fecha determinada.
-     * recibe como parametros el tipoServicio , fechaInicio y fechaFin solicitados por el usuario
-     * Retorna una lista con los ids del servicio solicitado que se encuentran disponibles.
-     * si no existe el tipoServicio solicitado en el mapa, devuelve una lista vacia
-     */
-    public List<String> obtenerIdsDisponibles(TipoServicio tipoServicio, LocalDate fechaInicio, LocalDate fechaFin) {
 
-        // Evalua si existe una clave asociada al tipoServicio
-        if (!mapaAlquileres.containsKey(tipoServicio)) {
-            return Collections.emptyList();
-        }
-
-        Map<String, List<Alquiler>> alquileresPorId = mapaAlquileres.get(tipoServicio);
-
-        return alquileresPorId.entrySet().stream() // el mapa pasa a ser Steam
-                .filter(entry -> entry.getValue().stream()
-                        .noneMatch(alquiler -> alquiler.getFechaAlta().isBefore(fechaFin)
-                                && alquiler.getFechaBaja().isAfter(fechaInicio)))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-    }
 
     /**
      * Lista los Servicios Disponibles segun el TipoServicio
@@ -167,19 +149,31 @@ public class GestionAlquiler {
             // Segun el tipoServicio, obtiene el Servicio a partir del id leido
             switch (tipoServicio) {
                 case CARPA -> {
+                    if (i == 0 ){       //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoCarpas();
+                    }
                     Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
-                    ConsolaUtils.imprimirEncabezadoCarpas();
-                    System.out.println(carpa);
+                    if(!carpa.getOcupado()){
+                        System.out.println(carpa);
+                    }
                 }
                 case SOMBRILLA -> {
                     Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
-                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Sombrillas ");
-                    System.out.println(sombrilla);
+                    if (i == 0){    //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Sombrillas ");
+                    }
+                    if (!sombrilla.getOcupado()){
+                        System.out.println(sombrilla);
+                    }
                 }
                 case PLAZA_ESTACIONAMIENTO -> {
                     PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
-                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Plazas de Estacionamiento ");
-                    System.out.println(plaza);
+                    if (i == 0){        //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Plazas de Estacionamiento ");
+                    }
+                    if (!plaza.getOcupado()){
+                        System.out.println(plaza);
+                    }
                 }
                 default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
             }
@@ -239,13 +233,63 @@ public class GestionAlquiler {
     }
 
     /**
+     * Método para obtener las carpas/sombrillas/plazas disponibles en una fecha determinada.
+     * recibe como parametros el tipoServicio , fechaInicio y fechaFin solicitados por el usuario
+     * Retorna una lista con los ids del servicio solicitado que se encuentran disponibles.
+     * si no existe el tipoServicio solicitado en el mapa, devuelve una lista vacia
+     */
+    public List<String> obtenerIdsDisponibles(TipoServicio tipoServicio, LocalDate fechaInicio, LocalDate fechaFin) {
+
+        // Evalua si existe una clave asociada al tipoServicio
+        if (!mapaAlquileres.containsKey(tipoServicio)) {
+            return Collections.emptyList();
+        }
+
+        Map<String, List<Alquiler>> alquileresPorId = mapaAlquileres.get(tipoServicio);
+
+        return alquileresPorId.entrySet().stream() // el mapa pasa a ser Steam
+                .filter(entry -> entry.getValue().stream()
+                        .noneMatch(alquiler -> alquiler.getFechaAlta().isBefore(fechaFin)
+                                && alquiler.getFechaBaja().isAfter(fechaInicio)))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
+
+    public List<String> obtenerIdsDisponibles2(LocalDate fechaInicio, LocalDate fechaFin, GestionServicio gestionServicio) {
+
+        List<Alquiler> listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY("AlquilerPrueba.json"));
+        List<String> IDOcupados = new ArrayList<>();
+
+        // Identificar los IDs ocupados basados en las fechas
+        for (Alquiler alquiler : listaAlquileres) {
+            LocalDate fechaAlta = alquiler.getFechaAlta();
+            LocalDate fechaBaja = alquiler.getFechaBaja();
+
+            if (!fechaInicio.isAfter(fechaBaja) && !fechaFin.isBefore(fechaAlta)) {
+                IDOcupados.add(alquiler.getIdServicio());
+                System.err.println("IDs ocupados: " + IDOcupados);
+            }
+        }
+
+        // Obtener los IDs existentes de los servicios
+        List<String> IdsServiciosExistentes = gestionServicio.obtenerIDServiciosExistentes(gestionServicio);
+
+        // Eliminar los IDs ocupados de la lista de IDs existentes
+        IdsServiciosExistentes.removeIf(IDOcupados::contains);
+
+        System.err.println("IDs libres: " + IdsServiciosExistentes);
+
+        return IdsServiciosExistentes;
+    }
+
+    /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
     public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario, GestionAlquiler gestionAlquiler) throws ServiciosNoDisponiblesException {
 
         List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
-
 
         do{
             Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio,gestionAlquiler);
@@ -258,8 +302,18 @@ public class GestionAlquiler {
             } while(alquilerParcial == null);
 
 
+            //Objetivo: Que obtener IDs disponibles NO DEVUELVA lo que lea del archivo AlquilerPrueba
+            List<String> listaIdsDisponibles = obtenerIdsDisponibles2(alquilerParcial.getFechaAlta(),alquilerParcial.getFechaBaja(),gestionServicio);
 
-            List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
+            //Filtro según el tipo de serviccio que sea, Borarria de ListaIDsDisponibles los que estan ocupados.
+            if(alquilerParcial.getTipoServicio() == TipoServicio.CARPA){
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_CARPA));
+            }else if (alquilerParcial.getTipoServicio() == TipoServicio.SOMBRILLA){
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_SOMBRILLA));
+            }else{
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_PLAZA_ESTACIONAMIENTO));
+            }
+
 
             // En caso de retornar una lista vacia, se lanza una excepcion
             if(listaIdsDisponibles.isEmpty()){

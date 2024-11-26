@@ -4,6 +4,8 @@ import alquiler.json.AlquilerJsonUtil;
 import alquiler.json.ComprobanteJsonUtil;
 import org.json.JSONObject;
 import servicio.clases.GestionServicio;
+import servicio.clases.PlazaEstacionamiento;
+import servicio.clases.Sombrilla;
 import servicio.json.CarpaJsonUtil;
 import servicio.json.GestorServiciosJsonUtil;
 import servicio.json.PlazaEstacionamientoJsonUtil;
@@ -36,9 +38,12 @@ public class MenuPrincipal {
 
         //Se crea un gestor de servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
+        //gestorServicio.CargarGestion();
 
         //Este metodo graba el archivo servicios. Usar cuando pongamos muchos servicios en un GestorServicio.
-            //OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
+        //OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
+
+
 
         //Metodo para leer el archivo servicios y cargarlo en el GestorServicio
         JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));   //Guardo el tokener en un JsonObject
@@ -54,6 +59,7 @@ public class MenuPrincipal {
 
         //Creo una lista de alquileres que se va a usar en Mis Reservas y en Reservar.
         List<Alquiler> listaAlquileres = new ArrayList<>();
+
 
 
         int numero;

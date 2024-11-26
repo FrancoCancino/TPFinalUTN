@@ -20,8 +20,8 @@ public class GestorServiciosJsonUtil {
         try {
             JsonObj = new JSONObject();
             JsonObj.put("carpas",CarpaJsonUtil.serializarListadoCarpas(gestorServicios.getListadoCarpas()));
-            JsonObj.put("sombrillas",PlazaEstacionamientoJsonUtil.serializarListadoPlazasEstacionamiento(gestorServicios.getListadoPlazasEstacionamiento()));
-            JsonObj.put("plazasEstacionamiento",SombrillaJsonUtil.serializarListadoSombrillas(gestorServicios.getListadoSombrillas()));
+            JsonObj.put("plazasEstacionamiento",PlazaEstacionamientoJsonUtil.serializarListadoPlazasEstacionamiento(gestorServicios.getListadoPlazasEstacionamiento()));
+            JsonObj.put("sombrillas",SombrillaJsonUtil.serializarListadoSombrillas(gestorServicios.getListadoSombrillas()));
 
         } catch (JSONException e) {
             System.err.println(e.getMessage());
