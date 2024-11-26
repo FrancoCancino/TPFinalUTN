@@ -10,7 +10,7 @@ import java.io.*;
 public class OperacionesLectoEscritura {
 
     //Grabar y leer JSON OBJECTS !
-    public static void grabarArchivo(JSONObject obj, String nombreArchivo){
+    public static void grabarArchivoObject(JSONObject obj, String nombreArchivo){
         try{
             FileWriter file = new FileWriter(nombreArchivo);
             file.write(obj.toString(3));

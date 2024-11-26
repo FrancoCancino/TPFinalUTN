@@ -180,16 +180,4 @@ public class InteraccionUsuarioAlquiler {
         return fecha.matches("^\\d{2}/\\d{2}/\\d{4}$");     //Este regex verifica que se cummpla el formato dd/MM/yyyy.
     }
 
-    public void listarReservas(){           //Borrar...
-
-        ArrayList<Alquiler> alquileres = new ArrayList<>(gestionAlquiler.getListaAlquileres());
-        System.out.println("Mis reservas: ");
-        for (Alquiler alquiler : alquileres){
-            System.out.println(alquiler);
-        }
-
-    }
-
-
-    //
 }

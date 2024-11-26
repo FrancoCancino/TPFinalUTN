@@ -33,6 +33,28 @@ public class GestionComprobanteAlquiler {
     }
 
     // CRUD
+    public boolean agregarComprobanteAlquiler(ComprobanteAlquiler comprobanteAlquiler){
+        return listaComprobanteAlquiler.add(comprobanteAlquiler);
+    }
+
+    public boolean eliminarComprobanteAlquiler(ComprobanteAlquiler comprobanteAlquiler){
+        return listaComprobanteAlquiler.remove(comprobanteAlquiler);
+    }
+
+    public boolean modificarComprobanteAlquiler(ComprobanteAlquiler original, ComprobanteAlquiler modificada) {
+        if (eliminarComprobanteAlquiler(original)) {
+            return agregarComprobanteAlquiler(modificada);
+        }
+        return false;
+    }
+
+    public void listarComprobantes(){
+        for(ComprobanteAlquiler comprobanteAlquiler : listaComprobanteAlquiler){
+            System.out.println(comprobanteAlquiler);
+        }
+    }
+
+
     /**
      * Elimina de la lista de alquileres que posee el comprobante, un alquiler en especifico.
      * @param idAlquilerCancelado representa el alquiler que se borro
@@ -117,12 +139,5 @@ public class GestionComprobanteAlquiler {
 
         return comprobante;
     }
-
-    public void listarComprobantes(){
-        for(ComprobanteAlquiler comprobanteAlquiler : listaComprobanteAlquiler){
-            System.out.println(comprobanteAlquiler);
-        }
-    }
-
 
 }
