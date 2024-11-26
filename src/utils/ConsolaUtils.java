@@ -14,6 +14,15 @@ public class ConsolaUtils {
     private static final String CARACTER_LINEA = "-";
     private static final String CARACTER_DOBLE = "=";
 
+    // Definicion de codigos ANSI para colores
+    public static final String RESET = "\u001B[0m";  // Resetea el color // System.out.println(ROJO + "Se imprime rojo" + RESET);
+    public static final String ROJO = "\u001B[31m";
+    public static final String VERDE = "\u001B[32m";
+    public static final String AMARILLO = "\u001B[33m";
+    public static final String AZUL = "\u001B[34m";
+    public static final String MAGENTA = "\u001B[35m";
+    public static final String CIAN = "\u001B[36m";
+
     // EMOJIS
     private static final String EMOJI_CALENDARIO = "📅";
     private static final String EMOJI_DINERO = "💰";
