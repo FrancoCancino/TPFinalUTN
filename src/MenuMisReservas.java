@@ -5,6 +5,7 @@ import alquiler.json.AlquilerJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
+import utils.Constantes;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -35,7 +36,7 @@ public class MenuMisReservas {
                 scan.nextLine();
 
                 if (numero == 1 || numero == 2){    //Leo el archivo acá directamente para evitar abrir el archivo 2 veces
-                    listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY("AlquilerPrueba.json"));
+                    listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler));
                 }
 
 

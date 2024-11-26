@@ -357,9 +357,9 @@ public final class GestionUsuarios {
 
     public static int actualizacionDatos(LinkedHashMap<Integer,String> LHM,int numero){
         LHM.remove(numero);
-        System.out.println("Si queres modificar otro dato escribí '0'");
-        numero = scan.nextInt();
-        if (numero == 0){
+        System.out.println("Queres modificar otro dato? (s/n)");
+        String opcion = scan.nextLine();
+        if (opcion.equalsIgnoreCase("s")){
             numero = -1;
         }else{
             numero = 0;

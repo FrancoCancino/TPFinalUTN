@@ -111,7 +111,7 @@ public class MenuPrincipal implements iMenuPresentable {
                         break;
                     case 3:
                         //Modificar datos personales
-                        GestionUsuarios.modificarUsuario(usuario);  //Por ahora retorna el usuario nuevo pero quizá la hacemos void.
+                        GestionUsuarios.modificarUsuario(usuario);
 
                         System.out.println("Queres volver al menu principal? (s/n)");
                         control = scan.nextLine();
