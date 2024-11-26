@@ -12,6 +12,7 @@ import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
 import utils.ConsolaUtils;
+import utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -91,7 +92,7 @@ public class MenuPrincipal implements iMenuPresentable {
                         listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI(),GA);   //Genera la lista de alquileres. (Basicamente alquilar).
                         //La guardo en una lista nueva así despues puedo mostrar el comprobante de la reserva más comodo.
 
-                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres),"AlquilerPrueba.json");
+                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres), Constantes.nombreArchivoAlquiler);
 
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();

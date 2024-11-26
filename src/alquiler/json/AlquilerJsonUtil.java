@@ -78,7 +78,7 @@ public class AlquilerJsonUtil {
     public static JSONArray serializarListaAlquiler(List<Alquiler> listaAlquiler) {
 
         JSONObject temp; //Creo un objeto Json temporal
-        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("AlquilerPrueba.json");
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler);
         //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
 
         for (Alquiler alquiler : listaAlquiler){

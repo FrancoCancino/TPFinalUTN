@@ -225,14 +225,13 @@ public class GestionAlquiler {
      * @param idAlquiler id del Alquiler a dar de baja
      */
 
-    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler){
+    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler, List<Alquiler> listaAlquileres){
 
-        for(Alquiler alquiler : getListaAlquileres()){
+        for(Alquiler alquiler :listaAlquileres){
             if (alquiler.getId().equals(idAlquiler)){
-                System.err.println("AHRE");
                 alquiler.setActivo(false);
                 gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
-                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),"AlquilerPrueba.json");
+                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),Constantes.nombreArchivoAlquiler);
                 return true;
             }
         }
@@ -265,7 +264,7 @@ public class GestionAlquiler {
 
     public List<String> obtenerIdsDisponiblesParaAlquilar(LocalDate fechaInicio, LocalDate fechaFin, GestionServicio gestionServicio) {
 
-        List<Alquiler> listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY("AlquilerPrueba.json"));
+        List<Alquiler> listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler));
         List<String> IDOcupados = new ArrayList<>();
 
         // Identificar los IDs ocupados basados en las fechas
@@ -273,7 +272,7 @@ public class GestionAlquiler {
             LocalDate fechaAlta = alquiler.getFechaAlta();
             LocalDate fechaBaja = alquiler.getFechaBaja();
 
-            if (!fechaInicio.isAfter(fechaBaja) && !fechaFin.isBefore(fechaAlta)) {
+            if (!fechaInicio.isAfter(fechaBaja) && !fechaFin.isBefore(fechaAlta) && (alquiler.isActivo())) {
                 IDOcupados.add(alquiler.getIdServicio());
             }
         }

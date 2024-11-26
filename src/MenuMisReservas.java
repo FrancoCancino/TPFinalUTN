@@ -63,11 +63,11 @@ public class MenuMisReservas {
 
                     case 2:
                         //Cancelar reserva
-                        System.err.println(gestionAlquiler.getListaAlquileres());
 
 
                         // Se muestran las reservas que pueden ser canceladas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
+
                         if (listaAlquileres.isEmpty()){
 
                             System.out.println("Querés volver al menú principal? (s/n)");
@@ -91,7 +91,7 @@ public class MenuMisReservas {
                                 break;
                             }
 
-                            resultadoDarBaja = gestionAlquiler.darBajaAlquiler(opcion, gestionComprobanteAlquiler);
+                            resultadoDarBaja = gestionAlquiler.darBajaAlquiler(opcion, gestionComprobanteAlquiler,listaAlquileres);
 
                             if(!resultadoDarBaja){
                                 System.out.println("El ID ingresado no existe. Intentelo nuevamente");

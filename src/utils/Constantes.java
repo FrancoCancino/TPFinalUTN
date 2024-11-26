@@ -18,8 +18,8 @@ public final class Constantes {
 
     public static final String nombreArchivoComprobante = "ComprobanteAlquiler.json";
     public static final String nombreArchivoServicios = "Servicios.json";
-    public static final String nombreArchivoUsuario = "Usuario.json";
-    public static final String nombreArchivoAlquiler = "AlquilerPrueba.json";
+    public static final String nombreArchivoUsuario = "Usuarios.json";
+    public static final String nombreArchivoAlquiler = "Reservas.json";
 
 
     private Constantes() {
