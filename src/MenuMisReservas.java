@@ -5,6 +5,7 @@ import alquiler.json.AlquilerJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
+import utils.ConsolaUtils;
 import utils.Constantes;
 
 import java.util.InputMismatchException;
@@ -13,21 +14,16 @@ import java.util.Scanner;
 
 import static alquiler.clases.GestionAlquiler.listarAlquileres;
 
-public class MenuMisReservas {
+public class MenuMisReservas implements iMenuPresentable {
 
     private final static Scanner scan = new Scanner(System.in);
 
-    // Sobreescritura de metodos de la interfaz IMenuPresentable
 
-    public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario, GestionAlquiler gestionAlquiler, GestionComprobanteAlquiler gestionComprobanteAlquiler) {
+    public void Menu(List<Alquiler> listaAlquileres, Usuario usuario, GestionAlquiler gestionAlquiler, GestionComprobanteAlquiler gestionComprobanteAlquiler) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
 
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("Ingresá una opción:");
-        System.out.println("1. Listar mis reservas");
-        System.out.println("2. Cancelar reserva");
-        System.out.println("0. Volver al menu principal.");
-        System.out.println("-------------------------------------------------------------------");
+        imprimirEncabezado();
+        imprimirOpciones();
 
         int numero;
         do {
@@ -52,6 +48,8 @@ public class MenuMisReservas {
                         //Listar mis reservas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
 
+                        imprimirInfo();
+
                         System.out.println("Querés volver al menú principal? (s/n)");
                         String volver = scan.nextLine();
                         if (volver.equalsIgnoreCase("s")){
@@ -60,11 +58,11 @@ public class MenuMisReservas {
                             System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + " !");
                         }
 
+
                         break;
 
                     case 2:
                         //Cancelar reserva
-
 
                         // Se muestran las reservas que pueden ser canceladas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
@@ -123,4 +121,37 @@ public class MenuMisReservas {
             }
         } while (numero != 1 && numero != 2 && numero != 0) ;
     }
+
+    // Sobreescritura de metodos de la interfaz IMenuPresentable
+    @Override
+    public void imprimirEncabezado() {
+        System.out.println("");
+        System.out.println("De la compu a la arena, sin escalas " + ConsolaUtils.MAR + ConsolaUtils.SOMBRILLA);
+        System.out.println("A través de la aplicación te asegurás siempre tu lugar.");
+        System.out.println("");
+    }
+
+    @Override
+    public void imprimirInfo() {
+        System.out.println("");
+        System.out.println("Recordá que podés hacer la cancelación de tu reserva de manera gratuita!");
+        System.out.println("");
+    }
+
+    @Override
+    public void imprimirOpciones() {
+        String[] opciones ={
+                "Listar mis reservas.",
+                "Cancelar reserva.",
+        };
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirMenuCentrado(opciones);
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirCentrado("Ingresá una opción:");
+    }
+
+
 }
