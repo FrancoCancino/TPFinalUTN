@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import servicio.clases.PlazaEstacionamiento;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 public final class PlazaEstacionamientoJsonUtil {
@@ -49,7 +50,7 @@ public final class PlazaEstacionamientoJsonUtil {
      * @return un {@link JSONArray} que representa los datos del {@code listado}.
      * Si ocurre una excepción, se devuelve un JSONArray vacío.
      */
-    public static JSONArray serializarListadoPlazasEstacionamiento(TreeSet<PlazaEstacionamiento> listado) {
+    public static JSONArray serializarListadoPlazasEstacionamiento(Set<PlazaEstacionamiento> listado) {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray();
@@ -65,14 +66,14 @@ public final class PlazaEstacionamientoJsonUtil {
     }
 
     /**
-     * Deserializa  un {@link JSONArray} en un Set de tipo {@link TreeSet<PlazaEstacionamiento>}
+     * Deserializa  un {@link JSONArray} en un Set de tipo {@link Set<PlazaEstacionamiento>}
      *
      * @param jsonArray array de tipo {@code JSONArray} que se desea deserializar.
      * @return un {@link TreeSet<PlazaEstacionamiento>}
      * Si ocurre una excepción, se devuelve un listado vacío.
      */
-    public static TreeSet<PlazaEstacionamiento> deserializarListadoPlazasEstacionamiento(JSONArray jsonArray) {
-        TreeSet<PlazaEstacionamiento> listado = new TreeSet<>();
+    public static Set<PlazaEstacionamiento> deserializarListadoPlazasEstacionamiento(JSONArray jsonArray) {
+        Set<PlazaEstacionamiento> listado = new TreeSet<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 PlazaEstacionamiento plaza = deserializarPlazaEstacionamiento(jsonArray.getJSONObject(i));

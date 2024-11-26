@@ -5,6 +5,7 @@ import alquiler.json.AlquilerJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
+import utils.Constantes;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,12 +20,13 @@ public class MenuMisReservas {
     // Sobreescritura de metodos de la interfaz IMenuPresentable
 
     public static void Menu(List<Alquiler> listaAlquileres, Usuario usuario, GestionAlquiler gestionAlquiler, GestionComprobanteAlquiler gestionComprobanteAlquiler) {
+        MenuPrincipal menuPrincipal = new MenuPrincipal();
 
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Ingresá una opción:");
         System.out.println("1. Listar mis reservas");
         System.out.println("2. Cancelar reserva");
-        System.out.println("0. Salir.");
+        System.out.println("0. Volver al menu principal.");
         System.out.println("-------------------------------------------------------------------");
 
         int numero;
@@ -34,14 +36,15 @@ public class MenuMisReservas {
                 scan.nextLine();
 
                 if (numero == 1 || numero == 2){    //Leo el archivo acá directamente para evitar abrir el archivo 2 veces
-                    listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY("AlquilerPrueba.json"));
+                    listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler));
                 }
 
 
                 switch (numero) {
 
                     case 0:
-                        System.out.println("Volviendo atrás...");
+                        System.out.println("Volviendo al menu principal...");
+                        menuPrincipal.Menu(usuario);
 
                         break;
 
@@ -49,19 +52,47 @@ public class MenuMisReservas {
                         //Listar mis reservas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
 
+                        System.out.println("Querés volver al menú principal? (s/n)");
+                        String volver = scan.nextLine();
+                        if (volver.equalsIgnoreCase("s")){
+                            menuPrincipal.Menu(usuario);
+                        }else{
+                            System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + " !");
+                        }
+
                         break;
 
                     case 2:
                         //Cancelar reserva
+
+
                         // Se muestran las reservas que pueden ser canceladas
                         listarAlquileres(listaAlquileres, usuario.getDNI());
 
+                        if (listaAlquileres.isEmpty()){
+
+                            System.out.println("Querés volver al menú principal? (s/n)");
+                            volver = scan.nextLine();
+                            if (volver.equalsIgnoreCase("s")){
+                                menuPrincipal.Menu(usuario);
+                            }else{
+                                System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + " !");
+                            }
+
+                            break;
+                        }
+
                         boolean resultadoDarBaja;
                         do{
-                            System.out.println("Escribí el ID de la reserva que queres cancelar:");
+                            System.out.println("Escribí el ID de la reserva que queres cancelar: (escribí 'volver' para volver al menu principal)");
                             String opcion = scan.nextLine();
 
-                            resultadoDarBaja = gestionAlquiler.darBajaAlquiler(opcion, gestionComprobanteAlquiler);
+                            if (opcion.equalsIgnoreCase("volver")){
+                                menuPrincipal.Menu(usuario);
+                                break;
+                            }
+
+                            resultadoDarBaja = gestionAlquiler.darBajaAlquiler(opcion, gestionComprobanteAlquiler,listaAlquileres);
 
                             if(!resultadoDarBaja){
                                 System.out.println("El ID ingresado no existe. Intentelo nuevamente");
@@ -70,6 +101,14 @@ public class MenuMisReservas {
                             }
 
                         }while(!resultadoDarBaja); // se ejecuta hasta que se pudo dar de baja el alquiler, es decir, hasta que el id ingresado es correcto
+
+                        System.out.println("Querés volver al menú principal? (s/n)");
+                        volver = scan.nextLine();
+                        if (volver.equalsIgnoreCase("s")){
+                            menuPrincipal.Menu(usuario);
+                        }else{
+                            System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + " !");
+                        }
 
                         break;
 

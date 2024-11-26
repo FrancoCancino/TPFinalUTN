@@ -13,10 +13,11 @@ public class Usuario {
     private String nacionalidad;
     private String ciudad;
     private String contrasenia;
+    private TipoUsuario tipoUsuario;
 
     //Constructores
     //Constructor con todos los datos.
-    public Usuario(String contrasenia, String nacionalidad, String ciudad, String celular, String mail, String apellido, String nombre, String DNI) {
+    public Usuario(String contrasenia, String nacionalidad, String ciudad, String celular, String mail, String apellido, String nombre, String DNI, TipoUsuario tipoUsuario) {
         this.DNI = DNI;
         this.contrasenia = contrasenia;
         this.nacionalidad = nacionalidad;
@@ -26,6 +27,7 @@ public class Usuario {
         this.apellido = apellido;
         this.nombre = nombre;
         this.activo = true;
+        this.tipoUsuario = tipoUsuario;
     }
     //Constructor con info más importante.
     public Usuario(String nombre, String apellido, String celular, String contrasenia, String mail, String DNI) {
@@ -53,6 +55,7 @@ public class Usuario {
         this.apellido = null;
         this.activo = false;
         this.DNI = null;
+        this.tipoUsuario = null;
     }
 
     //Getters y Setters
@@ -118,6 +121,14 @@ public class Usuario {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     //Metodos
     @Override
     public String toString() {
@@ -126,7 +137,8 @@ public class Usuario {
                         ", apellido:'" + apellido + '\'' +
                         "DNI:'" + DNI + '\'' +
                 ", activo:" + activo +
-                ", mail:'" + mail + '\'' +
+                        ", tipo de usuario:'" + tipoUsuario + '\'' +
+                        ", mail:'" + mail + '\'' +
                         ", contraseña:'" + contrasenia + '\'' +
                         ", celular:'" + celular + '\'' +
                 ", nacionalidad:'" + nacionalidad + '\'' +

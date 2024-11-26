@@ -1,11 +1,15 @@
 import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
+import org.json.JSONObject;
 import servicio.clases.GestionServicio;
+import servicio.json.GestorServiciosJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
+import usuario.TipoUsuario;
 import usuario.Usuario;
 import utils.ConsolaUtils;
+import utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -20,19 +24,22 @@ public class MenuPrincipal implements iMenuPresentable {
 
     public void Menu(Usuario usuario){
 
-        imprimirEncabezado();
-        System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
-        ConsolaUtils.imprimirLinea();
-        imprimirInfo();
-        imprimirOpciones();
 
-        //Se crea un gestorde servicios al finalizar el log in.
+
+        //Se crea un gestor de servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
 
-        //En este gestor de servicios se cargan Sombrillas, Plazas de estacionamiento y carpas.
-        gestorServicio.cargarGestionServicioParaPruebas();
 
-        //Creo un gestor para los alquileres
+        //Metodo para leer el archivo servicios y cargarlo en el GestorServicio
+
+        //Guardo el tokener en un JsonObject
+        JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));
+
+        //Pongo el object y lo deserializo, cargandolo en el gestorServicio vacio.
+        gestorServicio = GestorServiciosJsonUtil.deserializarServicios(jsonObj);
+
+
+        //Creo un gestor para los alquileres y un gestor para los comprobantes.
         GestionAlquiler GA = new GestionAlquiler();
         GestionComprobanteAlquiler GC = new GestionComprobanteAlquiler();
 
@@ -44,7 +51,14 @@ public class MenuPrincipal implements iMenuPresentable {
 
 
         int numero;
+        String control;
         do {
+            imprimirEncabezado();
+            System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
+            ConsolaUtils.imprimirLinea();
+            imprimirInfo();
+            imprimirOpciones();
+
             try {
                 numero = scan.nextInt();
                 scan.nextLine();
@@ -58,8 +72,13 @@ public class MenuPrincipal implements iMenuPresentable {
 
                     case 1:
                         //Mis reservas
-                        //-------------------------------------------- AGREGUE GA
                         MenuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
 
                 break;
 
@@ -67,29 +86,55 @@ public class MenuPrincipal implements iMenuPresentable {
 
                         //Reservar
 
-                        listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI());   //Genera la lista de alquileres. (Basicamente alquilar).
+                        listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI(),GA);   //Genera la lista de alquileres. (Basicamente alquilar).
                         //La guardo en una lista nueva así despues puedo mostrar el comprobante de la reserva más comodo.
 
+                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres), Constantes.nombreArchivoAlquiler);
 
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();
                         // Se crear un comprobante a partir de los Alquileres realizados
-                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio);
+                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio,usuario);
 
-                        System.out.println("Su reserva se realizó con éxito!");
+                        System.err.println("Su reserva se realizó con éxito!");
                         comprobanteAlquiler.mostrarComprobanteAlquiler(gestorServicio);
 
-                        //Serializar reserva y comprobante.
-
-                        //Acá grabo la lista de alquileres generada arriba.
-                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres),"AlquilerPrueba.json");
-                        //OperacionesLectoEscritura.grabarArchivoARRAY();
-
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
 
                         break;
                     case 3:
                         //Modificar datos personales
-                        GestionUsuarios.modificarUsuario(usuario);  //Por ahora retorna el usuario nuevo pero quizá la hacemos void.
+                        GestionUsuarios.modificarUsuario(usuario);
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
+
+                        break;
+
+                    case 4:
+                        //Dar de baja usuarios
+                        if(usuario.getTipoUsuario() == TipoUsuario.ADMINISTRADOR){
+                            System.out.println("Esta es la lista de los usuarios activos:");
+
+                            GestionUsuarios.sobreescribirUsuario(GestionUsuarios.bajaPasivaUsuario());
+                            System.out.println("El usuario fue dado de baja con éxito.");
+
+                        } else {
+                            System.err.println("No tenes los permisos para ingresar a esta opción");
+                        }
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
 
                         break;
 
@@ -104,7 +149,7 @@ public class MenuPrincipal implements iMenuPresentable {
             } catch (ServiciosNoDisponiblesException e) {
                 throw new RuntimeException(e);
             }
-        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3) ;
+        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3 && numero != 4) ;
     }
 
     @Override
@@ -124,7 +169,9 @@ public class MenuPrincipal implements iMenuPresentable {
         String[] opciones ={
                 "Mis reservas.",
                 "Reservar.",
-                "Modificar datos personales."
+                "Modificar datos personales.",
+                "Dar de baja usuarios (Opcion de administrador).",
+
         };
 
         ConsolaUtils.imprimirLineaDoble();

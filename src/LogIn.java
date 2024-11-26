@@ -1,5 +1,6 @@
 import servicio.json.SombrillaJsonUtil;
 import usuario.GestionUsuarios;
+import usuario.Usuario;
 import utils.ConsolaUtils;
 import utils.Constantes;
 
@@ -70,18 +71,24 @@ public class LogIn implements iMenuPresentable {
                         break;
 
                     case 1:
-                        //Registro
+                        //Inicio sesión
+                        Usuario usuarioInicio = new Usuario();
+                        usuarioInicio = g1.inicioSesion();
 
-                        menuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
+                        if(!usuarioInicio.isActivo()){
+                            System.err.println("TU CUENTA HA SIDO ELIMINADA. CONTACTATE CON SOPORTE.");
+                        }else{
+                            menuPrincipal.Menu(usuarioInicio);
+                        }
 
                         break;
 
                     case 2:
-                        //Inicio Sesión
-
+                        //Registro
                         System.out.println(g1.registro(g1));
 
                         break;
+
 
                     default:
                         System.out.println("Opción incorrecta. Ingresá 1 para iniciar sesión o 2 para registrarse.");

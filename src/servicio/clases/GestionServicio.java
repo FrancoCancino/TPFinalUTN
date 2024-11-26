@@ -1,7 +1,10 @@
 package servicio.clases;
 
+import alquiler.clases.Alquiler;
+import alquiler.clases.GestionAlquiler;
 import alquiler.enums.TipoServicio;
 import servicio.enums.VarianteCarpa;
+import servicio.json.GestorServiciosJsonUtil;
 import utils.Constantes;
 
 import java.util.*;
@@ -19,39 +22,6 @@ public class GestionServicio {
         this.listadoSombrillas = new TreeSet<>();
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
-
-    public void cargarGestionServicioParaPruebas() {
-
-        /*
-
-        Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
-        Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
-        Carpa carpa3 = new Carpa(VarianteCarpa.PREMIUM);
-        PlazaEstacionamiento plaza1 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza2 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza3 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza4 = new PlazaEstacionamiento();
-        agregarPlazaEstacionamiento(plaza1);
-        agregarPlazaEstacionamiento(plaza2);
-        agregarPlazaEstacionamiento(plaza3);
-        agregarPlazaEstacionamiento(plaza4);
-        carpa1.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-        carpa2.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-        carpa3.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-        agregarCarpa(carpa1);
-        agregarCarpa(carpa2);
-        agregarCarpa(carpa3);
-        Sombrilla sombrilla1 = new Sombrilla();
-        Sombrilla sombrilla2 = new Sombrilla();
-        Sombrilla sombrilla3 = new Sombrilla();
-        agregarSombrilla(sombrilla1);
-        agregarSombrilla(sombrilla2);
-        agregarSombrilla(sombrilla3);
-
-         */
-
-    }
-
 
     // Getters y Setters
     public Set<Carpa> getListadoCarpas() {
@@ -175,18 +145,25 @@ public class GestionServicio {
 
 
     // Recorre los Sets para obtener un ArrayList con los IDs de los Servicios existentes
-    public List<String> obtenerIDServiciosExistentes() {
+    public List<String> obtenerIDServiciosExistentes(GestionServicio gestorServicio ) {
+
+        Set<Carpa> listadoCarpa = gestorServicio.getListadoCarpas();
+        Set<Sombrilla> listadoSombrilla = gestorServicio.getListadoSombrillas();
+        Set<PlazaEstacionamiento> listadoPlazaEstacionamiento = gestorServicio.getListadoPlazasEstacionamiento();
+
         List<String> ids = new ArrayList<>();
-        for (Carpa carpa : listadoCarpas) {
+
+        for (Carpa carpa : listadoCarpa) {
             ids.add(carpa.getId());
         }
-        for (Sombrilla sombrilla : listadoSombrillas) {
+        for (Sombrilla sombrilla : listadoSombrilla) {
             ids.add(sombrilla.getId());
         }
-        for (PlazaEstacionamiento plaza : listadoPlazasEstacionamiento) {
+        for (PlazaEstacionamiento plaza : listadoPlazaEstacionamiento) {
             ids.add(plaza.getId());
         }
         return ids;
+
     }
 
 
@@ -271,14 +248,17 @@ public class GestionServicio {
     }
 
     //Funcion para  verificar que haya por lo menos 1 servicio disponible
-    public boolean verificarSiExistenServiciosDisponibles(){
-        int cantidadCarpas = contarCarpasDisponibles();
-        int cantidadSombrillas = contarSombrillasDisponibles();
+    public boolean verificarSiExistenServiciosDisponibles(GestionAlquiler gestionAlquiler, Alquiler alquiler) {
 
-        // El metodo retorna true si se puede alquilar SOLO la plaza
-        boolean existenPlazasDisponibles = verificarSiExistenPlazasDisponibles();
 
-        return (existenPlazasDisponibles || cantidadSombrillas > 0 || cantidadCarpas > 0 );     //Si hay servicios disponibles esto devuelve false. Chequear
+        List<String> listaIdsCarpasDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.CARPA, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+        List<String> listaIdsSombrillasDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.SOMBRILLA, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+        List<String> listaIdsPlazasEstacionamientoDisponibles = gestionAlquiler.obtenerIdsDisponibles(TipoServicio.PLAZA_ESTACIONAMIENTO, alquiler.getFechaAlta(), alquiler.getFechaBaja());
+
+        return !listaIdsCarpasDisponibles.isEmpty() || !listaIdsSombrillasDisponibles.isEmpty() || !listaIdsPlazasEstacionamientoDisponibles.isEmpty();
+        //Si hay servicios disponibles esto devuelve false. Chequear
     }
+
+
 
 }

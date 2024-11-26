@@ -16,7 +16,7 @@ public class OperacionesLectoEscritura {
             file.write(obj.toString(3));
             file.close();
         } catch(IOException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -25,7 +25,7 @@ public class OperacionesLectoEscritura {
         try{
             tokener = new JSONTokener(new FileReader(nombreArchivo));
         } catch (FileNotFoundException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
             return tokener;
     }
@@ -58,7 +58,6 @@ public class OperacionesLectoEscritura {
             file.close();
         } catch(IOException e){
             System.out.println("Error al escribir en el archivo: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 

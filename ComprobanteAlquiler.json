@@ -1,17 +1,383 @@
-[{
-   "descripcion": "Alquiler de servicios de playa",
-   "importeTotal": 100000,
-   "fechaEmision": "2024-11-25T12:24:53.431397",
-   "id": "-6711",
-   "subTotal": 100000,
-   "listaAlquileres": [{
-      "fechaBaja": "2025-01-16",
-      "tipoServicio": "CARPA",
-      "fechaAlta": "2025-01-13",
-      "idUsuario": "43740866",
-      "id": "38nu",
-      "idServicio": "CP-2",
+[
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 30000,
+      "fechaEmision": "2024-11-26T03:24:51.945330300",
+      "id": "94984",
+      "subTotal": 30000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-01-01",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "43740866",
+         "id": "3srn",
+         "idServicio": "CP-1",
+         "activo": true
+      }],
       "activo": true
-   }],
-   "activo": true
-}]
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 30000,
+      "fechaEmision": "2024-11-26T03:34:07.018134900",
+      "id": "63614",
+      "subTotal": 30000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-01-01",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "43740866",
+         "id": "2cyr",
+         "idServicio": "CP-1",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 56000,
+      "fechaEmision": "2024-11-26T04:12:39.700957700",
+      "id": "63673",
+      "subTotal": 56000,
+      "listaAlquileres": [
+         {
+            "fechaBaja": "2025-01-01",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-01-01",
+            "idUsuario": "43740866",
+            "id": "151k",
+            "idServicio": "CP-1",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-01-01",
+            "tipoServicio": "SOMBRILLA",
+            "fechaAlta": "2025-01-01",
+            "idUsuario": "43740866",
+            "id": "okro",
+            "idServicio": "SM-1",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-01-01",
+            "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+            "fechaAlta": "2025-01-01",
+            "idUsuario": "43740866",
+            "id": "26o5",
+            "idServicio": "PE-1",
+            "activo": true
+         }
+      ],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 1086000,
+      "fechaEmision": "2024-11-26T04:14:43.339415700",
+      "id": "13038",
+      "subTotal": 1086000,
+      "listaAlquileres": [
+         {
+            "fechaBaja": "2025-02-04",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-02-02",
+            "idUsuario": "43740866",
+            "id": "w2ky",
+            "idServicio": "CP-1",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-02-03",
+            "tipoServicio": "SOMBRILLA",
+            "fechaAlta": "2025-02-02",
+            "idUsuario": "43740866",
+            "id": "3fey",
+            "idServicio": "SM-5",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-02-01",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-01-01",
+            "idUsuario": "43740866",
+            "id": "wma6",
+            "idServicio": "CP-7",
+            "activo": true
+         }
+      ],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 462000,
+      "fechaEmision": "2024-11-26T04:17:14.038097700",
+      "id": "36825",
+      "subTotal": 462000,
+      "listaAlquileres": [
+         {
+            "fechaBaja": "2025-01-04",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-01-01",
+            "idUsuario": "12345678",
+            "id": "5c6h",
+            "idServicio": "CP-6",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-06-08",
+            "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+            "fechaAlta": "2025-06-02",
+            "idUsuario": "12345678",
+            "id": "2dfb",
+            "idServicio": "PE-15",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-02-07",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-02-02",
+            "idUsuario": "12345678",
+            "id": "1dmu",
+            "idServicio": "CP-13",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2024-12-07",
+            "tipoServicio": "SOMBRILLA",
+            "fechaAlta": "2024-12-01",
+            "idUsuario": "12345678",
+            "id": "1ldp",
+            "idServicio": "SM-5",
+            "activo": true
+         }
+      ],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 1100000,
+      "fechaEmision": "2024-11-26T04:22:40.474668600",
+      "id": "94917",
+      "subTotal": 1100000,
+      "listaAlquileres": [
+         {
+            "fechaBaja": "2024-12-28",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2024-12-06",
+            "idUsuario": "12345678",
+            "id": "1lzc",
+            "idServicio": "CP-11",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-02-09",
+            "tipoServicio": "SOMBRILLA",
+            "fechaAlta": "2025-02-01",
+            "idUsuario": "12345678",
+            "id": "bix4",
+            "idServicio": "SM-14",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2024-12-31",
+            "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+            "fechaAlta": "2024-12-01",
+            "idUsuario": "12345678",
+            "id": "38ld",
+            "idServicio": "PE-15",
+            "activo": true
+         }
+      ],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 932000,
+      "fechaEmision": "2024-11-26T04:25:32.492651600",
+      "id": "23545",
+      "subTotal": 932000,
+      "listaAlquileres": [
+         {
+            "fechaBaja": "2025-03-28",
+            "tipoServicio": "CARPA",
+            "fechaAlta": "2025-03-01",
+            "idUsuario": "43740866",
+            "id": "3uzt",
+            "idServicio": "CP-10",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-03-10",
+            "tipoServicio": "SOMBRILLA",
+            "fechaAlta": "2025-03-03",
+            "idUsuario": "43740866",
+            "id": "26t9",
+            "idServicio": "SM-4",
+            "activo": true
+         },
+         {
+            "fechaBaja": "2025-01-14",
+            "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+            "fechaAlta": "2025-01-04",
+            "idUsuario": "43740866",
+            "id": "5iks",
+            "idServicio": "PE-4",
+            "activo": true
+         }
+      ],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 25000,
+      "fechaEmision": "2024-11-26T04:29:03.470757900",
+      "id": "64972",
+      "subTotal": 25000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-01-01",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "101101010",
+         "id": "2fv0",
+         "idServicio": "CP-2",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 18000,
+      "fechaEmision": "2024-11-26T04:29:19.978558200",
+      "id": "45201",
+      "subTotal": 18000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-02-02",
+         "tipoServicio": "SOMBRILLA",
+         "fechaAlta": "2025-02-02",
+         "idUsuario": "101101010",
+         "id": "3f1q",
+         "idServicio": "SM-8",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 8000,
+      "fechaEmision": "2024-11-26T04:29:39.698305600",
+      "id": "81647",
+      "subTotal": 8000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-03-03",
+         "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+         "fechaAlta": "2025-03-03",
+         "idUsuario": "101101010",
+         "id": "34jr",
+         "idServicio": "PE-6",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 8000,
+      "fechaEmision": "2024-11-26T04:29:52.438337600",
+      "id": "62666",
+      "subTotal": 8000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-04-04",
+         "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+         "fechaAlta": "2025-04-04",
+         "idUsuario": "101101010",
+         "id": "27et",
+         "idServicio": "PE-7",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 1980000,
+      "fechaEmision": "2024-11-26T04:30:13.465673800",
+      "id": "30552",
+      "subTotal": 1980000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-08-07",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-06-03",
+         "idUsuario": "101101010",
+         "id": "22qh",
+         "idServicio": "CP-15",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 1170000,
+      "fechaEmision": "2024-11-26T04:30:38.897313800",
+      "id": "28237",
+      "subTotal": 1170000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-09-09",
+         "tipoServicio": "SOMBRILLA",
+         "fechaAlta": "2025-07-07",
+         "idUsuario": "101101010",
+         "id": "16ii",
+         "idServicio": "SM-7",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 32000,
+      "fechaEmision": "2024-11-26T04:31:53.278642900",
+      "id": "26776",
+      "subTotal": 32000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-01-04",
+         "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "12345678",
+         "id": "2461",
+         "idServicio": "PE-28",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 180000,
+      "fechaEmision": "2024-11-26T04:32:10.376637200",
+      "id": "76084",
+      "subTotal": 180000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-02-10",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-02-05",
+         "idUsuario": "12345678",
+         "id": "2oa9",
+         "idServicio": "CP-7",
+         "activo": true
+      }],
+      "activo": true
+   },
+   {
+      "descripcion": "Alquiler de servicios de playa",
+      "importeTotal": 783750,
+      "fechaEmision": "2024-11-26T06:42:47.246481500",
+      "id": "20560",
+      "subTotal": 825000,
+      "listaAlquileres": [{
+         "fechaBaja": "2025-02-02",
+         "tipoServicio": "CARPA",
+         "fechaAlta": "2025-01-01",
+         "idUsuario": "101101010",
+         "id": "3k28",
+         "idServicio": "CP-4",
+         "activo": true
+      }],
+      "activo": true
+   }
+]
