@@ -4,25 +4,7 @@
       "tipoServicio": "CARPA",
       "fechaAlta": "2025-01-01",
       "idUsuario": "43740866",
-      "id": "3i18",
-      "idServicio": "CP-2",
-      "activo": true
-   },
-   {
-      "fechaBaja": "2025-01-01",
-      "tipoServicio": "CARPA",
-      "fechaAlta": "2025-01-01",
-      "idUsuario": "43740866",
-      "id": "pv79",
-      "idServicio": "CP-1",
-      "activo": true
-   },
-   {
-      "fechaBaja": "2025-01-01",
-      "tipoServicio": "CARPA",
-      "fechaAlta": "2025-01-01",
-      "idUsuario": "43740866",
-      "id": "193d",
+      "id": "2k8z",
       "idServicio": "CP-3",
       "activo": true
    },
@@ -31,26 +13,35 @@
       "tipoServicio": "SOMBRILLA",
       "fechaAlta": "2025-01-01",
       "idUsuario": "43740866",
-      "id": "22vv",
-      "idServicio": "SM-1",
+      "id": "2zqb",
+      "idServicio": "SM-3",
       "activo": true
    },
    {
-      "fechaBaja": "2028-02-01",
+      "fechaBaja": "2025-01-01",
       "tipoServicio": "PLAZA_ESTACIONAMIENTO",
-      "fechaAlta": "2028-02-01",
+      "fechaAlta": "2025-01-01",
       "idUsuario": "43740866",
-      "id": "2071",
-      "idServicio": "PE-4",
+      "id": "tugq",
+      "idServicio": "PE-1",
       "activo": true
    },
    {
-      "fechaBaja": "2025-01-25",
-      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
-      "fechaAlta": "2025-01-25",
+      "fechaBaja": "2025-03-03",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-03-03",
       "idUsuario": "43740866",
-      "id": "2chx",
-      "idServicio": "PE-3",
+      "id": "1hbb",
+      "idServicio": "CP-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2028-10-24",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2028-10-24",
+      "idUsuario": "43740866",
+      "id": "2kc4",
+      "idServicio": "PE-5",
       "activo": true
    }
 ]

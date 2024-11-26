@@ -1,16 +1,16 @@
 [{
    "descripcion": "Alquiler de servicios de playa",
    "importeTotal": 8000,
-   "fechaEmision": "2024-11-25T23:35:40.754093600",
-   "id": "43420",
+   "fechaEmision": "2024-11-26T02:56:01.493327900",
+   "id": "67219",
    "subTotal": 8000,
    "listaAlquileres": [{
-      "fechaBaja": "2025-01-25",
+      "fechaBaja": "2028-10-24",
       "tipoServicio": "PLAZA_ESTACIONAMIENTO",
-      "fechaAlta": "2025-01-25",
+      "fechaAlta": "2028-10-24",
       "idUsuario": "43740866",
-      "id": "2chx",
-      "idServicio": "PE-3",
+      "id": "2kc4",
+      "idServicio": "PE-5",
       "activo": true
    }],
    "activo": true

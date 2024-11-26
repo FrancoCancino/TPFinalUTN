@@ -2,7 +2,11 @@ import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
 import org.json.JSONObject;
+import servicio.clases.Carpa;
 import servicio.clases.GestionServicio;
+import servicio.clases.PlazaEstacionamiento;
+import servicio.clases.Sombrilla;
+import servicio.enums.VarianteCarpa;
 import servicio.json.GestorServiciosJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
@@ -22,29 +26,22 @@ public class MenuPrincipal implements iMenuPresentable {
 
     public void Menu(Usuario usuario){
 
-        imprimirEncabezado();
-        System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
-        ConsolaUtils.imprimirLinea();
-        imprimirInfo();
-        imprimirOpciones();
 
-        //Se crea un gestorde servicios al finalizar el log in.
+
+        //Se crea un gestor de servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
 
-//gestorServicio.CargarGestion();
 
-//Este metodo graba el archivo servicios. Usar cuando pongamos muchos servicios en un GestorServicio.
-//OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
+        //Metodo para leer el archivo servicios y cargarlo en el GestorServicio
 
+        //Guardo el tokener en un JsonObject
+        JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));
 
-
-//Metodo para leer el archivo servicios y cargarlo en el GestorServicio
-        JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));   //Guardo el tokener en un JsonObject
-        gestorServicio = GestorServiciosJsonUtil.deserializarServicios(jsonObj);    //Pongo el object y lo deserializo, cargandolo en el gestorServicio vacio.
+        //Pongo el object y lo deserializo, cargandolo en el gestorServicio vacio.
+        gestorServicio = GestorServiciosJsonUtil.deserializarServicios(jsonObj);
 
 
-
-        //Creo un gestor para los alquileres
+        //Creo un gestor para los alquileres y un gestor para los comprobantes.
         GestionAlquiler GA = new GestionAlquiler();
         GestionComprobanteAlquiler GC = new GestionComprobanteAlquiler();
 
@@ -56,7 +53,14 @@ public class MenuPrincipal implements iMenuPresentable {
 
 
         int numero;
+        String control;
         do {
+            imprimirEncabezado();
+            System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
+            ConsolaUtils.imprimirLinea();
+            imprimirInfo();
+            imprimirOpciones();
+
             try {
                 numero = scan.nextInt();
                 scan.nextLine();
@@ -72,6 +76,12 @@ public class MenuPrincipal implements iMenuPresentable {
                         //Mis reservas
                         MenuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
 
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
+
                 break;
 
                     case 2:
@@ -81,26 +91,32 @@ public class MenuPrincipal implements iMenuPresentable {
                         listaAlquileres = GA.crearAlquiler(gestorServicio, usuario.getDNI(),GA);   //Genera la lista de alquileres. (Basicamente alquilar).
                         //La guardo en una lista nueva así despues puedo mostrar el comprobante de la reserva más comodo.
 
+                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres),"AlquilerPrueba.json");
 
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();
                         // Se crear un comprobante a partir de los Alquileres realizados
                         ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio);
 
-                        System.out.println("Su reserva se realizó con éxito!");
+                        System.err.println("Su reserva se realizó con éxito!");
                         comprobanteAlquiler.mostrarComprobanteAlquiler(gestorServicio);
 
-                        //Serializar reserva y comprobante.
-
-                        //Acá grabo la lista de alquileres generada arriba.
-                        OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquiler(listaAlquileres),"AlquilerPrueba.json");
-                        //OperacionesLectoEscritura.grabarArchivoARRAY();
-
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
 
                         break;
                     case 3:
                         //Modificar datos personales
                         GestionUsuarios.modificarUsuario(usuario);  //Por ahora retorna el usuario nuevo pero quizá la hacemos void.
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
 
                         break;
 

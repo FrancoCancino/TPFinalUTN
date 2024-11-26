@@ -23,43 +23,6 @@ public class GestionServicio {
         this.listadoPlazasEstacionamiento = new TreeSet<>();
     }
 
-    public GestionServicio CargarGestion(){
-
-        GestionServicio gestorServicio = new GestionServicio();
-
-        Carpa carpa1 = new Carpa(VarianteCarpa.PREMIUM);
-        Carpa carpa2 = new Carpa(VarianteCarpa.STANDARD);
-        Carpa carpa3 = new Carpa(VarianteCarpa.PREMIUM);
-
-        PlazaEstacionamiento plaza1 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza2 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza3 = new PlazaEstacionamiento();
-        PlazaEstacionamiento plaza4 = new PlazaEstacionamiento();
-
-        Sombrilla sombrilla1 = new Sombrilla();
-        Sombrilla sombrilla2 = new Sombrilla();
-        Sombrilla sombrilla3 = new Sombrilla();
-
-        gestorServicio.agregarPlazaEstacionamiento(plaza1);
-        gestorServicio.agregarPlazaEstacionamiento(plaza2);
-        gestorServicio.agregarPlazaEstacionamiento(plaza3);
-        gestorServicio.agregarPlazaEstacionamiento(plaza4);
-
-        carpa1.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-        carpa2.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-        carpa3.setIdPlazaEstacionamiento(obtenerPlazaEstacionamientoVacia());
-
-        gestorServicio.agregarCarpa(carpa1);
-        gestorServicio.agregarCarpa(carpa2);
-        gestorServicio.agregarCarpa(carpa3);
-
-        gestorServicio.agregarSombrilla(sombrilla1);
-        gestorServicio.agregarSombrilla(sombrilla2);
-        gestorServicio.agregarSombrilla(sombrilla3);
-
-        return gestorServicio;
-    }
-
     // Getters y Setters
     public Set<Carpa> getListadoCarpas() {
         return listadoCarpas;
