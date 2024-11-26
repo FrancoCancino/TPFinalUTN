@@ -6,8 +6,8 @@ import alquiler.json.AlquilerJsonUtil;
 import servicio.clases.*;
 import usuario.OperacionesLectoEscritura;
 import utils.ConsolaUtils;
+import utils.Constantes;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -57,7 +57,7 @@ public class GestionAlquiler {
         LocalDate fechaActual = LocalDate.now();
 
         // Obtener una lista con los IDs de todos los Servicios existentes
-        List<String> lista = gestionServicio.obtenerIDServiciosExistentes();
+        List<String> lista = gestionServicio.obtenerIDServiciosExistentes(gestionServicio);
 
         // Crear la estructura del mapa
         for (String idServicio : lista) {
@@ -123,6 +123,121 @@ public class GestionAlquiler {
         }
     }
 
+
+
+    /**
+     * Lista los Servicios Disponibles segun el TipoServicio
+     * @param listaIdsDisponibles contiene los IDs ya filtrados por TipoServicio.
+     * @param tipoServicio utilizado para el switch
+     * muestra como maximo 8 servicios disponibles
+     *
+     */
+
+    public void mostrarServiciosDisponibles(TipoServicio tipoServicio, GestionServicio gestionServicio, List<String> listaIdsDisponibles) {
+        System.out.println("Servicios disponibles en las fechas ingresadas:");
+
+        int limite = 8;
+        int cantidadAMostrar = Math.min(listaIdsDisponibles.size(), limite); // Determina la cantidad a mostrar en base al numero menor entre el limite y el tamno de la lista
+
+        // Iterar solo hasta `cantidadAMostrar`
+        for (int i = 0; i < cantidadAMostrar; i++) {
+            // Guarda el id del objeto
+            String id = listaIdsDisponibles.get(i);
+            // Segun el tipoServicio, obtiene el Servicio a partir del id leido
+            switch (tipoServicio) {
+                case CARPA -> {
+                    if (i == 0 ){       //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoCarpas();
+                    }
+                    Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
+                    if(!carpa.getOcupado()){
+                        System.out.println(carpa);
+                    }
+                }
+                case SOMBRILLA -> {
+                    Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
+                    if (i == 0){    //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Sombrillas ");
+                    }
+                    if (!sombrilla.getOcupado()){
+                        System.out.println(sombrilla);
+                    }
+                }
+                case PLAZA_ESTACIONAMIENTO -> {
+                    PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
+                    if (i == 0){        //Para imprimir solo en la primera vuelta.
+                        ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Plazas de Estacionamiento ");
+                    }
+                    if (plaza.getOcupado()){
+                        System.out.println(plaza);
+                    }
+                }
+                default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
+            }
+        }
+    }
+
+    /**
+     * Solicita al usuario que ingrese el Id del Servicio a alquilar, retorna unicamente los digitos numericos del Id
+     */
+    public String solicitarIDServicio(Set<Integer> IDNumeros){
+        String control;
+        String entrada;
+
+        do{
+            System.out.println("Ingrese el ID del servicio que desea alquilar:");
+
+            entrada = scanner.nextLine();
+
+            // Valida la entrada con regex
+
+
+            if (!entrada.matches("\\d+")) { // Verifica que solo contenga dígitos
+                throw new IllegalArgumentException("La entrada debe ser un número entero positivo.");
+
+            }else {
+                System.out.println("El ID ingresado es "+ entrada + " \"¿Confirma el ID seleccionado? (s/n): ");
+                control = scanner.next();
+                scanner.nextLine();
+            }
+            if(!IDNumeros.contains(Integer.parseInt(entrada))){     //De esta manera si ya hay una reserva con ese ID no deja seleccionarla.
+                System.err.println("Error: No hay un servicio disponible con ese número.");
+                control = "n";
+            }
+
+
+
+        }while(!control.equalsIgnoreCase("s"));
+
+        return entrada;
+    }
+
+    // Metodos CRUD
+
+    // Método para agregar un Alquiler a listaAlquileres
+    public boolean agregarAlquiler(Alquiler alquiler) {
+        return listaAlquileres.add(alquiler);
+    }
+
+    /**
+     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
+     *
+     * @param idAlquiler id del Alquiler a dar de baja
+     */
+
+    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler, List<Alquiler> listaAlquileres){
+
+        for(Alquiler alquiler :listaAlquileres){
+            if (alquiler.getId().equals(idAlquiler)){
+                alquiler.setActivo(false);
+                gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
+                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),Constantes.nombreArchivoAlquiler);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Método para obtener las carpas/sombrillas/plazas disponibles en una fecha determinada.
      * recibe como parametros el tipoServicio , fechaInicio y fechaFin solicitados por el usuario
@@ -146,115 +261,69 @@ public class GestionAlquiler {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Lista los Servicios Disponibles segun el TipoServicio
-     * @param listaIdsDisponibles contiene los IDs ya filtrados por TipoServicio.
-     * @param tipoServicio utilizado para el switch
-     * muestra como maximo 8 servicios disponibles
-     *
-     */
 
-    public void mostrarServiciosDisponibles(TipoServicio tipoServicio, GestionServicio gestionServicio, List<String> listaIdsDisponibles) {
-        System.out.println("Servicios disponibles en las fechas ingresadas:");
+    public List<String> obtenerIdsDisponiblesParaAlquilar(LocalDate fechaInicio, LocalDate fechaFin, GestionServicio gestionServicio) {
 
-        int limite = 8;
-        int cantidadAMostrar = Math.min(listaIdsDisponibles.size(), limite); // Determina la cantidad a mostrar en base al numero menor entre el limite y el tamno de la lista
+        List<Alquiler> listaAlquileres = AlquilerJsonUtil.deserializarListaAlquiler(OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoAlquiler));
+        List<String> IDOcupados = new ArrayList<>();
 
-        // Iterar solo hasta `cantidadAMostrar`
-        for (int i = 0; i < cantidadAMostrar; i++) {
-            // Guarda el id del objeto
-            String id = listaIdsDisponibles.get(i);
-            // Segun el tipoServicio, obtiene el Servicio a partir del id leido
-            switch (tipoServicio) {
-                case CARPA -> {
-                    Carpa carpa = gestionServicio.obtenerCarpaPorID(id);
-                    ConsolaUtils.imprimirEncabezadoCarpas();
-                    System.out.println(carpa);
-                }
-                case SOMBRILLA -> {
-                    Sombrilla sombrilla = gestionServicio.obtenerSombrillaPorID(id);
-                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Sombrillas ");
-                    System.out.println(sombrilla);
-                }
-                case PLAZA_ESTACIONAMIENTO -> {
-                    PlazaEstacionamiento plaza = gestionServicio.obtenerPlazaEstacionamientoPorID(id);
-                    ConsolaUtils.imprimirEncabezadoSombrillasYPlazas("Plazas de Estacionamiento ");
-                    System.out.println(plaza);
-                }
-                default -> throw new IllegalArgumentException("Tipo de servicio no reconocido.");
+        // Identificar los IDs ocupados basados en las fechas
+        for (Alquiler alquiler : listaAlquileres) {
+            LocalDate fechaAlta = alquiler.getFechaAlta();
+            LocalDate fechaBaja = alquiler.getFechaBaja();
+
+            if (!fechaInicio.isAfter(fechaBaja) && !fechaFin.isBefore(fechaAlta) && (alquiler.isActivo())) {
+                IDOcupados.add(alquiler.getIdServicio());
             }
         }
-    }
 
-    /**
-     * Solicita al usuario que ingrese el Id del Servicio a alquilar, retorna unicamente los digitos numericos del Id
-     */
-    public String solicitarIDServicio(){
-        String control;
-        String entrada;
+        // Obtener los IDs existentes de los servicios
+        List<String> IdsServiciosExistentes = gestionServicio.obtenerIDServiciosExistentes(gestionServicio);
 
-        do{
-            System.out.println("Ingrese el ID del servicio que desea alquilar:");
-
-            entrada = scanner.nextLine();
-
-            // Valida la entrada con regex
-            if (!entrada.matches("\\d+")) { // Verifica que solo contenga dígitos
-                throw new IllegalArgumentException("La entrada debe ser un número entero positivo.");
-            }
-
-            System.out.println("El ID ingresado es "+ entrada + " \"¿Confirma el ID seleccionado? (s/n): ");
-            control = scanner.next();
-            scanner.nextLine();
-
-        }while(!control.equalsIgnoreCase("s"));
-
-        return entrada;
-    }
-
-    // Metodos CRUD
-
-    // Método para agregar un Alquiler a listaAlquileres
-    public boolean agregarAlquiler(Alquiler alquiler) {
-        return listaAlquileres.add(alquiler);
-    }
-
-    /**
-     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
-     *
-     * @param idAlquiler id del Alquiler a dar de baja
-     */
-
-    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler){
-
-        for(Alquiler alquiler : listaAlquileres){
-            if (alquiler.getId().equals(idAlquiler)){
-                alquiler.setActivo(false);
-                gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
-                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),"AlquilerPrueba.json");
-                return true;
-            }
+        // Eliminar los IDs ocupados de la lista de IDs existentes
+        for (int i = 0;i < IDOcupados.size();i++){
+            IdsServiciosExistentes.remove(IDOcupados.get(i));
         }
-        return false;
+
+        return IdsServiciosExistentes;
     }
 
     /**
      * Crea un Alquiler, obteniendo los datos a traves del Usuario
      */
-    public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario) throws ServiciosNoDisponiblesException {
+    public List<Alquiler> crearAlquiler(GestionServicio gestionServicio, String DNIusuario, GestionAlquiler gestionAlquiler) throws ServiciosNoDisponiblesException {
 
         List<Alquiler> listaAlquileres = new ArrayList<>();
         String control;
 
-
         do{
-            Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+            Alquiler alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio,gestionAlquiler);
 
-            if(alquilerParcial == null){
-                alquilerParcial= InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio);
+            do{     //Verificación de que alquilerParcial no sea nulo (Es decir, tenga servicios cargados.
+                if(alquilerParcial == null){
+                    System.err.println("No hay servicios disponibles para esa fecha. Intenta con otra fecha");
+                    alquilerParcial = InteraccionUsuarioAlquiler.solicitarInfoParaAlquiler(gestionServicio,gestionAlquiler);
+                }
+            } while(alquilerParcial == null);
+
+
+            List<String> listaIdsDisponibles = obtenerIdsDisponiblesParaAlquilar(alquilerParcial.getFechaAlta(),alquilerParcial.getFechaBaja(),gestionServicio);
+
+            //Filtro según el tipo de serviccio que sea, Borarria de ListaIDsDisponibles los que estan ocupados.
+            if(alquilerParcial.getTipoServicio() == TipoServicio.CARPA){
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_CARPA));
+            }else if (alquilerParcial.getTipoServicio() == TipoServicio.SOMBRILLA){
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_SOMBRILLA));
+            }else{
+                listaIdsDisponibles.removeIf(ID -> !ID.startsWith(Constantes.PREFIJO_PLAZA_ESTACIONAMIENTO));
             }
 
-            List<String> listaIdsDisponibles = obtenerIdsDisponibles(alquilerParcial.getTipoServicio(), alquilerParcial.getFechaAlta(), alquilerParcial.getFechaBaja());
+            Set<Integer> IDNumeros = new HashSet<>();   //Acá voy a guardar los IDs disponibles solo en formato Integer.
+
+            for (String IdDisponible : listaIdsDisponibles){
+                String IDSoloNumero = IdDisponible.replaceAll("[^0-9]", "");    //Le saco el prefijo al ID
+                IDNumeros.add(Integer.parseInt(IDSoloNumero));
+            }
 
             // En caso de retornar una lista vacia, se lanza una excepcion
             if(listaIdsDisponibles.isEmpty()){
@@ -265,7 +334,9 @@ public class GestionAlquiler {
             mostrarServiciosDisponibles(alquilerParcial.getTipoServicio(), gestionServicio, listaIdsDisponibles);
 
             // Retorna solo los numeros del ID
-            String numerosID = solicitarIDServicio();
+
+            String numerosID = solicitarIDServicio(IDNumeros);
+
 
             // Reconstruye el ID completo a partir del TipoServicio
             String idCompleto;
@@ -298,9 +369,6 @@ public class GestionAlquiler {
             control = scanner.next();
             scanner.nextLine();
 
-            // -------------------------- System.out.println("Para la misma fecha?");
-
-
         } while (control.equalsIgnoreCase("s"));
 
             return listaAlquileres;
@@ -323,19 +391,24 @@ public class GestionAlquiler {
     }
     // ------------------------------ agregue metodo
     // Listar alquileres, metodo estatico que recibe una lista y muestra sus registros
-    public static void listarAlquileres(List<Alquiler> listaAlquileres, String id){
+    public static void listarAlquileres(List<Alquiler> listaAlquileres, String DniUsuario){
 
-        System.out.println("TUS RESERVAS");
+        if(!listaAlquileres.isEmpty()){
+            System.out.println("TUS RESERVAS");
 
-        System.out.printf("%-10s %-15s %-15s %-15s %-12s %-8s%n",
-                "ID", "Fecha Alta", "Fecha Baja", "Tipo Servicio", "ID Servicio", "Activo");
-        System.out.println("----------------------------------------------------------------------");
+            System.out.printf("%-10s %-15s %-15s %-15s %-12s %-8s%n",
+                    "ID", "Fecha Alta", "Fecha Baja", "Tipo Servicio", "ID Servicio", "Activo");
+            System.out.println("----------------------------------------------------------------------");
 
-        for(Alquiler alquiler : listaAlquileres){
-            if(alquiler.getIdUsuario().equals(id)){
-                System.out.println(alquiler);
+            for(Alquiler alquiler : listaAlquileres){
+                if(alquiler.getIdUsuario().equals(DniUsuario)){
+                    System.out.println(alquiler);
+                }
             }
+        }else {
+            System.out.println("Aún no tenés reservas hechas. ¿Qué estas esperando?");
         }
+
     }
 
 

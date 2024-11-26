@@ -70,15 +70,13 @@ public class LogIn implements iMenuPresentable {
                         break;
 
                     case 1:
-                        //Registro
-
+                        //Inicio sesión
                         menuPrincipal.Menu(g1.inicioSesion());     //Se crea un menu principal con el usuario que devuelve el log in de inicio sesión
 
                         break;
 
                     case 2:
-                        //Inicio Sesión
-
+                        //Registro
                         System.out.println(g1.registro(g1));
 
                         break;

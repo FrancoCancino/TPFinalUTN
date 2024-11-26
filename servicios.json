@@ -1,0 +1,413 @@
+{
+   "carpas": [
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-1",
+         "ocupado": false,
+         "id": "CP-1"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-18",
+         "ocupado": false,
+         "id": "CP-10"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-19",
+         "ocupado": false,
+         "id": "CP-11"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-2",
+         "ocupado": false,
+         "id": "CP-12"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-20",
+         "ocupado": false,
+         "id": "CP-13"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-21",
+         "ocupado": false,
+         "id": "CP-14"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-22",
+         "ocupado": false,
+         "id": "CP-15"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-10",
+         "ocupado": false,
+         "id": "CP-2"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-11",
+         "ocupado": false,
+         "id": "CP-3"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-12",
+         "ocupado": false,
+         "id": "CP-4"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-13",
+         "ocupado": false,
+         "id": "CP-5"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-14",
+         "ocupado": false,
+         "id": "CP-6"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-15",
+         "ocupado": false,
+         "id": "CP-7"
+      },
+      {
+         "varianteCarpa": "STANDARD",
+         "precio": 25000,
+         "idPlazaEstacionamiento": "PE-16",
+         "ocupado": false,
+         "id": "CP-8"
+      },
+      {
+         "varianteCarpa": "PREMIUM",
+         "precio": 30000,
+         "idPlazaEstacionamiento": "PE-17",
+         "ocupado": false,
+         "id": "CP-9"
+      }
+   ],
+   "sombrillas": [
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-1"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-10"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-11"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-12"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-13"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-14"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-15"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-2"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-3"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-4"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-5"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-6"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-7"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-8"
+      },
+      {
+         "precio": 18000,
+         "ocupado": false,
+         "id": "SM-9"
+      }
+   ],
+   "plazasEstacionamiento": [
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-1"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-10"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-11"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-12"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-13"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-14"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-15"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-16"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-17"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-18"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-19"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-2"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-20"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-21"
+      },
+      {
+         "precio": 8000,
+         "ocupado": true,
+         "id": "PE-22"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-23"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-24"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-25"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-26"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-27"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-28"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-29"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-3"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-30"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-31"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-32"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-33"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-34"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-35"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-36"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-37"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-38"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-39"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-4"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-40"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-41"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-42"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-43"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-44"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-45"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-5"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-6"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-7"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-8"
+      },
+      {
+         "precio": 8000,
+         "ocupado": false,
+         "id": "PE-9"
+      }
+   ]
+}

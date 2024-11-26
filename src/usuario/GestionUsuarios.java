@@ -1,18 +1,11 @@
 package usuario;
 
-import alquiler.clases.Alquiler;
-import alquiler.enums.TipoServicio;
-import com.sun.jdi.Value;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import utils.Constantes;
 
-import java.security.Key;
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -51,9 +44,9 @@ public final class GestionUsuarios {
                     usuario.setDNI(DNITemp);
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println("El dato introducido no es un DNI válido. Recordá que solo se admiten números.");
+                    System.err.println("El dato introducido no es un DNI válido. Recordá que solo se admiten números.");
                 } catch (AutenticacionFallidaExcepcion e) {
-                    System.out.println(e.getMessage());
+                    System.err.println(e.getMessage());
                 }
             }
 
@@ -105,7 +98,7 @@ public final class GestionUsuarios {
                     return nombreTemp;
                 }
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -123,7 +116,7 @@ public final class GestionUsuarios {
                     return apellidoTemp;
                 }
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -145,10 +138,10 @@ public final class GestionUsuarios {
                     return contraseniaTemp;
 
                 } else {
-                    System.out.println("Las contraseñas ingresadas no son las mismas. Ingresalas de vuelta.");
+                    System.err.println("Las contraseñas ingresadas no son las mismas. Ingresalas de vuelta.");
                 }
             } catch (AutenticacionFallidaExcepcion e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -165,7 +158,7 @@ public final class GestionUsuarios {
                     return ciudadTemp;
                 }
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -183,7 +176,7 @@ public final class GestionUsuarios {
                     return nacionalidadTemp;
                 }
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -200,9 +193,9 @@ public final class GestionUsuarios {
                 return celularTemp;
 
             } catch (NumberFormatException e) {
-                System.out.println("El dato introducido no es un celular válido. Recordá que solo se admiten números.");
+                System.err.println("El dato introducido no es un celular válido. Recordá que solo se admiten números.");
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -218,7 +211,7 @@ public final class GestionUsuarios {
                     throw new AutenticacionFallidaExcepcion("El dato ingresado no es un correo electronico válido.");
                 }
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -283,12 +276,12 @@ public final class GestionUsuarios {
         temp = pasarUsuarioAObject(usuario);     //Guardo el usuario en el objetoJson(Para eso uso la función que lo convierte en objetoJson
 
 
-        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoUsuario);
         //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
 
             arrTemp.put(temp);   //Mete el registro nuevo al array.
 
-            OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,"usuarios.json");
+            OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,Constantes.nombreArchivoUsuario);
             //Graba todo el array con el ultimo registro en el array.
 
             return "Registro éxitoso";
@@ -304,11 +297,11 @@ public final class GestionUsuarios {
             String dni = scan.nextLine();
             usuario = extraerUsuarioPorDNI(dni);        //Se guarda el usuario que tenga el DNI ingresado por el usuario
             if(dni.equals("0")){        //Si el DNI es 0 es porque el usuario quiere salir del programa
-                System.out.println("Saliendo del programa...");
+                System.err.println("Saliendo del programa...");
                 break;
             }
             if (usuario == null){
-                System.out.println("El DNI ingresado no esta registrado. Prueba nuevamente o escribí '0' para salir del programa");
+                System.err.println("El DNI ingresado no esta registrado. Prueba nuevamente o escribí '0' para salir del programa");
             }
         }while (usuario == null);
 
@@ -319,11 +312,11 @@ public final class GestionUsuarios {
                 System.out.println("Ingresá tu contraseña:");
                 contrasenia = scan.nextLine();
                 if(contrasenia.equals("0")){    //Si la contraseña es 0 es porque el usuario quiere salir del programa
-                    System.out.println("Saliendo del programa...");
+                    System.err.println("Saliendo del programa...");
                     break;
                 }
                 if (!contrasenia.equals(usuario.getContrasenia())){     //Se compara el string con la  contraseña leida del archivo.
-                    System.out.println("Contraseña incorrecta. Intente nuevamente. Si deseas salir del programa escribí '0'");
+                    System.err.println("Contraseña incorrecta. Intente nuevamente. Si deseas salir del programa escribí '0'");
                 } else {
                     return usuario;
                 }
@@ -339,7 +332,7 @@ public final class GestionUsuarios {
 
         //Creo un JsonArray para guardar el archivo actual del programa.
         //Si el  array esta vacio se retorna un usuario Vacio.
-        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoUsuario);
         for (int i = 0;i < arrTemp.length();i++){       //Recorro el JsonArray objeto por objeto
             JSONObject JSONObj = arrTemp.getJSONObject(i);      //Guardo cada objeto
             String dniTemp = JSONObj.getString("DNI");      //Guardo el DNI de cada objeto del array.
@@ -364,9 +357,9 @@ public final class GestionUsuarios {
 
     public static int actualizacionDatos(LinkedHashMap<Integer,String> LHM,int numero){
         LHM.remove(numero);
-        System.out.println("Si queres modificar otro dato escribí '0'");
-        numero = scan.nextInt();
-        if (numero == 0){
+        System.out.println("Queres modificar otro dato? (s/n)");
+        String opcion = scan.nextLine();
+        if (opcion.equalsIgnoreCase("s")){
             numero = -1;
         }else{
             numero = 0;
@@ -374,7 +367,7 @@ public final class GestionUsuarios {
         return numero;
     }
 
-    public static Usuario modificarUsuario(Usuario usuario){
+    public static void modificarUsuario(Usuario usuario){
 
         LinkedHashMap<Integer,String> LHM = new LinkedHashMap<>();
         LHM.put(1,"Nombre");
@@ -408,7 +401,7 @@ public final class GestionUsuarios {
 
                     case 0:
 
-                        System.out.println("Saliendo...");
+                        System.err.println("Saliendo...");
 
                         break;
 
@@ -472,15 +465,15 @@ public final class GestionUsuarios {
                         break;
 
                     default:
-                        System.out.println("Opción incorrecta. Vuelve a intentarlo. (del 0 al 7)");
+                        System.err.println("Opción incorrecta. Vuelve a intentarlo. (del 0 al 7)");
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: No se ingresó un número. Vuelve a intentarlo. (del 0 al 7)");
+                System.err.println("Error: No se ingresó un número. Vuelve a intentarlo. (del 0 al 7)");
                 scan.nextLine();
                 numero = -1;
             }catch (AutenticacionFallidaExcepcion e){
-                System.out.println(e.getMessage() + " Vuelve a intentarlo. (Reinicia el programa para volver a cambiar el dato)");
+                System.err.println(e.getMessage() + " Vuelve a intentarlo. (Reinicia el programa para volver a cambiar el dato)");
                 numero = -1;
             }
         } while (numero < 0 || numero > 7) ;
@@ -491,7 +484,6 @@ public final class GestionUsuarios {
             System.out.println("Sobreescribiendo datos...");
             System.out.println(sobreescribirUsuario(usuario));             //Sobreescribir el archivo.
         }
-            return usuario;     //Es útil que retorne el usuario?
     }
 
     public static String sobreescribirUsuario(Usuario usuario){
@@ -500,7 +492,7 @@ public final class GestionUsuarios {
 
         temp = pasarUsuarioAObject(usuario);     //Guardo el usuario en el objetoJson(Para eso uso la función que lo convierte en objetoJson
 
-        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY("usuarios.json");
+        JSONArray arrTemp = OperacionesLectoEscritura.leerArchivoARRAY(Constantes.nombreArchivoUsuario);
         //Creo un JsonArr temporal y le guardo el array que tengamos en el archivo. Si no hay ninguno crea uno nuevo
 
         for (int i = 0;i < arrTemp.length();i++){       //Recorro el JsonArray objeto por objeto
@@ -509,7 +501,7 @@ public final class GestionUsuarios {
             if (dniTemp.equals(usuario.getDNI())){           //Encuentro el usuario en el archivo por medio de su DNI.
                 arrTemp.remove(i);
                 arrTemp.put(temp);
-                OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,"usuarios.json");
+                OperacionesLectoEscritura.grabarArchivoARRAY(arrTemp,Constantes.nombreArchivoUsuario);
                 return "El archivo se reescribió con éxito";
             }
         }

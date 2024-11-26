@@ -1,0 +1,218 @@
+[
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "151k",
+      "idServicio": "CP-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "okro",
+      "idServicio": "SM-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "26o5",
+      "idServicio": "PE-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-04",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-02-02",
+      "idUsuario": "43740866",
+      "id": "w2ky",
+      "idServicio": "CP-1",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-03",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-02-02",
+      "idUsuario": "43740866",
+      "id": "3fey",
+      "idServicio": "SM-5",
+      "activo": false
+   },
+   {
+      "fechaBaja": "2025-02-01",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "43740866",
+      "id": "wma6",
+      "idServicio": "CP-7",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-04",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "12345678",
+      "id": "5c6h",
+      "idServicio": "CP-6",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-06-08",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-06-02",
+      "idUsuario": "12345678",
+      "id": "2dfb",
+      "idServicio": "PE-15",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-07",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-02-02",
+      "idUsuario": "12345678",
+      "id": "1dmu",
+      "idServicio": "CP-13",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2024-12-07",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2024-12-01",
+      "idUsuario": "12345678",
+      "id": "1ldp",
+      "idServicio": "SM-5",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2024-12-28",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2024-12-06",
+      "idUsuario": "12345678",
+      "id": "1lzc",
+      "idServicio": "CP-11",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-09",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-02-01",
+      "idUsuario": "12345678",
+      "id": "bix4",
+      "idServicio": "SM-14",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2024-12-31",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2024-12-01",
+      "idUsuario": "12345678",
+      "id": "38ld",
+      "idServicio": "PE-15",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-03-28",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-03-01",
+      "idUsuario": "43740866",
+      "id": "3uzt",
+      "idServicio": "CP-10",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-03-10",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-03-03",
+      "idUsuario": "43740866",
+      "id": "26t9",
+      "idServicio": "SM-4",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-14",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-01-04",
+      "idUsuario": "43740866",
+      "id": "5iks",
+      "idServicio": "PE-4",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-01",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "101101010",
+      "id": "2fv0",
+      "idServicio": "CP-2",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-02",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-02-02",
+      "idUsuario": "101101010",
+      "id": "3f1q",
+      "idServicio": "SM-8",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-03-03",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-03-03",
+      "idUsuario": "101101010",
+      "id": "34jr",
+      "idServicio": "PE-6",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-04-04",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-04-04",
+      "idUsuario": "101101010",
+      "id": "27et",
+      "idServicio": "PE-7",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-08-07",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-06-03",
+      "idUsuario": "101101010",
+      "id": "22qh",
+      "idServicio": "CP-15",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-09-09",
+      "tipoServicio": "SOMBRILLA",
+      "fechaAlta": "2025-07-07",
+      "idUsuario": "101101010",
+      "id": "16ii",
+      "idServicio": "SM-7",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-01-04",
+      "tipoServicio": "PLAZA_ESTACIONAMIENTO",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "12345678",
+      "id": "2461",
+      "idServicio": "PE-28",
+      "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-10",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-02-05",
+      "idUsuario": "12345678",
+      "id": "2oa9",
+      "idServicio": "CP-7",
+      "activo": true
+   }
+]

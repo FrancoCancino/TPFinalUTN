@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import servicio.clases.Carpa;
 import servicio.enums.VarianteCarpa;
 
+import java.util.Set;
 import java.util.TreeSet;
 
 
@@ -65,7 +66,7 @@ public final class CarpaJsonUtil {
      * @return un {@link JSONArray} que representa los datos del {@code Listado}.
      * Si ocurre una excepción, se devuelve un JSONArray vacío.
      */
-    public static JSONArray serializarListadoCarpas(TreeSet<Carpa> listado) {
+    public static JSONArray serializarListadoCarpas(Set<Carpa> listado) {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray();
@@ -87,8 +88,8 @@ public final class CarpaJsonUtil {
      * @return un {@link TreeSet<Carpa>}
      * Si ocurre una excepción, se devuelve un listado vacío.
      */
-    public static TreeSet<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
-        TreeSet<Carpa> listadoCarpas = new TreeSet<>();
+    public static Set<Carpa> deserializarListadoCarpas(JSONArray jsonArray) {
+        Set<Carpa> listadoCarpas = new TreeSet<>();
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 Carpa carpa = deserializarCarpa(jsonArray.getJSONObject(i));

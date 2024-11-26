@@ -17,15 +17,16 @@ public class PlazaEstacionamiento extends Servicio {
         this.setPrecio(Constantes.PRECIO_ACTUAL_PlAZA_ESTACIONAMIENTO);
     }
 
-    /* toString
-    @Override
-    public String toString() {
-        return  this.getId().replace(Constantes.PREFIJO_PLAZA_ESTACIONAMIENTO, "") + // no se muestra el prefijo al usuario
-                " Precio = " + this.getPrecio()
-                ;
-    }
+    // toString
+//    @Override
+//    public String toString() {
+//        return  this.getId().replace(Constantes.PREFIJO_PLAZA_ESTACIONAMIENTO, "") + // no se muestra el prefijo al usuario
+//                " Precio = " + this.getPrecio() +
+//                "Estado = " + this.getOcupado()
+//                ;
+//    }
 
-     */
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

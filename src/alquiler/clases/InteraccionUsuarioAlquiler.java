@@ -28,15 +28,12 @@ public class InteraccionUsuarioAlquiler {
 
 
     //Metodo para solicitar las fechas y el tipo de servicio.
-    public static Alquiler solicitarInfoParaAlquiler(GestionServicio gestionservicio){
+    public static Alquiler solicitarInfoParaAlquiler(GestionServicio gestionservicio, GestionAlquiler gestionAlquiler){
 
 
         //Crea el objeto alquiler
         Alquiler alquiler = new Alquiler();
 
-        if (!gestionservicio.verificarSiExistenServiciosDisponibles()){
-                return alquiler;        //Si no hay servicios disponibles devuelve un objeto alquiler vacio.
-        }
 
         System.out.println("Estas a punto de realizar una reserva.");
         //Le defino el ID con un setter. Si es autoincremental lo hacemos de una. Si no lectura de archivos.
@@ -47,6 +44,11 @@ public class InteraccionUsuarioAlquiler {
 
         System.out.println("Ingresa la fecha en la que te vas a ir del balneario.");
         alquiler.setFechaBaja(generarFechaBaja(alquiler.getFechaAlta()));
+
+
+        if (!gestionservicio.verificarSiExistenServiciosDisponibles(gestionAlquiler, alquiler)){
+            return null;        //Si no hay servicios disponibles devuelve un objeto alquiler vacio.
+        }
 
         System.out.println("Ingresa el servicio que queres alquilar.");
         alquiler.setTipoServicio(generarTipoServicio(gestionservicio));

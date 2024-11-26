@@ -14,17 +14,18 @@ public class Sombrilla extends Servicio {
         ++cantidadSombrillas;
         this.setId(Constantes.PREFIJO_SOMBRILLA + cantidadSombrillas);
         this.setPrecio(Constantes.PRECIO_ACTUAL_SOMBRILLA);
+        this.setOcupado(false);
     }
 
     /* toString
-    @Override
-    public String toString() {
-        return  this.getId().replace(Constantes.PREFIJO_SOMBRILLA, "") +
-                " Precio = " + this.getPrecio()
-                ;
-    }
 
      */
+//    @Override
+//    public String toString() {
+//        return  this.getId().replace(Constantes.PREFIJO_SOMBRILLA, "") +
+//                " Precio = " + this.getPrecio();}
+
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -37,5 +38,9 @@ public class Sombrilla extends Servicio {
 
         return sb.toString();
     }
+
+
+
+
 
 }
