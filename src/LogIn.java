@@ -23,7 +23,7 @@ public class LogIn implements iMenuPresentable {
                         "| |__| |_| | |\\  |/ ___ \\  |  _ <| |_| | |_| / ___ \\  \n" +
                         "|_____\\___/|_| \\_/_/   \\_\\ |_| \\_\\\\___/ \\___/_/   \\_\\ "
         );
-        ConsolaUtils.imprimirTitulo("🌊Bienvenid@ a nuestro gestor de balneario🌞");
+        ConsolaUtils.imprimirTitulo("Bienvenid@ a nuestro Club de Mar");
     }
 
     @Override
@@ -95,7 +95,7 @@ public class LogIn implements iMenuPresentable {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse.");
+                System.err.println("Error: No se ingresó un número. Ingresá 1 para iniciar sesión o 2 para registrarse.");
                 scan.nextLine();
                 numero = -1;
             }

@@ -43,6 +43,60 @@ public class GestionAlquiler {
     }
 
 
+    // Metodos CRUD
+
+    // Método para agregar un Alquiler a listaAlquileres
+    public boolean agregarAlquiler(Alquiler alquiler) {
+        return listaAlquileres.add(alquiler);
+    }
+
+    /**
+     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
+     *
+     * @param idAlquiler id del Alquiler a dar de baja
+     */
+
+    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler, List<Alquiler> listaAlquileres){
+
+        for(Alquiler alquiler :listaAlquileres){
+            if (alquiler.getId().equals(idAlquiler)){
+                alquiler.setActivo(false);
+                gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
+                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),Constantes.nombreArchivoAlquiler);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean modificarAlquiler(Alquiler original, Alquiler modificada) {
+        if (listaAlquileres.remove(original)) {
+            return agregarAlquiler(modificada);
+        }
+        return false;
+    }
+
+    // Listar alquileres, metodo estatico que recibe una lista y muestra sus registros
+    public static void listarAlquileres(List<Alquiler> listaAlquileres, String DniUsuario){
+
+        if(!listaAlquileres.isEmpty()){
+            ConsolaUtils.imprimirCentrado("Tus reservas");
+
+            System.out.printf("%-10s %-15s %-15s %-15s %-12s %-8s%n",
+                    "ID", "Fecha Alta", "Fecha Baja", "Tipo Servicio", "ID Servicio", "Activo");
+            System.out.println("----------------------------------------------------------------------");
+
+            for(Alquiler alquiler : listaAlquileres){
+                if(alquiler.getIdUsuario().equals(DniUsuario)){
+                    System.out.println(alquiler);
+                }
+            }
+        }else {
+            System.out.println("Aún no tenés reservas hechas. ¿Qué estas esperando?");
+        }
+
+    }
+
     // Metodos Utilitarios
 
     // Método para reconstruir el mapa a partir de listaAlquileres y de los IDs de los servicios existentes
@@ -212,31 +266,6 @@ public class GestionAlquiler {
         return entrada;
     }
 
-    // Metodos CRUD
-
-    // Método para agregar un Alquiler a listaAlquileres
-    public boolean agregarAlquiler(Alquiler alquiler) {
-        return listaAlquileres.add(alquiler);
-    }
-
-    /**
-     * Realiza la baja logica de un Alquiler. Modifica el boolean Activo a false del Alquiler.
-     *
-     * @param idAlquiler id del Alquiler a dar de baja
-     */
-
-    public boolean darBajaAlquiler(String idAlquiler, GestionComprobanteAlquiler gestorComprobanteAlquiler, List<Alquiler> listaAlquileres){
-
-        for(Alquiler alquiler :listaAlquileres){
-            if (alquiler.getId().equals(idAlquiler)){
-                alquiler.setActivo(false);
-                gestorComprobanteAlquiler.eliminarAlquilerDelComprobante(idAlquiler);
-                OperacionesLectoEscritura.grabarArchivoARRAY(AlquilerJsonUtil.serializarListaAlquilerSobreescribiendo(listaAlquileres),Constantes.nombreArchivoAlquiler);
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Método para obtener las carpas/sombrillas/plazas disponibles en una fecha determinada.
@@ -389,29 +418,6 @@ public class GestionAlquiler {
         }
 
     }
-    // ------------------------------ agregue metodo
-    // Listar alquileres, metodo estatico que recibe una lista y muestra sus registros
-    public static void listarAlquileres(List<Alquiler> listaAlquileres, String DniUsuario){
-
-        if(!listaAlquileres.isEmpty()){
-            System.out.println("TUS RESERVAS");
-
-            System.out.printf("%-10s %-15s %-15s %-15s %-12s %-8s%n",
-                    "ID", "Fecha Alta", "Fecha Baja", "Tipo Servicio", "ID Servicio", "Activo");
-            System.out.println("----------------------------------------------------------------------");
-
-            for(Alquiler alquiler : listaAlquileres){
-                if(alquiler.getIdUsuario().equals(DniUsuario)){
-                    System.out.println(alquiler);
-                }
-            }
-        }else {
-            System.out.println("Aún no tenés reservas hechas. ¿Qué estas esperando?");
-        }
-
-    }
-
-
 
 }
 

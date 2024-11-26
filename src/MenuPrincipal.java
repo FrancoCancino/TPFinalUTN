@@ -62,6 +62,7 @@ public class MenuPrincipal implements iMenuPresentable {
             try {
                 numero = scan.nextInt();
                 scan.nextLine();
+                MenuMisReservas menuMisReservas = new MenuMisReservas();
 
                 switch (numero) {
 
@@ -72,7 +73,7 @@ public class MenuPrincipal implements iMenuPresentable {
 
                     case 1:
                         //Mis reservas
-                        MenuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
+                        menuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
 
                         System.out.println("Queres volver al menu principal? (s/n)");
                         control = scan.nextLine();
@@ -137,6 +138,16 @@ public class MenuPrincipal implements iMenuPresentable {
                         }
 
                         break;
+                    case 5:
+                        // informacion de serivicios
+                        informacionSobreServicios();
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
+                        break;
 
                     default:
                         System.out.println("Opción incorrecta. Ingresá 1 para ver tus reservas, 2 para reservar o 3 para modificar tus datos personales.");
@@ -149,7 +160,23 @@ public class MenuPrincipal implements iMenuPresentable {
             } catch (ServiciosNoDisponiblesException e) {
                 throw new RuntimeException(e);
             }
-        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3 && numero != 4) ;
+        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3 && numero != 4 && numero != 5 ) ;
+    }
+
+    public void informacionSobreServicios(){
+        ConsolaUtils.imprimirCentrado( ConsolaUtils.SOL + " Alquiler de carpas y sombrillas con amplios pasillos, ");
+        ConsolaUtils.imprimirCentrado("playa de estacionamiento, vestuarios con locker,");
+        ConsolaUtils.imprimirCentrado("piscina para adultos y para niños");
+
+        System.out.println("");
+        System.out.println(ConsolaUtils.CIAN +   "Contamos con un Bar de playa, actividades al aire libre, clases de surf, " +
+                 ConsolaUtils.RESET);
+
+        System.out.println(ConsolaUtils.CIAN +   "canchas de fútbol, guardería infantil, guardavidas y mucho más" +
+                ConsolaUtils.RESET);
+
+        System.out.println("");
+
     }
 
     @Override
@@ -159,8 +186,9 @@ public class MenuPrincipal implements iMenuPresentable {
 
     @Override
     public void imprimirInfo() {
-        System.out.println("De la compu a la arena, sin escalas " + ConsolaUtils.MAR + ConsolaUtils.SOMBRILLA);
-        System.out.println("A través de la aplicación te asegurás siempre tu lugar.");
+        System.out.println("");
+        System.out.println("Club de Playa " + ConsolaUtils.MAR + ConsolaUtils.SOMBRILLA);
+        System.out.println("Ofrecemos diversas actividades para disfrutar del mar y el verano");
     }
 
     @Override
@@ -171,6 +199,7 @@ public class MenuPrincipal implements iMenuPresentable {
                 "Reservar.",
                 "Modificar datos personales.",
                 "Dar de baja usuarios (Opcion de administrador).",
+                "Ver servicios incluidos en el Club"
 
         };
 
