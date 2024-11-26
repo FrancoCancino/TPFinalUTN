@@ -1,15 +1,9 @@
 import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
-import alquiler.json.ComprobanteJsonUtil;
 import org.json.JSONObject;
 import servicio.clases.GestionServicio;
-import servicio.clases.PlazaEstacionamiento;
-import servicio.clases.Sombrilla;
-import servicio.json.CarpaJsonUtil;
 import servicio.json.GestorServiciosJsonUtil;
-import servicio.json.PlazaEstacionamientoJsonUtil;
-import servicio.json.SombrillaJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
 import usuario.Usuario;
@@ -20,34 +14,34 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuPrincipal {
+public class MenuPrincipal implements iMenuPresentable {
 
     private final static Scanner scan = new Scanner(System.in);
 
     // Sobreescritura de metodos de la interfaz IMenuPresentable
 
-    public static void Menu(Usuario usuario){
+    public void Menu(Usuario usuario){
 
-        System.out.println("-------------------------------------------------------------------");
-        System.out.println("Bienvenid@ de vuelta, " + usuario.getNombre() + " " + usuario.getApellido() + ". Elegí una opción");
-        System.out.println("1. Mis reservas.");
-        System.out.println("2. Reservar.");
-        System.out.println("3. Modificar datos personales.");
-        System.out.println("0. Salir.");
-        System.out.println("-------------------------------------------------------------------");
+        imprimirEncabezado();
+        System.out.println(ConsolaUtils.CIAN + usuario.getNombre() + " " + usuario.getApellido() + ConsolaUtils.RESET);
+        ConsolaUtils.imprimirLinea();
+        imprimirInfo();
+        imprimirOpciones();
 
-        //Se crea un gestor de servicios al finalizar el log in.
+        //Se crea un gestorde servicios al finalizar el log in.
         GestionServicio gestorServicio = new GestionServicio();
-        //gestorServicio.CargarGestion();
 
-        //Este metodo graba el archivo servicios. Usar cuando pongamos muchos servicios en un GestorServicio.
-        //OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
+//gestorServicio.CargarGestion();
+
+//Este metodo graba el archivo servicios. Usar cuando pongamos muchos servicios en un GestorServicio.
+//OperacionesLectoEscritura.grabarArchivo(GestorServiciosJsonUtil.serializarServicios(gestorServicio),"servicios.json");
 
 
 
-        //Metodo para leer el archivo servicios y cargarlo en el GestorServicio
+//Metodo para leer el archivo servicios y cargarlo en el GestorServicio
         JSONObject jsonObj = new JSONObject(OperacionesLectoEscritura.leerArchivo("servicios.json"));   //Guardo el tokener en un JsonObject
         gestorServicio = GestorServiciosJsonUtil.deserializarServicios(jsonObj);    //Pongo el object y lo deserializo, cargandolo en el gestorServicio vacio.
+
 
 
         //Creo un gestor para los alquileres
@@ -61,7 +55,6 @@ public class MenuPrincipal {
         List<Alquiler> listaAlquileres = new ArrayList<>();
 
 
-
         int numero;
         do {
             try {
@@ -71,13 +64,12 @@ public class MenuPrincipal {
                 switch (numero) {
 
                     case 0:
-                        System.out.println("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + "!");
+                        ConsolaUtils.imprimirCentrado("¡Gracias por usar nuestro gestor de balneario, " + usuario.getNombre() + "!");
 
                         break;
 
                     case 1:
                         //Mis reservas
-                        //-------------------------------------------- AGREGUE GA
                         MenuMisReservas.Menu(listaAlquileres,usuario, GA, GC);
 
                 break;
@@ -126,4 +118,33 @@ public class MenuPrincipal {
         } while (numero != 1 && numero != 2 && numero != 0 && numero != 3) ;
     }
 
+    @Override
+    public void imprimirEncabezado() {
+        System.out.println(ConsolaUtils.CIAN + "Bienvenid@ de vuelta " + ConsolaUtils.RESET);
+    }
+
+    @Override
+    public void imprimirInfo() {
+        System.out.println("De la compu a la arena, sin escalas " + ConsolaUtils.MAR + ConsolaUtils.SOMBRILLA);
+        System.out.println("A través de la aplicación te asegurás siempre tu lugar.");
+    }
+
+    @Override
+    public void imprimirOpciones() {
+
+        String[] opciones ={
+                "Mis reservas.",
+                "Reservar.",
+                "Modificar datos personales."
+        };
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirMenuCentrado(opciones);
+
+        ConsolaUtils.imprimirLineaDoble();
+
+        ConsolaUtils.imprimirCentrado("Ingresá una opción:");
+
+    }
 }
