@@ -18,9 +18,7 @@ public class ConsolaUtils {
     public static final String RESET = "\u001B[0m";  // Resetea el color // System.out.println(ROJO + "Se imprime rojo" + RESET);
     public static final String ROJO = "\u001B[31m";
     public static final String VERDE = "\u001B[32m";
-    public static final String AMARILLO = "\u001B[33m";
     public static final String AZUL = "\u001B[34m";
-    public static final String MAGENTA = "\u001B[35m";
     public static final String CIAN = "\u001B[36m";
 
     // EMOJIS
@@ -36,8 +34,6 @@ public class ConsolaUtils {
     private static final String EMOJI_WARNING = "⚠️";
     private static final String EMOJI_INFO = "ℹ️";
     private static final String EMOJI_STAR = "⭐";
-    private static final String EMOJI_PUNTO = "•";
-    private static final String EMOJI_FLECHA = "➜";
     public static final String PLAYA = "🏖";
     public static final String SOMBRILLA = "⛱";
     public static final String CARPA = "⛺";
@@ -131,39 +127,6 @@ public class ConsolaUtils {
             imprimirOpcionCentrada(i + 1, opciones[i]);
         }
         imprimirOpcionCentrada(0, "Salir");
-    }
-
-    /**
-     * Imprime un mensaje de error centrado y formateado
-     *
-     * @param mensaje El mensaje de error
-     */
-    public static void imprimirError(String mensaje) {
-        imprimirLinea();
-        imprimirCentrado("ERROR: " + mensaje);
-        imprimirLinea();
-    }
-
-    /**
-     * Imprime un mensaje de éxito centrado y formateado
-     *
-     * @param mensaje El mensaje de éxito
-     */
-    public static void imprimirExito(String mensaje) {
-        imprimirLinea();
-        imprimirCentrado("✓ " + mensaje);
-        imprimirLinea();
-    }
-
-    /**
-     * Imprime una lista de elementos centrados
-     *
-     * @param elementos Array con los elementos a imprimir
-     */
-    public static void imprimirListaCentrada(String[] elementos) {
-        for (String elemento : elementos) {
-            imprimirCentrado("• " + elemento);
-        }
     }
 
 
