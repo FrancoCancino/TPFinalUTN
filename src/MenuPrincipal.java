@@ -94,7 +94,7 @@ public class MenuPrincipal implements iMenuPresentable {
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();
                         // Se crear un comprobante a partir de los Alquileres realizados
-                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio);
+                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio,usuario);
 
                         System.err.println("Su reserva se realizó con éxito!");
                         comprobanteAlquiler.mostrarComprobanteAlquiler(gestorServicio);

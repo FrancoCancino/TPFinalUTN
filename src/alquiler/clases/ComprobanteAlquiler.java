@@ -176,6 +176,7 @@ public class ComprobanteAlquiler {
         // Totales
         System.out.printf("Subtotal: %.2f%n", subTotal);
         System.out.printf("Importe Total: %.2f%n", importeTotal);
+        System.out.println("¡Los clientes activos obtienen un descuento del 5%!");
         System.out.println("=========================================");
     }
 

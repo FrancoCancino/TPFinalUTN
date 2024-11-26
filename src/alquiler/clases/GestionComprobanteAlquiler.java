@@ -4,11 +4,14 @@ import alquiler.json.ComprobanteJsonUtil;
 import org.json.JSONArray;
 import servicio.clases.*;
 import usuario.OperacionesLectoEscritura;
+import usuario.TipoUsuario;
+import usuario.Usuario;
 import utils.Constantes;
 
 import javax.xml.stream.events.Comment;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -46,7 +49,7 @@ public class GestionComprobanteAlquiler {
         }
     }
 
-    public ComprobanteAlquiler crearComprobanteAlquiler(List<Alquiler> listaAlquileres, GestionServicio gestionServicio) {
+    public ComprobanteAlquiler crearComprobanteAlquiler(List<Alquiler> listaAlquileres, GestionServicio gestionServicio, Usuario usuario) {
         double importeTotal = 0;
         double subTotal = 0;
 
@@ -76,7 +79,11 @@ public class GestionComprobanteAlquiler {
         }
 
         // Calcular importe total
-        importeTotal = subTotal;
+        if (usuario.getTipoUsuario() == TipoUsuario.BASICO){
+            importeTotal = subTotal;        //Si el usuario es basicco el precio es el mismo
+        }else if(usuario.getTipoUsuario() == TipoUsuario.FRECUENTE){        //Si el usuario es frecuente se le hace un descuento del 5%
+            importeTotal = (subTotal * 0.95);
+        }
 
         // Crear un nuevo ComprobanteAlquiler
         ComprobanteAlquiler comprobante = new ComprobanteAlquiler(subTotal, importeTotal, listaAlquileres);
