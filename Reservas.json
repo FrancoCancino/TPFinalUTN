@@ -214,5 +214,14 @@
       "id": "2oa9",
       "idServicio": "CP-7",
       "activo": true
+   },
+   {
+      "fechaBaja": "2025-02-02",
+      "tipoServicio": "CARPA",
+      "fechaAlta": "2025-01-01",
+      "idUsuario": "101101010",
+      "id": "3k28",
+      "idServicio": "CP-4",
+      "activo": true
    }
 ]

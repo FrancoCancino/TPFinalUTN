@@ -2,14 +2,11 @@ import alquiler.clases.*;
 import alquiler.exception.ServiciosNoDisponiblesException;
 import alquiler.json.AlquilerJsonUtil;
 import org.json.JSONObject;
-import servicio.clases.Carpa;
 import servicio.clases.GestionServicio;
-import servicio.clases.PlazaEstacionamiento;
-import servicio.clases.Sombrilla;
-import servicio.enums.VarianteCarpa;
 import servicio.json.GestorServiciosJsonUtil;
 import usuario.GestionUsuarios;
 import usuario.OperacionesLectoEscritura;
+import usuario.TipoUsuario;
 import usuario.Usuario;
 import utils.ConsolaUtils;
 import utils.Constantes;
@@ -97,7 +94,7 @@ public class MenuPrincipal implements iMenuPresentable {
                         //Mostrar comprobante de dicho alquiler
                         GestionComprobanteAlquiler gestionComprobanteAlquiler  = new GestionComprobanteAlquiler();
                         // Se crear un comprobante a partir de los Alquileres realizados
-                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio);
+                        ComprobanteAlquiler comprobanteAlquiler = gestionComprobanteAlquiler.crearComprobanteAlquiler(listaAlquileres, gestorServicio,usuario);
 
                         System.err.println("Su reserva se realizó con éxito!");
                         comprobanteAlquiler.mostrarComprobanteAlquiler(gestorServicio);
@@ -121,6 +118,26 @@ public class MenuPrincipal implements iMenuPresentable {
 
                         break;
 
+                    case 4:
+                        //Dar de baja usuarios
+                        if(usuario.getTipoUsuario() == TipoUsuario.ADMINISTRADOR){
+                            System.out.println("Esta es la lista de los usuarios activos:");
+
+                            GestionUsuarios.sobreescribirUsuario(GestionUsuarios.bajaPasivaUsuario());
+                            System.out.println("El usuario fue dado de baja con éxito.");
+
+                        } else {
+                            System.err.println("No tenes los permisos para ingresar a esta opción");
+                        }
+
+                        System.out.println("Queres volver al menu principal? (s/n)");
+                        control = scan.nextLine();
+                        if (control.equalsIgnoreCase("s")){
+                            numero = -1;
+                        }
+
+                        break;
+
                     default:
                         System.out.println("Opción incorrecta. Ingresá 1 para ver tus reservas, 2 para reservar o 3 para modificar tus datos personales.");
                         break;
@@ -132,7 +149,7 @@ public class MenuPrincipal implements iMenuPresentable {
             } catch (ServiciosNoDisponiblesException e) {
                 throw new RuntimeException(e);
             }
-        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3) ;
+        } while (numero != 1 && numero != 2 && numero != 0 && numero != 3 && numero != 4) ;
     }
 
     @Override
@@ -152,7 +169,9 @@ public class MenuPrincipal implements iMenuPresentable {
         String[] opciones ={
                 "Mis reservas.",
                 "Reservar.",
-                "Modificar datos personales."
+                "Modificar datos personales.",
+                "Dar de baja usuarios (Opcion de administrador).",
+
         };
 
         ConsolaUtils.imprimirLineaDoble();
