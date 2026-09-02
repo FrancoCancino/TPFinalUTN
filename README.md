@@ -58,37 +58,6 @@ Finalmente, la entidad ComprobanteAlquiler registra cada transacción realizada,
 
 Todas estas entidades se relacionan entre sí: un usuario puede tener muchas reservas, un balneario puede tener muchas reservas, y cada reserva puede incluir varios servicios. Los comprobantes se generan una vez que una reserva es confirmada.
 
-Estructura del Proyecto
-TPFinalUTN/
-├── src/main/java/com/balneario/
-│   ├── model/
-│   │   ├── Usuario.java
-│   │   ├── Balneario.java
-│   │   ├── Reserva.java
-│   │   ├── Servicio.java
-│   │   └── ComprobanteAlquiler.java
-│   ├── controller/
-│   │   ├── UsuarioController.java
-│   │   ├── BalnearioController.java
-│   │   └── ReservaController.java
-│   ├── view/
-│   │   ├── MainFrame.java
-│   │   ├── RegistroPanel.java
-│   │   ├── ReservaPanel.java
-│   │   └── ReportePanel.java
-│   ├── util/
-│   │   ├── JSONManager.java
-│   │   ├── ValidadorDatos.java
-│   │   └── Constantes.java
-│   └── Main.java
-├── data/
-│   ├── usuarios.json
-│   ├── balnearios.json
-│   ├── reservas.json
-│   ├── servicios.json
-│   └── ComprobateAlquiler.json
-├── pom.xml
-└── README.md
 
 La carpeta model contiene las clases que representan las entidades del sistema. La carpeta controller alberga la lógica de negocio que opera sobre esos modelos. La carpeta view contiene los componentes gráficos de la aplicación. La carpeta util agrupa clases de apoyo como el gestor de archivos JSON y validadores de datos.
 
